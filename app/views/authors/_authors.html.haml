@@ -1,0 +1,15 @@
+- if @authors.empty?
+  .hero-unit
+    %h2 Такого автора у нас нет.
+    %p
+      Попробуйте поиск по первым двум букавам имени автора.
+      %br
+      Если Вы ничего не найдете, просто добавьте автора сами - это просто!
+    %p
+      = link_to "Добавить", new_author_path, :class => 'btn btn-primary'
+- else  
+  %table.table.table-striped
+    %thead
+    %tbody
+      = render @authors
+  = paginate @authors

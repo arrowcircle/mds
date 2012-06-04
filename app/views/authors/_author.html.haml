@@ -1,0 +1,7 @@
+%tr
+  %td= link_to author.name+" (#{author.stories.count})", [author, :stories]
+  %td
+    - if can_edit?
+      = link_to "Ред.", edit_author_path(author), :class => 'btn btn-mini', :remote => true
+    - if can_destroy?
+      = link_to "Удалить", author_path(author), :method => :delete, :confirm => "Точно удалить?", :class => 'btn btn-mini btn-danger'

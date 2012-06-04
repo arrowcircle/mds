@@ -1,0 +1,9 @@
+%tr
+  %td= link_to_story story
+  %td= I18n.l story.date, format: "%d %B, %Y" if story.date
+  %td= show_radio story
+  %td
+    - if can_edit?
+      = link_to "Ред.", [:edit, @author, story], :class => 'btn btn-mini'
+    - if can_destroy?
+      = link_to "Удалить", [@author, story], :method => :delete, :confirm => "Точно удалить?", :class => 'btn btn-mini btn-danger'

@@ -1,0 +1,14 @@
+%h1= @author.name.capitalize
+= link_to "Добавить", new_author_story_path(@author), :class => 'btn btn-primary'
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Название
+      %th Дата
+      %th Радио
+      %th=t '.actions', :default => t("helpers.actions")
+  %tbody
+    =render @stories
+
+= paginate @stories

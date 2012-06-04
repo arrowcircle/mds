@@ -1,0 +1,7 @@
+%div{:id => "playlist_#{playlist.id}"}
+  %h3= link_to_artist_track playlist
+%tr
+  %td играет с #{playlist.startmin} по #{playlist.endmin} мин
+  %td
+    by
+    %strong= link_to_playlist_user playlist
