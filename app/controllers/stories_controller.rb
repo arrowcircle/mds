@@ -71,7 +71,7 @@ class StoriesController < ApplicationController
 
   def check_edit_access
     if user_signed_in?
-      if user.role < 1
+      if current_user.role < 1
         redirect_to :back, alert: "У Вас недостаточно прав для редактирования"
       end
     else
