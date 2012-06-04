@@ -1,6 +1,22 @@
 #coding: utf-8
 module StoriesHelper
 
+  def story_form_header story
+    if story.new_record?
+      "Добавить рассказ"
+    else
+      "Редактировать рассказ"
+    end
+  end
+
+  def story_submit_text story
+    if story.new_record?
+      "Добавить"
+    else
+      "Сохранить"
+    end
+  end
+
   def story_header_link story
     raw "#{link_to @author.name, [@author, :stories]}
     - #{@story.name}"

@@ -1,5 +1,5 @@
 %h1= @author.name.capitalize
-= link_to "Добавить", new_author_story_path(@author), :class => 'btn btn-primary'
+= link_to "Добавить рассказ", new_author_story_path(@author), :class => 'btn btn-primary', :remote => true
 
 %table.table.table-striped
   %thead

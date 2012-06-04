@@ -19,11 +19,13 @@ class StoriesController < ApplicationController
   # GET /stories/new.json
   def new
     @story = @author.stories.build
+    render "form"
   end
 
   # GET /stories/1/edit
   def edit
     @story = @author.stories.find(params[:id])
+    render "form"
   end
 
   # POST /stories
