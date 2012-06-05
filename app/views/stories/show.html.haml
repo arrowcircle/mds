@@ -1,11 +1,9 @@
-
 %h1= story_header_link @story
-.form-actions
-  = link_to t('.back', :default => t("helpers.links.back")), [@author, :stories], :class => 'btn'
-  = link_to t('.edit', :default => t("helpers.links.edit")), [:edit, @author, @story], :class => 'btn'
-  = link_to t('.destroy', :default => t("helpers.links.destroy")), [@author, @story], :method => "delete", :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-danger'
-#player
-  Тут будет плеер
-#playlist
-  =render @playlists
+= link_to "Что играет?", new_author_story_playlist_path(@author, @story, :request => '1'), :class => 'btn', :remote => true
+= link_to "Опознать трек", new_author_story_playlist_path(@author, @story), :class => 'btn btn-primary', :remote => true
+%p
+  #player
+    Тут будет плеер
+  #playlist
+    =render @story.playlists
 

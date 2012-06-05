@@ -1,7 +1,9 @@
 %div{:id => "playlist_#{playlist.id}"}
   %h3= link_to_artist_track playlist
-%tr
-  %td играет с #{playlist.startmin} по #{playlist.endmin} мин
-  %td
-    by
-    %strong= link_to_playlist_user playlist
+  =link_to "Ред.", edit_author_story_playlist_path(@author, @story, playlist), :class => "btn btn-mini", :remote => true
+  =link_to "Удалить", [@author, @story, playlist], :method => :delete, :class => "btn btn-mini btn-danger", :confirm => "Точно удалить?"
+  %tr
+    %td играет с #{playlist.startmin} по #{playlist.endmin} мин
+    %td
+      by
+      %strong= link_to_playlist_user playlist

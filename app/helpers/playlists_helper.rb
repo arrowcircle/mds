@@ -1,5 +1,6 @@
 #coding: utf-8
 module PlaylistsHelper
+
   def link_to_artist_track playlist
     if playlist.track_id
       # we got identified playlist
@@ -8,6 +9,7 @@ module PlaylistsHelper
       raw "#{link_to artist.name, artist} - #{link_to track.name, artist}"
     else
       # we have requested playlist
+      "Запрос на опознание"
     end
   end
 

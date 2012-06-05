@@ -11,8 +11,7 @@ class StoriesController < ApplicationController
   # GET /stories/1
   # GET /stories/1.json
   def show
-    @story =  @author.stories.find(params[:id])
-    @playlists = @story.playlists if @story
+    @story =  @author.stories.includes(:playlists).find(params[:id])
   end
 
   # GET /stories/new
