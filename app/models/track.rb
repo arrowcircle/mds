@@ -4,7 +4,7 @@ class Track < ActiveRecord::Base
 
   def self.search q
     res = []
-    res = where("name @@ ?", q).order(:name) if q && q.length >= 1
+    res = where("name ILIKE ?", "#{q}%").order(:name) if q && q.length >= 1
     res
   end
 

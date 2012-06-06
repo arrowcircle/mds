@@ -4,7 +4,7 @@ class Artist < ActiveRecord::Base
 
   def self.search q
     res = []
-    res = Artist.where("name @@ ?", q).order(:name) if q && q.length >= 1
+    res = Artist.where("name ILIKE ?", "#{q}%").order(:name) if q && q.length >= 1
     res
   end
 
