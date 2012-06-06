@@ -9,19 +9,19 @@
           .control-group
             = label_tag :artist, nil, :class => 'control-label'
             .controls
-              = text_field_tag :artist, @playlist.try(:track).try(:artist).try(:name), :class => 'text_field', :id => "artist"
+              = text_field_tag :artist, @playlist.try(:track).try(:artist).try(:name), :class => 'text_field', :id => "artist", :placeholder => "Исполнитель"
           .control-group
             = label_tag :track, nil, :class => 'control-label'
             .controls
-              = text_field_tag :track, @playlist.try(:track).try(:name), :class => 'text_field', :id => "track"
+              = text_field_tag :track, @playlist.try(:track).try(:name), :class => 'text_field', :id => "track", :placeholder => "Трек"
         .control-group
           = f.label :startmin, :class => 'control-label'
           .controls
-            = f.text_field :startmin, :class => 'text_field'
+            = f.text_field :startmin, :class => 'text_field', :placeholder => "С"
         .control-group
           = f.label :endmin, :class => 'control-label'
           .controls
-            = f.text_field :endmin, :class => 'text_field'
+            = f.text_field :endmin, :class => 'text_field', :placeholder => "По"
         
     .modal-footer
       = link_to "Назад", "#", :class => "btn", "data-dismiss" => "modal"

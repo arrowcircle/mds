@@ -22,12 +22,13 @@ class AuthorsController < ApplicationController
   # GET /authors/new.json
   def new
     @author = Author.new
+    render "form"
   end
 
   # GET /authors/1/edit
   def edit
     @author = Author.find(params[:id])
-    render "new"
+    render "form"
   end
 
   # POST /authors
