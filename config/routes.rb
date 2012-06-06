@@ -9,7 +9,9 @@ Mds::Application.routes.draw do
   end
   resources :artists do
     get 'search', :on => :collection
-    resources :tracks
+    resources :tracks do
+      get 'search', :on => :collection
+    end
   end
   resources :users
 

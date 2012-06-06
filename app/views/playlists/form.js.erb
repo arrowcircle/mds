@@ -4,27 +4,29 @@ $("#artist").autocomplete({
     minLength: 2,
     source: "/artists/search",
     focus: function(event, ui) {
-      $("#artist").val(ui.item.value);
+      $("#artist").val(ui.item.name);
       return false;
     },
     select: function(event, ui) {
-      $("#artist").val(ui.item.value);
+      $("#artist").val(ui.item.name);
+      $("#artist_id").val(ui.item.id);
+      $("#track").autocomplete({
+        minLength: 2,
+        source: "/artists/" + $("#artist_id").val() + "/tracks/search",
+        focus: function(event, ui) {
+          $("#track").val(ui.item.value);
+          return false;
+        },
+        select: function(event, ui) {
+          $("#track").val(ui.item.value);
+          return false;
+        }
+      }).data("autocomplete")._renderItem = function(ul, item) {
+        return $("<li></li>").data("item.autocomplete", item).append("<a>" + item.value + "</a>").appendTo(ul);
+      };
       return false;
     }
   }).data("autocomplete")._renderItem = function(ul, item) {
-    return $("<li></li>").data("item.autocomplete", item).append("<a>" + item.value + "</a>").appendTo(ul);
+    return $("<li></li>").data("item.autocomplete", item).append("<a>" + item.name + "</a>").appendTo(ul);
   };
-$("#track").autocomplete({
-    minLength: 2,
-    source: "/artists/track_search",
-    focus: function(event, ui) {
-      $("#track").val(ui.item.value);
-      return false;
-    },
-    select: function(event, ui) {
-      $("#track").val(ui.item.value);
-      return false;
-    }
-  }).data("autocomplete")._renderItem = function(ul, item) {
-    return $("<li></li>").data("item.autocomplete", item).append("<a>" + item.value + "</a>").appendTo(ul);
-  };
+
