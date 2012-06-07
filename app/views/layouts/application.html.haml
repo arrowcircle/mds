@@ -44,6 +44,10 @@
                         %i.icon-user
                         Профиль
                     %li
+                      = link_to my_requests_path do
+                        %i.icon-map-marker
+                        Мои запросы
+                    %li
                       = link_to destroy_user_session_path, :method => :delete do
                         %i.icon-off
                         Выход

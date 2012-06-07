@@ -1,0 +1,6 @@
+- unless @requests.empty?
+  .section
+    .page-header
+      %h2 Запросы на опознание
+    = render @requests
+    = paginate @requests

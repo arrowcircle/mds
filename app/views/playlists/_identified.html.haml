@@ -1,0 +1,6 @@
+- unless @playlists.empty?
+  .section
+    .page-header
+      %h2 Опознанные запросы
+    = render @playlists
+    = paginate @playlists

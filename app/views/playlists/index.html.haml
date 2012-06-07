@@ -1,0 +1,18 @@
+=content_for :sidebar do
+  =render "my_sidebar"
+- if @requests.empty? && @playlists.empty?
+  .hero-unit
+    %h2 Вы не оставили ни одного запроса на опознание
+    %p
+      Найдите интересный Вам рассказ и оставьте запрос.
+      %br
+      Если такого рассказа еще нет в списке, добавьте его и оставьте запрос.
+      %br
+      Кто-то определенно поможет!
+- else
+  - if current_page?(my_requests_path)
+    = render "requests"
+  - else
+    = render "identified"
+  
+      

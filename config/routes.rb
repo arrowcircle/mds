@@ -15,6 +15,9 @@ Mds::Application.routes.draw do
   end
   resources :users
 
+  get 'my/identified' => 'playlists#index', :as => :my_identified
+  get 'my/requests' => 'playlists#index', :as => :my_requests
+
   get 'login' => 'main#login'
   post 'search' => 'main#search'
 

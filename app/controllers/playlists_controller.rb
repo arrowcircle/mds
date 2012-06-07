@@ -1,6 +1,15 @@
 #coding: utf-8
 class PlaylistsController < ApplicationController
-  before_filter :get_res
+  before_filter :get_res, :except => :index
+
+  def index
+    if user_signed_in?
+      @requests = Playlist.where(user_id: current_user.id, track_id: nil).order("created_at DESC").page(params[:page]).per(20)
+      @playlists = Playlist.where(user_id: current_user.id).where("track_id is not null").order("updated_at DESC").page(params[:page]).per(20)
+    else
+      redirect_to root_path, alert: "Необходимо войти в систему"
+    end
+  end
 
   def new
     @playlist = @story.playlists.build
