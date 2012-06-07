@@ -1,0 +1,6 @@
+$ su - postgres
+$ psql
+postgres=# ALTER DATABASE noc RENAME TO noc_old;
+postgres=# CREATE DATABASE noc WITH OWNER = noc ENCODING = 'UTF8' LC_CTYPE = 'ru_RU.UTF-8' TEMPLATE template0;
+postgres=# \q
+$ pg_dump noc_old | psql noc
