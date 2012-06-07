@@ -32,7 +32,7 @@ class StoriesController < ApplicationController
   def create
     @story = @author.stories.build(params[:story])
     if @story.save
-      redirect_to @story, notice: 'Story was successfully created.'
+      redirect_to [@autor, @story], notice: 'Рассказ добавлен'
     else
       render action: "new"
     end

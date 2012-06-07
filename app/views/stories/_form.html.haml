@@ -13,6 +13,11 @@
           = f.label :link, :class => 'control-label'
           .controls
             = f.text_field :link, :class => 'text_field', :placeholder => "Ссылка"
+          = f.fields_for :links do |builder|
+            = render "link_fields", :f => builder
+          .controls
+            = link_to_add_fields raw("<i class='icon-plus'>Добавить ссылку</i>"), f, :links
+
         .control-group
           = f.label :date, :class => 'control-label'
           .controls
@@ -22,9 +27,11 @@
           .controls
             = f.select :radio, [["Станция 2000", 0], ["Муз ТВ", 1], ["Серебряный дождь", 2], ["Энергия", 3], ["Пионер ФМ", 4]], :include_blank => true, :class => 'text_field'
         .control-group
-          = f.label :completed, :class => 'control-label'
+          =# f.label :completed, :class => 'control-label'
           .controls
-            = f.check_box :completed, :class => 'check_box'
+            %label.checkbox
+              = f.check_box :completed, :class => 'check_box'
+              Опознан полностью
     .modal-footer
       = link_to "Назад", "#", :class => "btn", "data-dismiss" => "modal"
       = f.submit story_submit_text(@story), :class => 'btn btn-primary'
