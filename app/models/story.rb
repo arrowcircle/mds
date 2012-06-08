@@ -9,6 +9,10 @@ class Story < ActiveRecord::Base
   
   validates :name, :presence =>  true
 
+  def full_name
+    author.name+" - " + name
+  end
+
   def to_param
     n = Russian.translit(self.name)
     slug = n.gsub(' ','-').gsub(/[^\x00-\x7F]+/, '').gsub(/[^\w_ \-]+/i,   '').gsub(/[ \-]+/i,      '-').gsub(/^\-|\-$/i,      '').downcase
