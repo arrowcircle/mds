@@ -1,10 +1,9 @@
 = content_for :sidebar do
-  #jquery_jplayer_1.jp-jplayer{data: {name: @story.full_name, link: @story.link}}
-    %audio#jp_audio_0{:preload => "metadata", :src => @story.link}
   =render "player"
 %h1= story_header_link @story
 = link_to "Что играет?", new_author_story_playlist_path(@author, @story, :request => '1'), :class => 'btn', :remote => true
 = link_to "Опознать трек", new_author_story_playlist_path(@author, @story), :class => 'btn btn-primary', :remote => true
-%p
-  #playlist
+
+%table.table.table-striped
+  %tbody
     =render @story.playlists

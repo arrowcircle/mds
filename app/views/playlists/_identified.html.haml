@@ -2,5 +2,8 @@
   .section
     .page-header
       %h2 Опознанные запросы
-    = render @playlists
-    = paginate @playlists
+
+  %table.table.table-striped
+    %tbody
+      = render :partial => "identify", :collection => @playlists, :as => :playlist
+  = paginate @playlists

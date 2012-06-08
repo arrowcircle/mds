@@ -1,5 +1,11 @@
-%h1= @author.name.capitalize
-= link_to "Добавить рассказ", new_author_story_path(@author), :class => 'btn btn-primary', :remote => true
+%h1
+  = link_to "+", new_author_story_path(@author), :class => 'btn btn-primary', :remote => true
+  = @author.name.capitalize
+  - if can_edit?
+    = link_to "Ред.", edit_author_path(@author), :class => 'btn btn-mini', :remote => true
+  - if can_destroy?
+    = link_to "Удалить", author_path(@author), :method => :delete, :confirm => "Точно удалить?", :class => 'btn btn-mini btn-danger'
+
 
 %table.table.table-striped
   %thead

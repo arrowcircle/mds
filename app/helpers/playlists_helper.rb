@@ -9,7 +9,7 @@ module PlaylistsHelper
       raw "#{link_to artist.name, artist} - #{link_to track.name, artist}"
     else
       # we have requested playlist
-      "Запрос на опознание"
+      raw "<strong>Запрос на опознание</strong>"
     end
   end
 

@@ -1,0 +1,25 @@
+#jquery_jplayer_1.jp-jplayer{data: {name: @story.full_name, link: @story.link}}
+  %audio#jp_audio_0{:preload => "metadata", :src => @story.link}
+#jp_container_1.jp-audio
+  .jp-type-single
+    .jp-gui.jp-interface
+      %ul.jp-controls
+        %li=link_to "play", '#', :class => "jp-play"
+        %li=link_to "pause", '#', :class => "jp-pause", :style => "display: none"
+        %li=link_to "stop", '#', :class => "jp-stop"
+        %li=link_to "mute", '#', :class => "jp-mute", :title => "mute"
+        %li=link_to "unmute", '#', :class => "jp-unmute", :title => "unmute", :style => "display: none"
+        %li=link_to "max volume", '#', :class => "jp-volume-max", :title => "max volume"
+      .jp-progress
+        .jp-seek-bar{:style => "width: 100%"}
+        .jp-play-bar{:style => "width: 0%"}
+      .jp-volume-bar
+        .jp-volume-bar-value{:style => "width: 80%"}
+      .jp-current-time
+      .jp-duration
+    .jp-title
+      %ul
+        %li= @story.full_name
+    .jp-no-solution{:style => "display: none"}
+      %span Update Required
+      To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
