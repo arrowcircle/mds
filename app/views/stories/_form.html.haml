@@ -1,8 +1,13 @@
 #story_window.modal.hide
-  = form_for [@author, @story], :html => { :class => 'form-horizontal' } do |f|
+  = form_for [@author, @story], :remote => true, :html => { :class => 'form-horizontal' } do |f|
     .modal-header
       %button.close{:type => "button", "data-dismiss" => "modal"}×
       %h3= story_form_header @story
+      - if @story.errors.any?
+        .errors
+          - @story.errors.full_messages.each do |m|
+            %p= m
+
     .modal-body
       %p        
         .control-group
@@ -32,6 +37,13 @@
             %label.checkbox
               = f.check_box :completed, :class => 'check_box'
               Опознан полностью
+        .control-group
+          = label_tag :tag_list, nil, :class => 'control-label'
+          .controls
+            = f.autocomplete_field :tag_list, autocomplete_tag_name_author_stories_path(@author), :"data-delimiter" => ', '
+        
+
+
     .modal-footer
       = link_to "Назад", "#", :class => "btn", "data-dismiss" => "modal"
       = f.submit story_submit_text(@story), :class => 'btn btn-primary'

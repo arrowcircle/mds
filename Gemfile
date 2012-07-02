@@ -1,5 +1,5 @@
-source 'https://rubygems.org'
-
+#source 'https://gems.github.com'
+source "http://rubygems.org"
 gem 'rails', '3.2.3'
 
 # Bundle edge Rails instead:
@@ -22,6 +22,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'unicode'
+
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'devise'
@@ -34,6 +36,9 @@ gem 'quiet_assets', :group => :development
 gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
 gem 'omniauth-facebook'
+
+gem 'acts-as-taggable-on'
+gem 'rails3-jquery-autocomplete'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

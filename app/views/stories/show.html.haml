@@ -1,9 +1,19 @@
 = content_for :sidebar do
   =render "player"
-%h1= story_header_link @story
+%h1
+  = story_header_link @story
+  - if can_edit?
+    = link_to "Ред.", edit_author_story_path(@author, @story), :class => 'btn btn-mini', :remote => true
+  - if can_destroy?
+    = link_to "Удалить", author_story_path(@author, @story), :method => :delete, :confirm => "Точно удалить?", :class => 'btn btn-mini btn-danger'
+%p
+  = story_show_radio @story.radio
+  %br
+  = story_show_date @story.date
+  %br
+  = show_tags @story
 = link_to "Что играет?", new_author_story_playlist_path(@author, @story, :request => '1'), :class => 'btn', :remote => true
 = link_to "Опознать трек", new_author_story_playlist_path(@author, @story), :class => 'btn btn-primary', :remote => true
-
 %table.table.table-striped
   %tbody
     =render @story.playlists

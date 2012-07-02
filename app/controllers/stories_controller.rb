@@ -1,7 +1,9 @@
 #coding: utf-8
 class StoriesController < ApplicationController
-  before_filter :get_author
+  before_filter :get_author, :filter_params
   before_filter :check_edit_access, only: [:edit, :update]
+
+  autocomplete :tag, :name, :class_name => 'ActsAsTaggableOn::Tag'
   # GET /stories
   # GET /stories.json
   def index
@@ -45,7 +47,8 @@ class StoriesController < ApplicationController
     if @story.update_attributes(params[:story])
       redirect_to [@author, @story], notice: 'Story was successfully updated.'
     else
-      render action: "edit"
+      #render "edit"
+      render text: @story.errors.to_json
     end
   end
 
@@ -75,6 +78,12 @@ class StoriesController < ApplicationController
       end
     else
       redirect_to :back, alert: "У Вас недостаточно прав для редактирования"
+    end
+  end
+
+  def filter_params
+    if params && params[:story] && params[:story][:tag_list]
+      params[:story][:tag_list] = params[:story][:tag_list].downcase
     end
   end
 

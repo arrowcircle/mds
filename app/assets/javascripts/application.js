@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require player
+//= require autocomplete-rails
 //= require_tree .
 
 function remove_fields(link) {

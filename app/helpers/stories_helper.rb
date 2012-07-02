@@ -1,6 +1,35 @@
 #coding: utf-8
 module StoriesHelper
 
+  def show_download_link story
+  end
+
+  def show_tags story
+    res = ""
+    story.tags.collect do |tag|
+      res << link_to(tag.name, '#', :class => "btn btn-mini btn-info")
+    end
+    raw res
+  end
+
+  def story_show_radio radio
+    "Радио: " + 
+    case radio
+    when 0 then "Станция 2000"
+    when 1 then "Муз ТВ"
+    when 2 then "Серебряный дождь"
+    when 3 then "Энергия"
+    when 4 then "Пионер ФМ"
+    else "Не указано"
+    end
+  end
+
+  def story_show_date date
+    res = "Дата эфира: "
+    date.nil? ? res += "не указана" : res += I18n.l(date, :format => "%d %b, %Y")
+    res
+  end
+
   def story_form_header story
     if story.new_record?
       "Добавить рассказ"

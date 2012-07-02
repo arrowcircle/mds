@@ -1,5 +1,5 @@
 #author_window.modal.hide
-  = form_for @author, :html => { :class => 'form-horizontal' } do |f|
+  = form_for @author, :html => {:class => 'form-horizontal'} do |f|
     .modal-header
       %button.close{:type => "button", "data-dismiss" => "modal"}×
       %h3= author_form_header @author

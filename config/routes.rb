@@ -4,6 +4,7 @@ Mds::Application.routes.draw do
 
   resources :authors do
     resources :stories do
+      get :autocomplete_tag_name, :on => :collection
       resources :playlists
     end
   end
