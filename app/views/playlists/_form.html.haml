@@ -7,11 +7,11 @@
       %p
         - if params[:request] != '1'  
           .control-group
-            = label_tag :artist, nil, :class => 'control-label'
+            = label_tag "Исполнитель", nil, :class => 'control-label'
             .controls
               = text_field_tag :artist, @playlist.try(:track).try(:artist).try(:name), :class => 'text_field', :id => "artist", :placeholder => "Исполнитель", :autocomplete => :off
           .control-group
-            = label_tag :track, nil, :class => 'control-label'
+            = label_tag "Трек", nil, :class => 'control-label'
             .controls
               = text_field_tag :track, @playlist.try(:track).try(:name), :class => 'text_field', :id => "track", :placeholder => "Трек", :autocomplete => :off
         .control-group

@@ -38,7 +38,7 @@
               = f.check_box :completed, :class => 'check_box'
               Опознан полностью
         .control-group
-          = label_tag :tag_list, nil, :class => 'control-label'
+          = f.label :tag_list, nil, :class => 'control-label'
           .controls
             = f.autocomplete_field :tag_list, autocomplete_tag_name_author_stories_path(@author), :"data-delimiter" => ', '
         

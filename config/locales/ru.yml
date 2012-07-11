@@ -1,0 +1,18 @@
+ru:
+  activerecord:
+    attributes:
+      author:
+        name: "Автор"
+      story:
+        name: "Название"
+        link: "Ссылка"
+        date: "Дата эфира"
+        radio: "Радио"
+        tag_list: "Тэги"
+      playlist:
+        startmin: "Начало"
+        endmin: "Конец"
+      user:
+        avatar: "Аватар"
+        password: "Пароль"
+        password_confirmation: "Поджтверждение пароля"

@@ -1,8 +1,5 @@
 - unless @playlists.empty?
-  .section
-    .page-header
-      %h2 Опознанные запросы
-
+  %h2 Опознанные запросы
   %table.table.table-striped
     %tbody
       = render :partial => "identify", :collection => @playlists, :as => :playlist

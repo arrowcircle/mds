@@ -10,6 +10,14 @@ class Story < ActiveRecord::Base
   
   validates :name, :presence =>  true
 
+  def self.search(query)
+    if query && query.length > 0
+      Story.where("name ILIKE ?", "#{query}%").order("name")
+    else
+      Story.order("authors.name")
+    end
+  end
+
   def full_name
     author.name+" - " + name
   end
