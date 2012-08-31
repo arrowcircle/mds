@@ -1,49 +1,49 @@
-#story_window.modal.hide
-  = form_for [@author, @story], :remote => true, :html => { :class => 'form-horizontal' } do |f|
-    .modal-header
-      %button.close{:type => "button", "data-dismiss" => "modal"}×
-      %h3= story_form_header @story
-      - if @story.errors.any?
-        .errors
-          - @story.errors.full_messages.each do |m|
-            %p= m
 
-    .modal-body
-      %p        
-        .control-group
-          = f.label :name, :class => 'control-label'
-          .controls
-            = f.text_field :name, :class => 'text_field', :placeholder => "Название рассказа"
-        .control-group
-          = f.label :link, :class => 'control-label'
-          .controls
-            = f.text_field :link, :class => 'text_field', :placeholder => "Ссылка"
-          = f.fields_for :links do |builder|
-            = render "link_fields", :f => builder
-          .controls
-            = link_to_add_fields raw("<i class='icon-plus'>Добавить ссылку</i>"), f, :links
+= form_for [@author, @story], :remote => true, :html => { :class => 'form-horizontal' } do |f|
+  .modal-header
+    %button.close{:type => "button", "data-dismiss" => "modal"}×
+    %h3= story_form_header @story
+    - if @story.errors.any?
+      .errors
+        - @story.errors.full_messages.each do |m|
+          %p= m
 
-        .control-group
-          = f.label :date, :class => 'control-label'
-          .controls
-            = f.date_select :date, {:start_year => 1995}, {:class => "input-small inline"}
-        .control-group
-          = f.label :radio, :class => 'control-label'
-          .controls
-            = f.select :radio, [["Станция 2000", 0], ["Муз ТВ", 1], ["Серебряный дождь", 2], ["Энергия", 3], ["Пионер ФМ", 4]], :include_blank => true, :class => 'text_field'
-        .control-group
-          =# f.label :completed, :class => 'control-label'
-          .controls
-            %label.checkbox
-              = f.check_box :completed, :class => 'check_box'
-              Опознан полностью
-        .control-group
-          = f.label :tag_list, nil, :class => 'control-label'
-          .controls
-            = f.autocomplete_field :tag_list, autocomplete_tag_name_author_stories_path(@author), :"data-delimiter" => ', '
-        
+  .modal-body
+    %p        
+      .control-group
+        = f.label :name, :class => 'control-label'
+        .controls
+          = f.text_field :name, :class => 'text_field', :placeholder => "Название рассказа"
+      .control-group
+        = f.label :link, :class => 'control-label'
+        .controls
+          = f.text_field :link, :class => 'text_field', :placeholder => "Ссылка"
+        = f.fields_for :links do |builder|
+          = render "link_fields", :f => builder
+        .controls
+          = link_to_add_fields raw("<i class='icon-plus'>Добавить ссылку</i>"), f, :links
+
+      .control-group
+        = f.label :date, :class => 'control-label'
+        .controls
+          = f.date_select :date, {:start_year => 1995}, {:class => "input-small inline"}
+      .control-group
+        = f.label :radio, :class => 'control-label'
+        .controls
+          = f.select :radio, [["Станция 2000", 0], ["Муз ТВ", 1], ["Серебряный дождь", 2], ["Энергия", 3], ["Пионер ФМ", 4]], :include_blank => true, :class => 'text_field'
+      .control-group
+        =# f.label :completed, :class => 'control-label'
+        .controls
+          %label.checkbox
+            = f.check_box :completed, :class => 'check_box'
+            Опознан полностью
+      .control-group
+        = f.label :tag_list, nil, :class => 'control-label'
+        .controls
+          = f.autocomplete_field :tag_list, autocomplete_tag_name_author_stories_path(@author), :"data-delimiter" => ', '
+      
 
 
-    .modal-footer
-      = link_to "Назад", "#", :class => "btn", "data-dismiss" => "modal"
-      = f.submit story_submit_text(@story), :class => 'btn btn-primary'
+  .modal-footer
+    = link_to "Назад", "#", :class => "btn", "data-dismiss" => "modal"
+    = f.submit story_submit_text(@story), :class => 'btn btn-primary'

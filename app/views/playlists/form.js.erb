@@ -1,5 +1,5 @@
 $("#modal_window").html("<%= escape_javascript(render 'form')%>");
-$('#playlist_window').modal('toggle');
+$('#modal_window').modal('toggle');
 $("#artist").autocomplete({
     minLength: 2,
     source: "/artists/search",

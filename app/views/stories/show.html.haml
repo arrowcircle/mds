@@ -14,7 +14,5 @@
   = show_tags @story
 = link_to "Что играет?", new_author_story_playlist_path(@author, @story, :request => '1'), :class => 'btn', :remote => true
 = link_to "Опознать трек", new_author_story_playlist_path(@author, @story), :class => 'btn btn-primary', :remote => true
-%h2 Плейлист
-%table.table.table-striped
-  %tbody
-    =render @story.playlists
+#story_playlist
+  = render "playlist"

@@ -1,28 +1,27 @@
-#playlist_window.modal.hide
-  = form_for [@author, @story, @playlist], :html => { :class => 'form-horizontal' } do |f|
-    .modal-header
-      %button.close{:type => "button", "data-dismiss" => "modal"}×
-      %h3 Что играет?
-    .modal-body
-      %p
-        - if params[:request] != '1'  
-          .control-group
-            = label_tag "Исполнитель", nil, :class => 'control-label'
-            .controls
-              = text_field_tag :artist, @playlist.try(:track).try(:artist).try(:name), :class => 'text_field', :id => "artist", :placeholder => "Исполнитель", :autocomplete => :off
-          .control-group
-            = label_tag "Трек", nil, :class => 'control-label'
-            .controls
-              = text_field_tag :track, @playlist.try(:track).try(:name), :class => 'text_field', :id => "track", :placeholder => "Трек", :autocomplete => :off
+= form_for [@author, @story, @playlist], :html => { :class => 'form-horizontal' } do |f|
+  .modal-header
+    %button.close{:type => "button", "data-dismiss" => "modal"}×
+    %h3 Что играет?
+  .modal-body
+    %p
+      - if params[:request] != '1'  
         .control-group
-          = f.label :startmin, :class => 'control-label'
+          = label_tag "Исполнитель", nil, :class => 'control-label'
           .controls
-            = f.text_field :startmin, :class => 'text_field', :placeholder => "С", :autocomplete => :off
+            = text_field_tag :artist, @playlist.try(:track).try(:artist).try(:name), :class => 'text_field', :id => "artist", :placeholder => "Исполнитель", :autocomplete => :off
         .control-group
-          = f.label :endmin, :class => 'control-label', :autocomplete => :off
+          = label_tag "Трек", nil, :class => 'control-label'
           .controls
-            = f.text_field :endmin, :class => 'text_field', :placeholder => "По"
-        = hidden_field_tag :artist_id, @playlist.try(:track).try(:artist).try(:id), :id => "artist_id"        
-    .modal-footer
-      = link_to "Назад", "#", :class => "btn", "data-dismiss" => "modal"
-      = f.submit "Сохранить", :class => 'btn btn-primary'
+            = text_field_tag :track, @playlist.try(:track).try(:name), :class => 'text_field', :id => "track", :placeholder => "Трек", :autocomplete => :off
+      .control-group
+        = f.label :startmin, :class => 'control-label'
+        .controls
+          = f.text_field :startmin, :class => 'text_field', :placeholder => "С", :autocomplete => :off
+      .control-group
+        = f.label :endmin, :class => 'control-label', :autocomplete => :off
+        .controls
+          = f.text_field :endmin, :class => 'text_field', :placeholder => "По"
+      = hidden_field_tag :artist_id, @playlist.try(:track).try(:artist).try(:id), :id => "artist_id"        
+  .modal-footer
+    = link_to "Назад", "#", :class => "btn", "data-dismiss" => "modal"
+    = f.submit "Сохранить", :class => 'btn btn-primary'

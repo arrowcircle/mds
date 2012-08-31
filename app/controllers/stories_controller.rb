@@ -34,9 +34,9 @@ class StoriesController < ApplicationController
   def create
     @story = @author.stories.build(params[:story])
     if @story.save
-      redirect_to [@autor, @story], notice: 'Рассказ добавлен'
+      render "create"
     else
-      render action: "new"
+      render "form"
     end
   end
 
@@ -45,10 +45,9 @@ class StoriesController < ApplicationController
   def update
     @story = @author.stories.find(params[:id])
     if @story.update_attributes(params[:story])
-      redirect_to [@author, @story], notice: 'Story was successfully updated.'
+      render "create"
     else
-      #render "edit"
-      render text: @story.errors.to_json
+      render "edit"
     end
   end
 

@@ -36,9 +36,9 @@ class AuthorsController < ApplicationController
   def create
     @author = Author.new(params[:author])
     if @author.save
-      redirect_to [@author, :stories], notice: 'Автор добавлен. Теперь добавьте рассказ.'
+      render "create"
     else
-      render "new"
+      render "form"
     end
   end
 
@@ -47,9 +47,9 @@ class AuthorsController < ApplicationController
   def update
     @author = Author.find(params[:id])
     if @author.update_attributes(params[:author])
-      redirect_to @author, notice: 'Author was successfully updated.'
+      render "create"
     else
-      render action: "edit" 
+      render "form" 
     end
   end
 
