@@ -13,7 +13,7 @@ module StoriesHelper
   end
 
   def story_show_radio radio
-    "Радио: " + 
+    "Радио: " +
     case radio
     when 0 then "Станция 2000"
     when 1 then "Муз ТВ"
@@ -58,7 +58,7 @@ module StoriesHelper
     else
       name += "#{story.playlists.count})"
     end
-    link_to name, [@author, story]
+    link_to name, [story.author, story]
   end
 
   def can_edit?
