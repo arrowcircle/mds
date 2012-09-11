@@ -25,6 +25,17 @@ namespace :deploy do
     run "ln -s #{shared_path}/uploads #{release_path}/public/uploads"
   end
 end
+
+namespace :unicorn do
+  %w[start stop restart].each do |command|
+    desc "#{command} unicorn"
+    task command, roles: :app do
+      run "sudo service #{application} #{command}"
+    end
+    after "deploy:#{command}", "unicorn:#{command}"
+  end
+end
+
 after "deploy:finalize_update", "deploy:create_symlink"
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 after "deploy", "deploy:sitemap"
