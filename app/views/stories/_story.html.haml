@@ -1,7 +1,7 @@
 %tr
   %td= link_to_story story
   %td= I18n.l story.date, format: "%d %B, %Y" if story.date
-  %td= show_radio story
+  %td= show_radio [@author, story]
   %td
     - if can_edit?
       = link_to "Ред.", [:edit, @author, story], :class => 'btn btn-mini', :remote => true
