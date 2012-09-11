@@ -86,7 +86,7 @@ module StoriesHelper
   end
 
   def show_radio(story)
-    case story.radio
+    case story.try(:radio)
       when 0 then "Станция 2000"
       when 1 then "Муз ТВ"
       when 2 then "Серебряный дождь"
