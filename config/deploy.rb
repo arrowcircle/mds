@@ -20,7 +20,7 @@ ssh_options[:forward_agent] = true
 
 namespace :deploy do
   desc "Symlink yml files"
-  task :create_symlink, roles: :app do
+  task :create_symlink_uploads, roles: :app do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/config/oauth.yml #{release_path}/config/oauth.yml"
     run "rm -Rf #{release_path}/public/uploads"
@@ -38,6 +38,6 @@ namespace :unicorn do
   end
 end
 
-after "deploy:finalize_update", "deploy:create_symlink"
+after "deploy:finalize_update", "deploy:create_symlink_uploads"
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 after "deploy", "deploy:sitemap"
