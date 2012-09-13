@@ -3,12 +3,14 @@ Mds::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   resources :authors do
+    get 'page/:page', :action => :index, :on => :collection
     resources :stories do
       get :autocomplete_tag_name, :on => :collection
       resources :playlists
     end
   end
   resources :artists do
+    get 'page/:page', :action => :index, :on => :collection
     get 'search', :on => :collection
     resources :tracks do
       get 'search', :on => :collection
