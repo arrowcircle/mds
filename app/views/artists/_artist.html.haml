@@ -1,0 +1,7 @@
+%tr
+  %td= link_to artist.name+" (#{artist.tracks.count})", [artist, :tracks]
+  %td
+    - if can_edit?
+      = link_to "Ред.", edit_artist_path(artist), :class => 'btn btn-mini', :remote => true
+    - if can_destroy?
+      = link_to "Удалить", artist_path(artist), :method => :delete, :confirm => "Точно удалить?", :class => 'btn btn-mini btn-danger'
