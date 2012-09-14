@@ -59,7 +59,7 @@
                     %b.caret
                   .dropdown-menu
                     = form_tag user_session_path, class: "minilogin" do
-                      = text_field_tag 'user[email]', nil, placeholder: "E-Mail"
+                      = text_field_tag 'user[login]', nil, placeholder: "E-Mail или Ник"
                       = password_field_tag 'user[password]', nil, placeholder: "Пароль"
                       %label.checkbox
                         = check_box_tag 'user[remember_me]'
