@@ -2,7 +2,7 @@ require "bundler/capistrano"
 require "airbrake/capistrano"
 require "rvm/capistrano"
 
-server "redde.ru", :web, :app, :db
+server "redde.ru", :web, :app, :db, :primary => true
 
 set :user, "webmaster"
 set :application, "mds"
