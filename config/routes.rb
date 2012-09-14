@@ -1,7 +1,7 @@
 Mds::Application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-
+  put 'update_password' => "main#update_password", :as => :update_password
   resources :authors do
     get 'page/:page', :action => :index, :on => :collection
     resources :stories do
