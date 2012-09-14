@@ -6,7 +6,7 @@ module PlaylistsHelper
       # we got identified playlist
       artist = playlist.track.artist
       track = playlist.track
-      raw "#{link_to artist.name, artist} - #{link_to track.name, artist}"
+      raw "#{link_to artist.name, [artist, :tracks]} - #{link_to track.name, [artist, track]}"
     else
       # we have requested playlist
       raw "<strong>Запрос на опознание</strong>"

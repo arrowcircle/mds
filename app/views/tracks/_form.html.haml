@@ -1,0 +1,19 @@
+
+= form_for [@artist, @track], :remote => true, :html => { :class => 'form-horizontal' } do |f|
+  .modal-header
+    %button.close{:type => "button", "data-dismiss" => "modal"}×
+    %h3= "#{story_submit_text(@track)} трэк"
+    - if @track.errors.any?
+      .errors
+        - @track.errors.full_messages.each do |m|
+          %p= m
+
+  .modal-body
+    %p
+      .control-group
+        = f.label :name, :class => 'control-label'
+        .controls
+          = f.text_field :name, :class => 'text_field', :placeholder => "Название трэка"
+  .modal-footer
+    = link_to "Назад", "#", :class => "btn", "data-dismiss" => "modal"
+    = f.submit story_submit_text(@track), :class => 'btn btn-primary'

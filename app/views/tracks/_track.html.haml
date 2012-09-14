@@ -1,0 +1,7 @@
+%tr
+  %td= link_to track.name, [track.artist, track]
+  %td
+    - if can_edit?
+      = link_to "Ред.", [:edit, track.artist, track], :class => 'btn btn-mini', :remote => true
+    - if can_destroy?
+      = link_to "Удалить", [track.artist, track], :method => :delete, :confirm => "Точно удалить?", :class => 'btn btn-mini btn-danger'

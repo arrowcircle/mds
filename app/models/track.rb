@@ -1,6 +1,8 @@
 class Track < ActiveRecord::Base
   attr_accessible :artist_id, :name
   belongs_to :artist
+  has_many :playlists, :dependent => :destroy
+  has_many :stories, :through => :playlists
 
   def self.search q
     res = []

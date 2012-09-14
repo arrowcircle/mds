@@ -30,6 +30,12 @@
             %thead
             %tbody
               =render @artists
+      - if @tracks && @tracks.count > 0
+        .tab-pane.fade#tracks_tab
+          %table.table.table-striped
+            %thead
+            %tbody
+              =render @tracks
   = content_for :js do
     %script{type: "text/javascript"}
       :plain

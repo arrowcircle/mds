@@ -1,5 +1,5 @@
 = form_tag artists_path, :method => :get, :class => 'well form-inline', remote: true, onsubmit: "$('#results').addClass('loading');" do
-  %h1 Артисты
+  %h1 Исполнители
   = link_to "Добавить", new_artist_path(index: 1), :class => 'btn btn-primary', :remote => true
   = text_field_tag :search, params[:search], placeholder: "Введите имя исполнителя", class: "input"
   %button{class: 'btn', type: 'submit', "data-disable-with" => "Поиск ..."}
