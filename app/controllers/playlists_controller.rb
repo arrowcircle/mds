@@ -44,8 +44,12 @@ class PlaylistsController < ApplicationController
 
   def delete
     @playlist = @story.playlists.find(params[:id])
-    @playlist.destroy
-    redirect_to [@author, @story], :alert => "Трек удален"
+    if current_user.role >= 1
+      @playlist.destroy
+      redirect_to [@author, @story], :alert => "Трек удален"
+    else
+      redirect_to [@author, @story], :alert => "Недостаточно прав"
+    end
   end
 
   private
