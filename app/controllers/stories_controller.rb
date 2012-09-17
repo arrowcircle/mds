@@ -44,10 +44,12 @@ class StoriesController < ApplicationController
   # PUT /stories/1.json
   def update
     @story = @author.stories.find(params[:id])
-    if @story.update_attributes(params[:story])
-      render "create"
-    else
-      render "edit"
+    if current_user && current_user.role >= 1
+      if @story.update_attributes(params[:story])
+        render "create"
+      else
+        render "edit"
+      end
     end
   end
 

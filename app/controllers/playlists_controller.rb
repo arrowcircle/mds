@@ -24,6 +24,8 @@ class PlaylistsController < ApplicationController
   def create
     @playlist = @story.playlists.build(params[:playlist])
     @playlist.assign_author_and_track params
+    @playlist.identified_by = current_user.id if user_signed_in?
+    @playlist.user_id = current_user.id if user_signed_in?
     if @playlist.save
       redirect_to [@author, @story], notice: "Трек добавлен"
     else
@@ -33,12 +35,16 @@ class PlaylistsController < ApplicationController
 
   def update
     @playlist = @story.playlists.find(params[:id])
-
-    @playlist.assign_author_and_track params
-    if @playlist.update_attributes(params[:playlist])
-      redirect_to [@author, @story], notice: "Трек отредактирован"
+    if current_user && current_user.role >= 1
+      @playlist.assign_author_and_track params
+      @playlist.identified_by = current_user.id if current_user && @playlist.identified_by.nil?
+      if @playlist.update_attributes(params[:playlist])
+        redirect_to [@author, @story], notice: "Трек отредактирован"
+      else
+        redirect_to [@author, @story], alert: "Ошибка редактирования трека"
+      end
     else
-      redirect_to [@author, @story], alert: "Ошибка редактирования трека"
+      redirect_to [@author, @story], alert: "Недостаточно прав"
     end
   end
 
