@@ -44,7 +44,7 @@ class PlaylistsController < ApplicationController
 
   def destroy
     @playlist = @story.playlists.find(params[:id])
-    if current_user.role >= 1
+    if current_user&&current_user.role >= 1
       @playlist.destroy
       redirect_to [@author, @story], :alert => "Трек удален"
     else
