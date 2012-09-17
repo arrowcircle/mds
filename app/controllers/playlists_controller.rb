@@ -42,6 +42,12 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def delete
+    @playlist = @story.playlists.find(params[:id])
+    @playlist.destroy
+    redirect_to [@author, @story], :alert => "Трек удален"
+  end
+
   private
   def get_res
     @author = Author.find(params[:author_id])
