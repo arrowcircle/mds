@@ -42,7 +42,7 @@ class PlaylistsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @playlist = @story.playlists.find(params[:id])
     if current_user.role >= 1
       @playlist.destroy
