@@ -1,0 +1,13 @@
+= content_for :sidebar do
+  %ul.nav.nav-list
+    %li.nav-header
+      Новости
+    %li{:class => ["#{'active' if action_name == 'index'}"]}
+      =link_to recent_path do
+        Все
+    %li{:class => ["#{'active' if action_name == 'identified'}"]}
+      =link_to recent_identified_path do
+        Опознанные
+    %li{:class => ["#{'active' if action_name == 'requests'}"]}
+      =link_to recent_requests_path do
+        Запросы

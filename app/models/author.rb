@@ -5,7 +5,7 @@ class Author < ActiveRecord::Base
 
   def self.search(query)
     if query && query.length > 0
-      Author.includes(:stories).where("authors.name ILIKE ?", "#{query}%").order("authors.name")
+      Author.includes(:stories).where("authors.name ILIKE ?", "%#{query}%").order("authors.name")
     else
       Author.includes(:stories).order("authors.name")
     end

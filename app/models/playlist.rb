@@ -4,6 +4,9 @@ class Playlist < ActiveRecord::Base
   belongs_to :track
   belongs_to :identifier, class_name: "User", foreign_key: "identified_by"
 
+  scope :requests, where(track_id: nil)
+  scope :identified, where("track_id is not null")
+
   def assign_author_and_track params
     artist_name, track_name = parse_params(params)
     if artist_name && track_name

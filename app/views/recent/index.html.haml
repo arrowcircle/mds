@@ -1,0 +1,7 @@
+= render "sidebar"
+
+%h1= @header
+%table.table.table-striped
+  %tbody
+    = render :partial => "playlist", :collection => @playlists, :as => :playlist
+= paginate @playlists

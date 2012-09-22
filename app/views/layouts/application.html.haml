@@ -27,6 +27,7 @@
             %ul.nav
               %li= link_to "Авторы", authors_path
               %li= link_to "Исполнители", artists_path
+              %li= link_to "Новости", recent_path
             = form_tag search_path, class: "navbar-form pull-left" do
               = text_field_tag :search, params[:search], placeholder: "Что ищем?", class: "input"
 
@@ -100,5 +101,6 @@
     / Placed at the end of the document so the pages load faster
     = javascript_include_tag "application"
     = yield :js
+    = render "metrika"
     #modal_window
 

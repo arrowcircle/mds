@@ -9,6 +9,16 @@ Mds::Application.routes.draw do
       resources :playlists
     end
   end
+
+  get 'recent' => 'recent#index', :as => :recent
+  get 'recent/identified' => 'recent#identified', :as => :recent_identified
+  get 'recent/requests' => 'recent#requests', :as => :recent_requests
+  get 'recent/(:page)' => 'recent#index', :as => :recent
+  get 'recent/identified/(:page)' => 'recent#identified', :as => :recent_identified
+  get 'recent/requests/(:page)' => 'recent#requests', :as => :recent_requests
+
+
+
   resources :artists do
     get 'page/:page', :action => :index, :on => :collection
     get 'search', :on => :collection

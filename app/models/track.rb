@@ -15,4 +15,8 @@ class Track < ActiveRecord::Base
     slug = n.gsub(' ','-').gsub(/[^\x00-\x7F]+/, '').gsub(/[^\w_ \-]+/i,   '').gsub(/[ \-]+/i,      '-').gsub(/^\-|\-$/i,      '').downcase
     "#{id}-#{slug}"
   end
+
+  def full_name
+    "#{artist.name} - #{name}"
+  end
 end
