@@ -40,6 +40,7 @@ namespace :unicorn do
   desc "restart unicorn"
   task :restart, roles: :app do
     run "sudo service #{application} stop"
+    sleep 2
     run "sudo service #{application} start"
   end
   after "deploy:restart", "unicorn:restart"
