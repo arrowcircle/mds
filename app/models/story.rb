@@ -7,12 +7,12 @@ class Story < ActiveRecord::Base
   accepts_nested_attributes_for :links, :allow_destroy => true
 
   attr_accessible :author_id, :completed, :date, :link, :name, :position, :radio, :links_attributes, :tag_list
-  
+
   validates :name, :presence =>  true
 
   def self.search(query)
     if query && query.length > 0
-      Story.where("name ILIKE ?", "#{query}%").order("name")
+      Story.where("name ILIKE ?", "%#{query}%").order("name")
     else
       Story.order("authors.name")
     end
