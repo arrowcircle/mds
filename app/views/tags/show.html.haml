@@ -1,0 +1,12 @@
+%h1= params[:name]
+%table.table.table-striped
+  %tbody
+  - @stories.each do |story|
+    %tr
+      %td
+        = link_to story.author.name, [story.author, :stories]
+        = " - "
+        = link_to story.name, [story.author, story]
+        %br
+        Теги #{raw story.tags.map {|tag| link_to tag, tag_path(tag.name)}.join(', ')}
+= paginate @stories

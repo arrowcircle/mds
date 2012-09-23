@@ -7,7 +7,7 @@ module StoriesHelper
   def show_tags story
     res = ""
     story.tags.collect do |tag|
-      res << link_to(tag.name, '#', :class => "btn btn-mini btn-info")
+      res << link_to(tag.name, tag_path(tag.name), :class => "btn btn-mini btn-info")
     end
     raw res
   end

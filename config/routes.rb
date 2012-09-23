@@ -10,6 +10,9 @@ Mds::Application.routes.draw do
     end
   end
 
+  get 'tags' => 'tags#index', :as => :tags
+  get 'tags/:name' => 'tags#show', :as => :tag
+
   get 'recent' => 'recent#index', :as => :recent
   get 'recent/identified' => 'recent#identified', :as => :recent_identified
   get 'recent/requests' => 'recent#requests', :as => :recent_requests
