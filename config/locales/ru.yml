@@ -12,6 +12,7 @@ ru:
       playlist:
         startmin: "Начало"
         endmin: "Конец"
+        identified_by: "Кто опознал?"
       user:
         avatar: "Аватар"
         password: "Пароль"

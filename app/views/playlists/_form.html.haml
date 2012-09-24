@@ -25,7 +25,7 @@
         .control-group
           = f.label :identified_by, :class => 'control-label'
           .controls
-            = f.select :identified_by, options_for_select(User.all.collect {|u| [u.username, u.id]}), :class => 'text_field'
+            = f.select :identified_by, options_for_select(User.all.collect {|u| [u.username, u.id]}, :selected => identified_by_helper(@playlist)), :class => 'text_field'
       = hidden_field_tag :artist_id, @playlist.try(:track).try(:artist).try(:id), :id => "artist_id"
   .modal-footer
     = link_to "Назад", "#", :class => "btn", "data-dismiss" => "modal"

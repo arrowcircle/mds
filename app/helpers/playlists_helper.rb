@@ -1,6 +1,14 @@
 #coding: utf-8
 module PlaylistsHelper
 
+  def identified_by_helper playlist
+    if playlist.identified_by
+      playlist.identified_by
+    else
+      current_user.id
+    end
+  end
+
   def link_to_artist_track playlist
     if playlist.track_id
       # we got identified playlist
