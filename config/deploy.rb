@@ -17,6 +17,10 @@ set :rvm_ruby_string, '1.9.3@mds'
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
+after "deploy", "refresh_sitemaps"
+task :refresh_sitemaps do
+  run "cd #{latest_release} && RAILS_ENV=#{rails_env} bundle exec rake sitemap:refresh -s"
+end
 
 namespace :deploy do
   desc "Symlink yml files"

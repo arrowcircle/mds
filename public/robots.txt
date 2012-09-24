@@ -3,3 +3,4 @@
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-Agent: *
 # Disallow: /
+Sitemap: http://mds.redde.ru/sitemap_index.xml.gz

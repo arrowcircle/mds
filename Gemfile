@@ -51,6 +51,7 @@ gem 'unicorn'
 # Deploy with Capistrano
 gem 'capistrano'
 gem 'rvm-capistrano'
+gem 'sitemap_generator'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
