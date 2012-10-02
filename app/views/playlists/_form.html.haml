@@ -8,11 +8,11 @@
         .control-group
           = label_tag "Исполнитель", nil, :class => 'control-label'
           .controls
-            = text_field_tag :artist, @playlist.try(:track).try(:artist).try(:name), :class => 'text_field', :id => "artist", :placeholder => "Исполнитель", :autocomplete => :off
+            = text_field_tag :artist, @playlist.try(:track).try(:artist).try(:name), :class => 'input-xlarge', :id => "artist", :placeholder => "Исполнитель", :autocomplete => :off
         .control-group
           = label_tag "Трек", nil, :class => 'control-label'
           .controls
-            = text_field_tag :track, @playlist.try(:track).try(:name), :class => 'text_field', :id => "track", :placeholder => "Трек", :autocomplete => :off
+            = text_field_tag :track, @playlist.try(:track).try(:name), :class => 'input-xlarge', :id => "track", :placeholder => "Трек", :autocomplete => :off
       .control-group
         = f.label :startmin, :class => 'control-label'
         .controls
