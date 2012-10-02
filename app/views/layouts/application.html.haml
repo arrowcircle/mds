@@ -25,9 +25,9 @@
           %a.brand(href="/") МДС Музыка
           .container.nav-collapse
             %ul.nav
+              %li{:class => ["#{'active' if %w{recent}.include? controller_name}"]}= link_to "Новости", recent_path
               %li{:class => ["#{'active' if %w{stories playlists authors}.include? controller_name}"]}= link_to "Авторы", authors_path
               %li{:class => ["#{'active' if %w{artists tracks}.include? controller_name}"]}= link_to "Исполнители", artists_path
-              %li{:class => ["#{'active' if %w{recent}.include? controller_name}"]}= link_to "Новости", recent_path
               %li{:class => ["#{'active' if %w{tags}.include? controller_name}"]}= link_to "Теги", tags_path
             = form_tag search_path, class: "navbar-form pull-left" do
               = text_field_tag :search, params[:search], placeholder: "Что ищем?", class: "input"
