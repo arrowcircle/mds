@@ -1,5 +1,7 @@
-.user-index
-  .avatar= link_to image_tag(user.avatar.url, :size => "32x32", :alt => user.username), user
-  .title= link_to user.username, user
-  .user-text
-    Опознал треков: #{Playlist.where(identified_by: user.id).where("track_id is not null").count}
+%tr
+  %td
+    .avatar= user_avatar_link user
+  %td
+    .title= link_to user.username, user
+    .user-text
+      Опознал треков: #{Playlist.where(identified_by: user.id).where("track_id is not null").count}
