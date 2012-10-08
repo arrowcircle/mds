@@ -1,5 +1,6 @@
 %h2 Редактирование профиля
-= form_for(resource, :as => resource_name, :url => update_password_path) do |f|
+= resource.errors.full_messages
+= form_for(resource, :as => resource_name, :url => update_password_path, :multipart => true) do |f|
   .control-group
     = f.label :password, :class => 'control-label'
     .controls

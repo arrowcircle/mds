@@ -17,6 +17,14 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
+  def self.search(query)
+    if query && query.length > 0
+      where("username ILIKE ?", "%#{query}%").order("last_sign_in_at DESC")
+    else
+      order("last_sign_in_at DESC")
+    end
+  end
+
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
