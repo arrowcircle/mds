@@ -3,6 +3,17 @@ Mds::Application.configure do
   config.action_mailer.default_url_options = {
     :host => 'mds.redde.ru',
   }
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.mandrillapp.com",
+    :port                 => 587,
+    :domain               => 'mds.redde.ru',
+    :user_name            => 'oleg.bovykin@gmail.com',
+    :password             => '135a37be-71fc-4cf4-98b3-a7142ec34563',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true
+  }
   # Code is not reloaded between requests
   config.cache_classes = true
 
