@@ -8,6 +8,6 @@
     .controls
       = f.text_field :email, :class => 'text_field'
   .form-actions
-    = f.submit "Отправить инструкции", :class => 'btn btn-primary'
+    = f.submit "Отправить инструкции", :class => 'btn btn-primary', :disable_with => "Отправляем инструкции ..."
 
 = render :partial => "devise/shared/links"
