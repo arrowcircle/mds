@@ -20,6 +20,8 @@ module StoriesHelper
     when 2 then "Серебряный дождь"
     when 3 then "Энергия"
     when 4 then "Пионер ФМ"
+    when 5 then "Лайв"
+    when 6 then "Подкаст"
     else "Не указано"
     end
   end

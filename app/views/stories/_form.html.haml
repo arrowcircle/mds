@@ -9,7 +9,7 @@
           %p= m
 
   .modal-body
-    %p        
+    %p
       .control-group
         = f.label :name, :class => 'control-label'
         .controls
@@ -30,7 +30,7 @@
       .control-group
         = f.label :radio, :class => 'control-label'
         .controls
-          = f.select :radio, [["Станция 2000", 0], ["Муз ТВ", 1], ["Серебряный дождь", 2], ["Энергия", 3], ["Пионер ФМ", 4]], :include_blank => true, :class => 'text_field'
+          = f.select :radio, [["Станция 2000", 0], ["Муз ТВ", 1], ["Серебряный дождь", 2], ["Энергия", 3], ["Пионер ФМ", 4], ["Лайв", 5], ["Подкаст", 6]], :include_blank => true, :class => 'text_field'
       .control-group
         =# f.label :completed, :class => 'control-label'
         .controls
@@ -41,7 +41,7 @@
         = f.label :tag_list, nil, :class => 'control-label'
         .controls
           = f.autocomplete_field :tag_list, autocomplete_tag_name_author_stories_path(@author), :"data-delimiter" => ', '
-      
+
 
 
   .modal-footer
