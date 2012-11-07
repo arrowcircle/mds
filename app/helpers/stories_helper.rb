@@ -22,7 +22,7 @@ module StoriesHelper
     when 4 then "Пионер ФМ"
     when 5 then "Лайв"
     when 6 then "Подкаст"
-    when 7 then "Станцию 106.8"
+    when 7 then "Станция 106.8"
     else "Не указано"
     end
   end
