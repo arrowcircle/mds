@@ -6,12 +6,12 @@ module User::OauthVkontakte
   module ClassMethods
     def find_for_vkontakte_oauth(access_token, signed_in_resource=nil)
       data = access_token#.extra.raw_info
-      logger.info "="*10
-      logger.info data.to_json
+      username = data.info.nickname
+      username = "#{data.info.last_name}-#{data.info.first_name}" unless username.present?
       if user = self.find_by_username(data.info.nickname)
         user
       else # Create a user with a stub password.
-        self.create!(:email => data.info.nickname+"@mds.redde.ru", :password => Devise.friendly_token[0,20], :username => data.info.nickname, :remote_avatar_url => data.info.image)
+        self.create!(:email => username+"@mds.redde.ru", :password => Devise.friendly_token[0,20], :username => username, :remote_avatar_url => data.info.image)
       end
     end
   end
