@@ -6,6 +6,8 @@ module User::OauthVkontakte
   module ClassMethods
     def find_for_vkontakte_oauth(access_token, signed_in_resource=nil)
       data = access_token#.extra.raw_info
+      logger.info "="*10
+      logger.info data.to_json
       if user = self.find_by_username(data.info.nickname)
         user
       else # Create a user with a stub password.
