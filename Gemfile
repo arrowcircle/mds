@@ -25,6 +25,7 @@ end
 gem 'unicode'
 gem 'airbrake', "3.1.2"
 gem 'jquery-rails'
+gem 'turbo-sprockets-rails3'
 gem 'haml-rails'
 gem 'devise'
 gem 'russian'
