@@ -8,8 +8,8 @@ module User::OauthVkontakte
       data = access_token#.extra.raw_info
       if user = self.find_by_username(data.info.nickname)
         user
-      else # Create a user with a stub password. 
-        self.create!(:email => SecureRandom.hex(16)+"@mds.redde.ru", :password => Devise.friendly_token[0,20], :username => data.info.nickname, :remote_avatar_url => data.info.image) 
+      else # Create a user with a stub password.
+        self.create!(:email => data.info.nickname+"@mds.redde.ru", :password => Devise.friendly_token[0,20], :username => data.info.nickname, :remote_avatar_url => data.info.image)
       end
     end
   end

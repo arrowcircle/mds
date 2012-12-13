@@ -25,7 +25,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def vkontakte
     #render :inline => request.env["omniauth.auth"].to_json
-    @user = User.find_for_twitter_oauth(request.env["omniauth.auth"], current_user)
+    @user = User.find_for_vkontakte_oauth(request.env["omniauth.auth"], current_user)
 
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Vkontakte"
