@@ -233,7 +233,7 @@ DEPENDENCIES
   rvm-capistrano
   sass-rails (~> 3.2.3)
   sitemap_generator
-  therubyracer
+  therubyracer (~> 0.10.2)
   turbo-sprockets-rails3
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)
