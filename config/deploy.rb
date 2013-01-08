@@ -19,7 +19,7 @@ default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 
 namespace :sitemap do
-  task :refresh_sitemaps do
+  task :refresh do
     run "cd #{latest_release} && RAILS_ENV=#{rails_env} bundle exec rake sitemap:refresh -s"
   end
 end
