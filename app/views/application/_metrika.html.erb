@@ -4,8 +4,10 @@
     (w[c] = w[c] || []).push(function() {
         try {
             w.yaCounter4306888 = new Ya.Metrika({id:4306888,
+                    webvisor:true,
                     clickmap:true,
-                    trackLinks:true});
+                    trackLinks:true,
+                    accurateTrackBounce:true});
         } catch(e) { }
     });
 
@@ -17,7 +19,7 @@
     s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
 
     if (w.opera == "[object Opera]") {
-        d.addEventListener("DOMContentLoaded", f);
+        d.addEventListener("DOMContentLoaded", f, false);
     } else { f(); }
 })(document, window, "yandex_metrika_callbacks");
 </script>
