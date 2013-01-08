@@ -1,3 +1,7 @@
+= content_for :seo do
+  %meta{name: "description", content: "Рассказы #{@author.name} и музыка из них в радиопередаче Модель для Сборки"}
+  %meta{name: "keywords", content: "мдс, модель для сборки, что играет, опознать трек, музыка, помощь в опознании, плейлист, список треков, музыка из рассказа, #{@author.name}"}
+
 = content_for(:title) do
   = @author.name
 %h1

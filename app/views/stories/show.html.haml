@@ -1,7 +1,13 @@
+= content_for :seo do
+  %meta{name: "description", content: "#{@author.name} - #{@story.name} плейлист"}
+  %meta{name: "keywords", content: "мдс, модель для сборки, что играет, опознать трек, музыка, помощь в опознании, плейлист, список треков, музыка из рассказа #{@author.name} #{@story.name}, #{@author.name}, #{@story.name}"}
+
 = content_for(:title) do
   = "#{@story.name} - #{@author.name}"
+
 = content_for :sidebar do
   =render "player"
+
 %h1
   = story_header_link @story
   - if can_edit?

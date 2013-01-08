@@ -1,6 +1,10 @@
 # See http://www.robotstxt.org/wc/norobots.html for documentation on how to use the robots.txt file
 #
 # To ban all spiders from the entire site uncomment the next two lines:
-# User-Agent: *
-# Disallow: /
+User-Agent: *
+Disallow: /users/sign_in
+Disallow: /authors/new*
+Disallow: /artists/new*
+Disallow: /*stories/new$
+
 Sitemap: http://mds.redde.ru/sitemap_index.xml.gz

@@ -1,5 +1,8 @@
 = content_for :head do
   = rel_next_prev_link_tags @playlists
+= content_for :seo do
+  %meta{name: "description", content: "Главная страница сайта по опознанию и поиску музыки из радиопередачи Модель для Сборки"}
+  %meta{name: "keywords", content: "мдс, модель для сборки, что играет, опознать трек, музыка, помощь в опознании, плейлист, список треков, музыка из рассказа"}
 = content_for(:title) do
   = @header
 = render "sidebar"

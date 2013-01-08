@@ -1,16 +1,14 @@
+= content_for :seo do
+  %meta{name: "description", content: "Страница со списком авторов рассказов игравших в радиопередаче Модель Для Сборки"}
+  %meta{name: "keywords", content: "мдс, модель для сборки, что играет, опознать трек, музыка, помощь в опознании, плейлист, список треков, музыка из рассказа, список авторов"}
+
 = content_for :head do
   = rel_next_prev_link_tags @authors
 
 = content_for(:title) do
   Авторы
--#
-  = content_for :sidebar do
-    .well.sidebar-nav
-      %ul.nav.nav-list
-        %li.nav-header Авторский сайд
-        %li= link_to "Link 1", "/path1"
-        %li= link_to "Link 2", "/path2"
-        %li= link_to "Link 3", "/path3"
+
 = render "filter"
+
 #results
   = render "authors"
