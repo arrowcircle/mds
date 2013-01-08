@@ -17,9 +17,11 @@ set :rvm_ruby_string, '1.9.3@mds'
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
-after "deploy", "refresh_sitemaps"
-task :refresh_sitemaps do
-  run "cd #{latest_release} && RAILS_ENV=#{rails_env} bundle exec rake sitemap:refresh -s"
+
+namespace :sitemap do
+  task :refresh_sitemaps do
+    run "cd #{latest_release} && RAILS_ENV=#{rails_env} bundle exec rake sitemap:refresh -s"
+  end
 end
 
 namespace :deploy do
@@ -52,4 +54,4 @@ end
 
 after "deploy:finalize_update", "deploy:create_symlink_uploads"
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
-after "deploy", "deploy:sitemap"
+after "deploy", "sitemap:refresh"

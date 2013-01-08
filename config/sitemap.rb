@@ -2,6 +2,7 @@
 SitemapGenerator::Sitemap.default_host = "http://mds.redde.ru"
 
 SitemapGenerator::Sitemap.create do
+  add '/', :changefreq => 'daily'
   add '/authors'
   add '/artists'
   add '/tags', :changefreq => 'daily'
