@@ -69,7 +69,7 @@ module Story::Fetcher
     attrs.merge!(radio: station) if station
     attrs.merge!(link: links_array[0]) if links_array.size > 0
     attrs.merge!(date: air_date) if air_date
-    attrs.merge!(last_fetched_at: Time.now)
+    attrs.merge!(last_fetched_at: Time.now, fetcher_comment: nil)
     update_attributes(attrs)
     if links_array.size > 1
       links_array[1..-1].each do |lnk|
@@ -92,7 +92,11 @@ module Story::Fetcher
       puts "Many results for #{name}"
       if date
         stry = res.find {|x| date.strftime("%d.%m.%Y") == x[:date]}
-        parse_story_page(stry[:link_to_page]) if stry
+        if stry
+          parse_story_page(stry[:link_to_page])
+        else
+          update_attributes(fetcher_comment: get_many_results_string(res), last_fetched_at: Time.now)
+        end
       else
         # try to find page with date
         update_attributes(fetcher_comment: get_many_results_string(res), last_fetched_at: Time.now)
