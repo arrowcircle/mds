@@ -62,7 +62,7 @@ namespace :sync do
 
     run "export PGPASSWORD=#{remote_settings["password"]} && pg_dump --host=#{remote_settings["host"]} --port=#{remote_settings["port"]} --username #{remote_settings["username"]} --file #{current_path}/tmp/#{remote_settings["database"]}_dump --no-owner -Fc #{remote_settings["database"]}"
 
-    run_locally "rsync --recursive --times --rsh=ssh --compress --human-readable --progress #{domain}:#{current_path}/tmp/#{remote_settings["database"]}_dump tmp/"
+    run_locally "rsync --recursive --times --rsh=ssh --compress --human-readable --progress #{current_path}/tmp/#{remote_settings["database"]}_dump tmp/"
 
     run_locally "dropdb -U #{local_settings["username"]} --host=#{local_settings["host"]} --port=#{local_settings["port"]} #{local_settings["database"]}"
     run_locally "createdb -U #{local_settings["username"]} --host=#{local_settings["host"]} --port=#{local_settings["port"]} -T template0 #{local_settings["database"]}"
