@@ -24,10 +24,14 @@ class AuthorsController < ApplicationController
   end
 
   def merge
-    @author = Author.find(params[:id])
-    @new_author = @author.merge(params[:author_id])
-    if @new_author
-      render "merge_form"
+    if user_signed_in? && current_user.can_destroy?
+      @author = Author.find(params[:id])
+      @new_author = @author.merge(params[:author_id])
+      if @new_author
+        render "merge_form"
+      else
+        render "merge_form"
+      end
     else
       render "merge_form"
     end

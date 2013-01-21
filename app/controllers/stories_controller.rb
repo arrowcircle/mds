@@ -10,11 +10,15 @@ class StoriesController < ApplicationController
   end
 
   def move
-    @story = @author.stories.find(params[:id])
-    @new_author = Author.where(id: params[:new_author_id]).try(:first)
-    if @new_author
-      @story.update_attributes(author_id: @new_author.id)
-      render "move_form"
+    if user_signed_in? && current_user.can_destroy?
+      @story = @author.stories.find(params[:id])
+      @new_author = Author.where(id: params[:new_author_id]).try(:first)
+      if @new_author
+        @story.update_attributes(author_id: @new_author.id)
+        render "move_form"
+      else
+        render "move_form"
+      end
     else
       render "move_form"
     end

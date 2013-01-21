@@ -17,6 +17,14 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
+  def can_destroy?
+    role > 1
+  end
+
+  def can_edit?
+    role > 0
+  end
+
   def self.search(query)
     if query && query.length > 0
       where("username ILIKE ?", "%#{query}%").order("last_sign_in_at DESC")
