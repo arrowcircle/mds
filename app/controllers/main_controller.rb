@@ -7,7 +7,7 @@ class MainController < ApplicationController
   end
 
   def unparsed
-    @stories = Story.where(parsed: false).where("(updated_at > last_fetched_at) and last_fetched_at is not null").page(params[:page])
+    @stories = Story.where(parsed: false).where("(updated_at - interval '1 minute') < last_fetched_at and last_fetched_at is not null").page(params[:page])
   end
 
   def update_password
