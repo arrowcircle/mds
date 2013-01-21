@@ -86,7 +86,6 @@ module Story::Fetcher
       update_attributes(fetcher_comment: "#{Time.now}: Найдено 0 результатов, попробуйте уточнить название рассказа", last_fetched_at: Time.now)
       puts "0 results for #{name}"
     elsif res.count == 1
-      puts "parsing #{name}"
       parse_story_page(res.first[:link_to_page])
       # open and parse page
     elsif res.count > 1
