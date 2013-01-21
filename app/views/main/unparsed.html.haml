@@ -1,0 +1,18 @@
+%h1 Рассказы, которые не удалось найти на mds-club.ru
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Название
+      %th Комментарий
+      %th
+  %tbody
+    - @stories.each do |story|
+      %tr
+        %td= link_to_story story
+        %td= raw story.fetcher_comment
+        %td
+          - if can_edit?
+            = link_to "Ред.", [:edit, story.author, story], :class => 'btn btn-mini', :remote => true
+
+= paginate @stories

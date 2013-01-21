@@ -20,7 +20,7 @@ Mds::Application.routes.draw do
   get 'recent/identified/(:page)' => 'recent#identified', :as => :recent_identified
   get 'recent/requests/(:page)' => 'recent#requests', :as => :recent_requests
 
-
+  get 'unparsed' => 'main#unparsed', :as => :unparsed
 
   resources :artists do
     get 'page/:page', :action => :index, :on => :collection

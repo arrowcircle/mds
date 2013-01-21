@@ -6,6 +6,10 @@ class MainController < ApplicationController
   def login
   end
 
+  def unparsed
+    @stories = Story.where("fetcher_comment is not null").page(params[:page])
+  end
+
   def update_password
     @user = User.find(current_user.id)
     if !params[:password].present?
