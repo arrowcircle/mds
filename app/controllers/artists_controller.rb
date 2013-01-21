@@ -1,5 +1,25 @@
 #coding: utf-8
 class ArtistsController < ApplicationController
+  autocomplete :artist, :name, :extra_data => [:id]
+
+  def merge_form
+    @artist = Artist.find(params[:id])
+  end
+
+  def merge
+    if user_signed_in? && current_user.can_destroy?
+      @artist = Artist.find(params[:id])
+      @new_artist = @artist.merge(params[:artist_id])
+      if @new_artist
+        render "merge_form"
+      else
+        render "merge_form"
+      end
+    else
+      render "merge_form"
+    end
+  end
+
   def search
     @artists = Artist.search params[:term]
     render :json => @artists.select([:id, :name])

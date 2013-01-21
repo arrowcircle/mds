@@ -1,0 +1,18 @@
+= form_for [:merge, @artist], :remote => true, :html => {:class => 'form-horizontal'} do |f|
+  .modal-header
+    %button.close{:type => "button", "data-dismiss" => "modal"}×
+    %h3 Объединение исполнителей
+  .modal-body
+    %p
+      ВНИМАНИЕ!!!
+      %br
+      Слияние перенесет все треки #{@artist.name} к трекам другого автора
+      .control-group
+        = label_tag "Объединить в исполнителя", nil, :class => 'control-label'
+        .controls
+          = autocomplete_field_tag 'artist', '', autocomplete_artist_name_artists_path, :size => 75, :update_elements => {:id => '#artist_id'}
+          = hidden_field_tag :artist_id, nil
+
+  .modal-footer
+    = link_to "Назад", "#", :class => "btn", "data-dismiss" => "modal"
+    = f.submit "Объединить", :class => 'btn btn-danger'

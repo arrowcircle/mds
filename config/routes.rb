@@ -30,7 +30,12 @@ Mds::Application.routes.draw do
   resources :artists do
     get 'page/:page', :action => :index, :on => :collection
     get 'search', :on => :collection
+    get 'merge_form', :on => :member
+    put 'merge', :on => :member
+    get :autocomplete_artist_name, :on => :collection
     resources :tracks do
+      get 'move_form', :on => :member
+      put 'move', :on => :member
       get 'search', :on => :collection
     end
   end
