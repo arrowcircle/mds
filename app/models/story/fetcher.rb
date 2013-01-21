@@ -69,7 +69,7 @@ module Story::Fetcher
     attrs.merge!(radio: station) if station
     attrs.merge!(link: links_array[0]) if links_array.size > 0
     attrs.merge!(date: air_date) if air_date
-    attrs.merge!(last_fetched_at: Time.now, fetcher_comment: nil)
+    attrs.merge!(last_fetched_at: Time.now, fetcher_comment: nil, parsed: true)
     update_attributes(attrs)
     if links_array.size > 1
       links_array[1..-1].each do |lnk|

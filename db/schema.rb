@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130121133300) do
+ActiveRecord::Schema.define(:version => 20130121145509) do
 
   create_table "artists", :force => true do |t|
     t.string   "name"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20130121133300) do
     t.integer  "radio"
     t.text     "fetcher_comment"
     t.datetime "last_fetched_at"
+    t.boolean  "parsed",          :default => false
   end
 
   add_index "stories", ["author_id"], :name => "author_id"
