@@ -52,6 +52,24 @@ namespace :unicorn do
   after "deploy:restart", "unicorn:restart"
 end
 
+namespace :sync do
+  desc "Dump remote production postgresql database, rsync to localhost"
+  task :db do
+    get("#{current_path}/config/database.yml", "tmp/database.yml")
+
+    remote_settings = YAML::load_file("config/database.yml")["production"]
+    local_settings  = YAML::load_file("config/database.yml")["development"]
+
+    run "export PGPASSWORD=#{remote_settings["password"]} && pg_dump --host=#{remote_settings["host"]} --port=#{remote_settings["port"]} --username #{remote_settings["username"]} --file #{current_path}/tmp/#{remote_settings["database"]}_dump --no-owner -Fc #{remote_settings["database"]}"
+
+    run_locally "rsync --recursive --times --rsh=ssh --compress --human-readable --progress #{domain}:#{current_path}/tmp/#{remote_settings["database"]}_dump tmp/"
+
+    run_locally "dropdb -U #{local_settings["username"]} --host=#{local_settings["host"]} --port=#{local_settings["port"]} #{local_settings["database"]}"
+    run_locally "createdb -U #{local_settings["username"]} --host=#{local_settings["host"]} --port=#{local_settings["port"]} -T template0 #{local_settings["database"]}"
+    run_locally "pg_restore -U #{local_settings["username"]} --host=#{local_settings["host"]} --port=#{local_settings["port"]} -d #{local_settings["database"]} --no-owner tmp/#{remote_settings["database"]}_dump"
+  end
+end
+
 after "deploy:finalize_update", "deploy:create_symlink_uploads"
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 after "deploy", "sitemap:refresh"
