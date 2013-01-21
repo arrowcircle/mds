@@ -91,7 +91,7 @@ module Story::Fetcher
     elsif res.count > 1
       puts "Many results for #{name}"
       if date
-        stry = res.find {|x| x.date.strftime("%d.%m.%Y") == res[:date]}
+        stry = res.find {|x| date.strftime("%d.%m.%Y") == x[:date]}
         parse_story_page(stry[:link_to_page]) if stry
       else
         # try to find page with date
