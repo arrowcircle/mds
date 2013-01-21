@@ -37,6 +37,10 @@
           %label.checkbox
             = f.check_box :completed, :class => 'check_box'
             Опознан полностью
+          - if params[:parsing] && params[:parsing] == '1'
+            %label.checkbox
+              = f.check_box :parsed, :class => 'check_box'
+              Не пытаться обновить с mds-club
       .control-group
         = f.label :tag_list, nil, :class => 'control-label'
         .controls

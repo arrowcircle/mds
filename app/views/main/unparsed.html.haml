@@ -31,7 +31,7 @@
         %td= raw story.fetcher_comment
         %td
           - if can_edit?
-            = link_to "Ред.", [:edit, story.author, story], :class => 'btn btn-mini', :remote => true
+            = link_to "Ред.", edit_author_story_path(story.author, story, :parsing => 1), :class => 'btn btn-mini', :remote => true
           = link_to "Искать", story.to_search_string, :class => 'btn btn-mini', :target => "_BLANK"
 
 = paginate @stories
