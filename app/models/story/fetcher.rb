@@ -84,7 +84,6 @@ module Story::Fetcher
     res = results
     if res.count == 0
       update_attributes(fetcher_comment: "#{Time.now.strftime('%d.%m.%Y')}: Найдено 0 результатов, попробуйте уточнить название рассказа", last_fetched_at: Time.now)
-      puts "0 results for #{name}"
     elsif res.count == 1
       parse_story_page(res.first[:link_to_page])
       # open and parse page
@@ -94,12 +93,10 @@ module Story::Fetcher
         if stry
           parse_story_page(stry[:link_to_page])
         else
-          puts "Many results for #{name}"
           update_attributes(fetcher_comment: get_many_results_string(res), last_fetched_at: Time.now)
         end
       else
         # try to find page with date
-        puts "Many results for #{name}"
         update_attributes(fetcher_comment: get_many_results_string(res), last_fetched_at: Time.now)
       end
     end
