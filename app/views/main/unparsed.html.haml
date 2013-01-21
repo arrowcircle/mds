@@ -29,5 +29,6 @@
           - if can_edit?
             = link_to "Ред.", [:edit, story.author, story], :class => 'btn btn-mini', :remote => true
           = link_to "Искать", story.to_search_string, :class => 'btn btn-mini', :target => "_BLANK"
+          = "#{story.last_fetched_at} --- #{story.updated_at}"
 
 = paginate @stories
