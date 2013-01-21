@@ -33,7 +33,7 @@ module Story::Fetcher
   end
 
   def get_many_results_string(results_hash)
-    res = "#{Time.now}: Найдено несколько результатов, необходимо уточнить: <br/>"
+    res = "#{Time.now.strftime('%d.%m.%Y')}: Найдено несколько результатов, необходимо уточнить: <br/>"
     results_hash.each do |r|
       res << "#{r[:position]} ---- #{r[:date]} (#{r[:station]})} <br/>"
     end
