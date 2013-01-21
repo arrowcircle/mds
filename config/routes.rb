@@ -3,8 +3,13 @@ Mds::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   put 'update_password' => "main#update_password", :as => :update_password
   resources :authors do
+    get 'merge_form', :on => :member
+    put 'merge', :on => :member
+    get :autocomplete_author_name, :on => :collection
     get 'page/:page', :action => :index, :on => :collection
     resources :stories do
+      get 'move_form', :on => :member
+      put 'move', :on => :member
       get :autocomplete_tag_name, :on => :collection
       resources :playlists
     end

@@ -10,6 +10,7 @@
   - if can_edit?
     = link_to "Ред.", edit_author_path(@author), :class => 'btn btn-mini', :remote => true
   - if can_destroy?
+    = link_to "Слияние", merge_form_author_path(@author), :class => 'btn btn-mini', :remote => true
     = link_to "Удалить", author_path(@author), :method => :delete, :confirm => "Точно удалить?", :class => 'btn btn-mini btn-danger'
 
 

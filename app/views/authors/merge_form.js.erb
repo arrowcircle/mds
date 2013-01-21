@@ -1,0 +1,6 @@
+<% if @new_author %>
+  window.location.href = "<%= author_stories_path(@new_author)%>";
+<% else %>
+  $("#modal_window").html("<%= j render('merge_form')%>");
+<% end %>
+$('#modal_window').modal('toggle');

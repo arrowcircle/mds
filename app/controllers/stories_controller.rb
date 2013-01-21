@@ -4,6 +4,22 @@ class StoriesController < ApplicationController
   before_filter :check_edit_access, only: [:edit, :update]
 
   autocomplete :tag, :name, :class_name => 'ActsAsTaggableOn::Tag'
+
+  def move_form
+    @story = @author.stories.find(params[:id])
+  end
+
+  def move
+    @story = @author.stories.find(params[:id])
+    @new_author = Author.where(id: params[:new_author_id]).try(:first)
+    if @new_author
+      @story.update_attributes(author_id: @new_author.id)
+      render "move_form"
+    else
+      render "move_form"
+    end
+  end
+
   # GET /stories
   # GET /stories.json
   def index

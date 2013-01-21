@@ -1,5 +1,6 @@
  #coding: utf-8
 class AuthorsController < ApplicationController
+  autocomplete :author, :name, :extra_data => [:id]
   # GET /authors
   # GET /authors.json
   def index
@@ -15,6 +16,20 @@ class AuthorsController < ApplicationController
       redirect_to [@author, :stories]
     else
       redirect_to authors_path
+    end
+  end
+
+  def merge_form
+    @author = Author.find(params[:id])
+  end
+
+  def merge
+    @author = Author.find(params[:id])
+    @new_author = @author.merge(params[:author_id])
+    if @new_author
+      render "merge_form"
+    else
+      render "merge_form"
     end
   end
 
@@ -49,7 +64,7 @@ class AuthorsController < ApplicationController
     if @author.update_attributes(params[:author])
       render "create"
     else
-      render "form" 
+      render "form"
     end
   end
 

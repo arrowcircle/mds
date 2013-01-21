@@ -1,0 +1,18 @@
+= form_for [:merge, @author], :remote => true, :html => {:class => 'form-horizontal'} do |f|
+  .modal-header
+    %button.close{:type => "button", "data-dismiss" => "modal"}×
+    %h3 Объединение авторов
+  .modal-body
+    %p
+      ВНИМАНИЕ!!!
+      %br
+      Слияние перенесет все рассказы #{@author.name} к рассказам другого автора
+      .control-group
+        = label_tag "Объединить в автора", nil, :class => 'control-label'
+        .controls
+          = autocomplete_field_tag 'author', '', autocomplete_author_name_authors_path, :size => 75, :update_elements => {:id => '#author_id'}
+          = hidden_field_tag :author_id, nil
+
+  .modal-footer
+    = link_to "Назад", "#", :class => "btn", "data-dismiss" => "modal"
+    = f.submit "Объединить", :class => 'btn btn-danger'

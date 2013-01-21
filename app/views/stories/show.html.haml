@@ -13,6 +13,7 @@
   - if can_edit?
     = link_to "Ред.", edit_author_story_path(@author, @story), :class => 'btn btn-mini', :remote => true
   - if can_destroy?
+    = link_to "Перенести", move_form_author_story_path(@author, @story), :class => 'btn btn-mini', :remote => true
     = link_to "Удалить", author_story_path(@author, @story), :method => :delete, :confirm => "Точно удалить?", :class => 'btn btn-mini btn-danger'
 %p
   = story_show_radio @story.radio
