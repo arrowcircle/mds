@@ -1,4 +1,5 @@
 class Story < ActiveRecord::Base
+  include Story::Fetcher
   belongs_to :author
   has_many :playlists, :order => :startmin, :dependent => :destroy
   has_many :links, :dependent => :destroy
@@ -6,7 +7,7 @@ class Story < ActiveRecord::Base
 
   accepts_nested_attributes_for :links, :allow_destroy => true
 
-  attr_accessible :author_id, :completed, :date, :link, :name, :position, :radio, :links_attributes, :tag_list
+  attr_accessible :author_id, :completed, :date, :link, :name, :position, :radio, :links_attributes, :tag_list, :fetcher_comment
 
   validates :name, :presence =>  true
 

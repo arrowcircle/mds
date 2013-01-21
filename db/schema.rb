@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120914144413) do
+ActiveRecord::Schema.define(:version => 20130121114430) do
 
   create_table "artists", :force => true do |t|
     t.string   "name"
@@ -72,10 +72,11 @@ ActiveRecord::Schema.define(:version => 20120914144413) do
     t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "completed",  :default => false, :null => false
+    t.boolean  "completed",       :default => false, :null => false
     t.string   "link"
     t.date     "date"
     t.integer  "radio"
+    t.text     "fetcher_comment"
   end
 
   add_index "stories", ["author_id"], :name => "author_id"
