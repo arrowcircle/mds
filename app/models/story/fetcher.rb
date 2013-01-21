@@ -44,8 +44,12 @@ module Story::Fetcher
     doc = Nokogiri::HTML(open(url))
     info = doc.search("#attachtitle").inner_text.gsub("Вернуться в каталог", "").split("\n").map(&:squish)
     links_array = []
-    doc.search("#catalogtable center table tbody tr").each do |tr|
-      links_array << tr.search("td")[3].search("a")[0].attributes["href"].value
+    begin
+      doc.search("#catalogtable center table tbody tr").each do |tr|
+        links_array << tr.search("td")[3].search("a")[0].attributes["href"].value
+      end
+    rescue
+      puts "error parsing links for #{name}"
     end
     date_array = info[2].gsub("Дата выхода в эфир: ", "").split(".").reverse
     air_date = nil
@@ -65,6 +69,7 @@ module Story::Fetcher
     attrs.merge!(radio: station) if station
     attrs.merge!(link: links_array[0]) if links_array.size > 0
     attrs.merge!(date: air_date) if air_date
+    attrs.merge!(last_fetched_at: Time.now)
     update_attributes(attrs)
     if links_array.size > 1
       links_array[1..-1].each do |lnk|
@@ -78,15 +83,18 @@ module Story::Fetcher
   def parse_info_from_site
     res = results
     if res.count == 0
-      update_attributes(fetcher_comment: "#{Time.now}: Найдено 0 результатов, попробуйте уточнить название рассказа")
-    elsif results_count(doc) == 1
+      update_attributes(fetcher_comment: "#{Time.now}: Найдено 0 результатов, попробуйте уточнить название рассказа", last_fetched_at: Time.now)
+      puts "0 results for #{name}"
+    elsif res.count == 1
+      puts "parsing #{name}"
       parse_story_page(res.first[:link_to_page])
       # open and parse page
-    elsif results_count(doc) > 1
+    elsif res.count > 1
+      puts "Many results for #{name}"
       if date
       else
         # try to find page with date
-        update_attributes(fetcher_comment: get_many_results_string(res))
+        update_attributes(fetcher_comment: get_many_results_string(res), last_fetched_at: Time.now)
       end
     end
   end
