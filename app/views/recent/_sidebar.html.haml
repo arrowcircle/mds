@@ -11,3 +11,6 @@
     %li{:class => ["#{'active' if action_name == 'requests'}"]}
       =link_to recent_requests_path do
         Запросы
+    %li{:class => ["#{'active' if action_name == 'unparsed'}"]}
+      =link_to unparsed_path do
+        Помощь
