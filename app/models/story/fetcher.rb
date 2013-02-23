@@ -62,13 +62,7 @@ module Story::Fetcher
   def parse_story_page url
     doc = Nokogiri::HTML(open(url))
     info = doc.search("#attachtitle").inner_text.gsub("Вернуться в каталог", "").split("\n").map(&:squish)
-    begin
-      links_array = doc.search("#catalogtable center table tbody tr").collect do |tr|
-        tr.search("td")[3].search("a")[0].attributes["href"].value
-      end
-    rescue
-      puts "error parsing links for #{name}"
-    end
+    links_array = extract_links_array(doc)
     air_date = extract_air_date(info[2])
     station = get_station(info[4].gsub("Радиостанция: ", ""))
     attrs = {}

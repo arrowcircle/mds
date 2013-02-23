@@ -28,4 +28,15 @@ module Story::Fetcher::Extractors
       nil
     end
   end
+
+  def extract_links_array doc
+    begin
+      doc.search("#catalogtable center table tbody tr").collect do |tr|
+        tr.search("td")[3].search("a")[0].attributes["href"].value
+      end
+    rescue
+      puts "error parsing links for #{name}"
+      nil
+    end
+  end
 end
