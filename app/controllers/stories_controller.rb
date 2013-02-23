@@ -1,5 +1,6 @@
 #coding: utf-8
 class StoriesController < ApplicationController
+  include Movable
   before_filter :get_author, :filter_params
   before_filter :check_edit_access, only: [:edit, :update]
 
@@ -7,21 +8,6 @@ class StoriesController < ApplicationController
 
   def move_form
     @story = @author.stories.find(params[:id])
-  end
-
-  def move
-    if user_signed_in? && current_user.can_destroy?
-      @story = @author.stories.find(params[:id])
-      @new_author = Author.where(id: params[:new_author_id]).try(:first)
-      if @new_author
-        @story.update_attributes(author_id: @new_author.id)
-        render "move_form"
-      else
-        render "move_form"
-      end
-    else
-      render "move_form"
-    end
   end
 
   # GET /stories

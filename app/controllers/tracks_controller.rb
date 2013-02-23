@@ -1,24 +1,10 @@
 #coding: utf-8
 class TracksController < ApplicationController
+  include Movable
   before_filter :get_artist
 
   def move_form
     @track = @artist.tracks.find(params[:id])
-  end
-
-  def move
-    if user_signed_in? && current_user.can_destroy?
-      @track = @artist.tracks.find(params[:id])
-      @new_artist = Artist.where(id: params[:new_artist_id]).try(:first)
-      if @new_artist
-        @track.update_attributes(artist_id: @new_artist.id)
-        render "move_form"
-      else
-        render "move_form"
-      end
-    else
-      render "move_form"
-    end
   end
 
   def search

@@ -1,4 +1,4 @@
-<% if @new_author %>
+<% if @new_artist %>
   window.location.href = "<%= artist_track_path(@new_artist, @track)%>";
 <% else %>
   $("#modal_window").html("<%= j render('move_form')%>");
