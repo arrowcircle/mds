@@ -11,3 +11,14 @@
  *= require_self
  *= require_tree .
 */
+
+a.ico-msocial {
+  display: inline-block; width: 13px; height: 13px;
+  background: image-url("search_icons.png") no-repeat 0 0;
+  margin-left: 1px;
+  &[title="Discogs.com"] {background-position: 0 0;}
+  &[title="vk.com"] {background-position: -13px 0;}
+  &[title="Grooveshark.com"] {background-position: -26px 0;}
+  &[title="Яндекс.Музыка"] {background-position: -39px 0;}
+  &[title="Muzebra.com"] {background-position: -52px 0;}
+}
