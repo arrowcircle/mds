@@ -110,12 +110,16 @@ module Story::Fetcher
     end
   end
 
+  def update_no_results
+    update_attributes(fetcher_comment: "#{Time.now.strftime('%d.%m.%Y')}: Найдено 0 результатов, попробуйте уточнить название рассказа", last_fetched_at: Time.now)
+  end
+
   # main method
   def parse_info_from_site
     if results.count == 0
-      update_attributes(fetcher_comment: "#{Time.now.strftime('%d.%m.%Y')}: Найдено 0 результатов, попробуйте уточнить название рассказа", last_fetched_at: Time.now)
+      update_no_results
     elsif results.count == 1
-      parse_story_page(res.first[:link_to_page])
+      parse_story_page(results.first[:link_to_page])
       # open and parse page
     elsif results.count > 1
       parse_pack_of_results(results)
