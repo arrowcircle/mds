@@ -3,6 +3,7 @@ require 'open-uri'
 require 'nokogiri'
 
 module Story::Fetcher
+  include Story::Fetcher::Extractors
   URL = "http://mds-club.ru/cgi-bin/index.cgi?r=84&lang=rus&sbr=1&posits=0&filter=0&article=0&sortby=20&search="
 
   def to_fetch_date
@@ -19,27 +20,6 @@ module Story::Fetcher
 
   def results
     @results ||= get_results
-  end
-
-  def extract_position tds
-    tds[0].search("a")[1].inner_text
-  end
-
-  def extract_link tds
-    tds[0].search("a")[1].attributes["href"].value
-  end
-
-  def extract_date tds
-    tds[3].inner_text
-  end
-
-  def extract_tration tds
-    tds[5].inner_text
-  end
-
-  def parse_result_tr tds
-    tds = tr.search("td")
-    {}.merge!(:position => extract_position(tds), :link_to_page => extract_link(tds), :date => extract_date(tds), :station => extract_station(tds))
   end
 
   def get_results
