@@ -36,20 +36,6 @@ module Story::Fetcher
     res
   end
 
-  def get_station text
-    case text
-      when "Станция" then 0
-      when "Муз-ТВ" then 1
-      when "Пионер FM" then 4
-      when "Подкаст" then 6
-      when "Станция 106.8" then 7
-      when "Серебряный дождь" then 2
-      when "NRJ" then 3
-      when "Энергия" then 3
-      else 5
-    end
-  end
-
   def update_links links_array
     if links_array.size > 1
       self.links.destroy_all
@@ -61,10 +47,9 @@ module Story::Fetcher
 
   def parse_story_page url
     doc = Nokogiri::HTML(open(url))
-    info = doc.search("#attachtitle").inner_text.gsub("Вернуться в каталог", "").split("\n").map(&:squish)
     links_array = extract_links_array(doc)
-    air_date = extract_air_date(info[2])
-    station = get_station(info[4].gsub("Радиостанция: ", ""))
+    air_date = extract_air_date(doc)
+    station = get_station(doc)
     attrs = {}
     attrs.merge!(radio: station) if station
     attrs.merge!(link: links_array[0]) if links_array.size > 0
