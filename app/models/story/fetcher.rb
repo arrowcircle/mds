@@ -22,8 +22,7 @@ module Story::Fetcher
   end
 
   def parse_result_tr tr
-    hash = {}
-    hash.merge!(:position => tr.search("td")[0].search("a")[1].inner_text, :link_to_page => tr.search("td")[0].search("a")[1].attributes["href"].value, :date => tr.search("td")[3].inner_text, :station => tr.search("td")[5].inner_text)
+    {}.merge!(:position => tr.search("td")[0].search("a")[1].inner_text, :link_to_page => tr.search("td")[0].search("a")[1].attributes["href"].value, :date => tr.search("td")[3].inner_text, :station => tr.search("td")[5].inner_text)
   end
 
   def get_results
