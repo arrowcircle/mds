@@ -19,4 +19,13 @@ module Story::Fetcher::Extractors
     tds = tr.search("td")
     {}.merge!(:position => extract_position(tds), :link_to_page => extract_link(tds), :date => extract_date(tds), :station => extract_station(tds))
   end
+
+  def extract_air_date text
+    date_array = text[2].gsub("Дата выхода в эфир: ", "").split(".").reverse
+    if date_array.size == 3
+      Date.civil(date_array[0].to_i, date_array[1].to_i, date_array[2].to_i)
+    else
+      nil
+    end
+  end
 end

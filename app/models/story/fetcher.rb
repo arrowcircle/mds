@@ -50,7 +50,16 @@ module Story::Fetcher
     end
   end
 
-  def parse_story_page(url)
+  def update_links links_array
+    if links_array.size > 1
+      self.links.destroy_all
+      links_array[1..-1].each do |lnk|
+        Link.create(story_id: id, link: lnk)
+      end
+    end
+  end
+
+  def parse_story_page url
     doc = Nokogiri::HTML(open(url))
     info = doc.search("#attachtitle").inner_text.gsub("Вернуться в каталог", "").split("\n").map(&:squish)
     begin
@@ -60,8 +69,7 @@ module Story::Fetcher
     rescue
       puts "error parsing links for #{name}"
     end
-    date_array = info[2].gsub("Дата выхода в эфир: ", "").split(".").reverse
-    air_date = Date.civil(date_array[0].to_i, date_array[1].to_i, date_array[2].to_i) if date_array.size == 3
+    air_date = extract_air_date(info[2])
     station = get_station(info[4].gsub("Радиостанция: ", ""))
     attrs = {}
     attrs.merge!(radio: station) if station
@@ -69,12 +77,7 @@ module Story::Fetcher
     attrs.merge!(date: air_date) if air_date
     attrs.merge!(last_fetched_at: Time.now, fetcher_comment: nil, parsed: true)
     update_attributes(attrs)
-    if links_array.size > 1
-      links_array[1..-1].each do |lnk|
-        self.links.destroy_all
-        Link.create(story_id: id, link: lnk)
-      end
-    end
+    update_links(links_array)
   end
 
   def parse_pack_of_results results
