@@ -95,26 +95,30 @@ module Story::Fetcher
     end
   end
 
-  # main method
-  def parse_info_from_site
-    res = results
-    if res.count == 0
-      update_attributes(fetcher_comment: "#{Time.now.strftime('%d.%m.%Y')}: Найдено 0 результатов, попробуйте уточнить название рассказа", last_fetched_at: Time.now)
-    elsif res.count == 1
-      parse_story_page(res.first[:link_to_page])
-      # open and parse page
-    elsif res.count > 1
-      if date
-        stry = res.find {|x| date.strftime("%d.%m.%Y") == x[:date]}
-        if stry
-          parse_story_page(stry[:link_to_page])
-        else
-          update_attributes(fetcher_comment: get_many_results_string(res), last_fetched_at: Time.now)
-        end
+
+  def parse_pack_of_results results
+    if date
+      stry = results.find {|x| date.strftime("%d.%m.%Y") == x[:date]}
+      if stry
+        parse_story_page(stry[:link_to_page])
       else
-        # try to find page with date
         update_attributes(fetcher_comment: get_many_results_string(res), last_fetched_at: Time.now)
       end
+    else
+      # try to find page with date
+      update_attributes(fetcher_comment: get_many_results_string(res), last_fetched_at: Time.now)
+    end
+  end
+
+  # main method
+  def parse_info_from_site
+    if results.count == 0
+      update_attributes(fetcher_comment: "#{Time.now.strftime('%d.%m.%Y')}: Найдено 0 результатов, попробуйте уточнить название рассказа", last_fetched_at: Time.now)
+    elsif results.count == 1
+      parse_story_page(res.first[:link_to_page])
+      # open and parse page
+    elsif results.count > 1
+      parse_pack_of_results(results)
     end
   end
 end
