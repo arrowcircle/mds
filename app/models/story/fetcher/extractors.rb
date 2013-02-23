@@ -1,3 +1,5 @@
+# coding: utf-8
+
 module Story::Fetcher::Extractors
   def extract_position tds
     tds[0].search("a")[1].inner_text

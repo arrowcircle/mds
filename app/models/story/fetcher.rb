@@ -3,7 +3,7 @@ require 'open-uri'
 require 'nokogiri'
 
 module Story::Fetcher
-  include Story::Fetcher::Extractors
+  include Extractors
   URL = "http://mds-club.ru/cgi-bin/index.cgi?r=84&lang=rus&sbr=1&posits=0&filter=0&article=0&sortby=20&search="
 
   def to_fetch_date
