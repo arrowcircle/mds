@@ -56,31 +56,33 @@ module Story::Fetcher
     res
   end
 
+  def get_station text
+    case text
+      when "Станция" then 0
+      when "Муз-ТВ" then 1
+      when "Пионер FM" then 4
+      when "Подкаст" then 6
+      when "Станция 106.8" then 7
+      when "Серебряный дождь" then 2
+      when "NRJ" then 3
+      when "Энергия" then 3
+      else 5
+    end
+  end
+
   def parse_story_page(url)
     doc = Nokogiri::HTML(open(url))
     info = doc.search("#attachtitle").inner_text.gsub("Вернуться в каталог", "").split("\n").map(&:squish)
-    links_array = []
     begin
-      doc.search("#catalogtable center table tbody tr").each do |tr|
-        links_array << tr.search("td")[3].search("a")[0].attributes["href"].value
+      links_array = doc.search("#catalogtable center table tbody tr").collect do |tr|
+        tr.search("td")[3].search("a")[0].attributes["href"].value
       end
     rescue
       puts "error parsing links for #{name}"
     end
     date_array = info[2].gsub("Дата выхода в эфир: ", "").split(".").reverse
-    air_date = nil
     air_date = Date.civil(date_array[0].to_i, date_array[1].to_i, date_array[2].to_i) if date_array.size == 3
-    station = case info[4].gsub("Радиостанция: ", "")
-    when "Станция" then 0
-    when "Муз-ТВ" then 1
-    when "Пионер FM" then 4
-    when "Подкаст" then 6
-    when "Станция 106.8" then 7
-    when "Серебряный дождь" then 2
-    when "NRJ" then 3
-    when "Энергия" then 3
-    else 5
-    end
+    station = get_station(info[4].gsub("Радиостанция: ", ""))
     attrs = {}
     attrs.merge!(radio: station) if station
     attrs.merge!(link: links_array[0]) if links_array.size > 0
@@ -94,7 +96,6 @@ module Story::Fetcher
       end
     end
   end
-
 
   def parse_pack_of_results results
     if date
