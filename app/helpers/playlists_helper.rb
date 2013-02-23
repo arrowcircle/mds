@@ -21,14 +21,31 @@ module PlaylistsHelper
     end
   end
 
+  def discogs_search playlist
+    link_to image_tag("http://www.discogs.com/favicon.ico", :size => "13x13"), "http://www.discogs.com/search?q=#{playlist.track.full_name}&type=all", :target => "_blank", :alt => 'Discogs.com'
+  end
+
+  def vk_search playlist
+    link_to image_tag("http://vkontakte.ru/favicon.ico", :size => "13x13"), "http://vk.com/audio?q=#{playlist.track.full_name}", :target => "_blank", :alt => "vk.com"
+  end
+
+  def grooveshark_search playlist
+    link_to image_tag("http://grooveshark.com/webincludes/images/favicon.ico", :size => "13x13"), "http://grooveshark.com/#!/search?q=#{playlist.track.full_name}", :target => "_blank", :alt => "Grooveshark.com"
+  end
+
+  def ya_search playlist
+    link_to image_tag("http://music.yandex.ru/favicon.ico", :size => "13x13"), "http://music.yandex.ru/#!/search?text=#{playlist.track.full_name}", :target => "_blank", :alt => "Яндекс.Музыка"
+  end
+
+  def muzebra_search playlist
+    link_to image_tag("http://muzebra.com/favicon.ico", :size => "13x13"), "http://muzebra.com/search/?q=#{playlist.track.full_name}", :target => "_blank", :alt => "Muzebra.com"
+  end
+
+
   def search_links playlist
     if playlist.try(:track)
       search = raw "Искать на: "
-      discogs = link_to image_tag("http://www.discogs.com/favicon.ico", :size => "13x13"), "http://www.discogs.com/search?q=#{playlist.track.full_name}&type=all", :target => "_blank", :alt => 'Discogs.com'
-      vk = link_to image_tag("http://vkontakte.ru/favicon.ico", :size => "13x13"), "http://vk.com/audio?q=#{playlist.track.full_name}", :target => "_blank", :alt => "vk.com"
-      gs = link_to image_tag("http://grooveshark.com/webincludes/images/favicon.ico", :size => "13x13"), "http://grooveshark.com/#!/search?q=#{playlist.track.full_name}", :target => "_blank", :alt => "Grooveshark.com"
-      ya = link_to image_tag("http://music.yandex.ru/favicon.ico", :size => "13x13"), "http://music.yandex.ru/#!/search?text=#{playlist.track.full_name}", :target => "_blank", :alt => "Яндекс.Музыка"
-      search + discogs + vk + gs + ya
+      search + discogs_search(playlist) + vk_search(playlist) + grooveshark_search(playlist) + ya_search(playlist) + muzebra_search(playlist)
     end
   end
 
