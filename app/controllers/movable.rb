@@ -23,14 +23,22 @@ module Movable
       end
     end
 
+    def find_story_and_author
+      @story = @author.stories.find(params[:id])
+      @new_author = Author.where(id: params[:new_author_id]).try(:first)
+    end
+
+    def find_track_and_artist
+      @track = @artist.tracks.find(params[:id])
+      @new_artist = Artist.where(id: params[:new_artist_id]).try(:first)
+    end
+
     def get_parent_and_children
       case self.class.name
         when "StoriesController"
-          @story = @author.stories.find(params[:id])
-          @new_author = Author.where(id: params[:new_author_id]).try(:first)
+          find_story_and_author
         when "TracksController"
-          @track = @artist.tracks.find(params[:id])
-          @new_artist = Artist.where(id: params[:new_artist_id]).try(:first)
+          find_track_and_artist
       end
     end
 
