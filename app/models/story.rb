@@ -1,5 +1,6 @@
 class Story < ActiveRecord::Base
   include Story::Fetcher
+  include Searchable
   belongs_to :author
   has_many :playlists, :order => :startmin, :dependent => :destroy
   has_many :links, :dependent => :destroy
@@ -10,14 +11,6 @@ class Story < ActiveRecord::Base
   attr_accessible :author_id, :completed, :date, :link, :name, :position, :radio, :links_attributes, :tag_list, :fetcher_comment, :last_fetched_at, :parsed
 
   validates :name, :presence =>  true
-
-  def self.search(query)
-    if query && query.length > 0
-      Story.where("name ILIKE ?", "%#{query}%").order("name")
-    else
-      Story.order("authors.name")
-    end
-  end
 
   def full_name
     author.name+" - " + name

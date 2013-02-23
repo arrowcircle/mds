@@ -1,15 +1,8 @@
 class Author < ActiveRecord::Base
+  include Searchable
   attr_accessible :name
   has_many :stories
   validates :name, :presence => true
-
-  def self.search(query)
-    if query && query.length > 0
-      Author.includes(:stories).where("authors.name ILIKE ?", "%#{query}%").order("authors.name")
-    else
-      Author.includes(:stories).order("authors.name")
-    end
-  end
 
   def merge(author_id)
     author = Author.where(id: author_id).try(:first)
