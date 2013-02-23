@@ -21,15 +21,17 @@ module Story::Fetcher
     @results ||= get_results
   end
 
+  def parse_result_tr tr
+    hash = {}
+    hash.merge!(:position => tr.search("td")[0].search("a")[1].inner_text, :link_to_page => tr.search("td")[0].search("a")[1].attributes["href"].value, :date => tr.search("td")[3].inner_text, :station => tr.search("td")[5].inner_text)
+  end
+
   def get_results
     doc = fetch_search_results
     res = []
-    doc.search("#catalogtable center table tbody tr").each do |tr|
-      hash = {}
-      hash.merge!(:position => tr.search("td")[0].search("a")[1].inner_text, :link_to_page => tr.search("td")[0].search("a")[1].attributes["href"].value, :date => tr.search("td")[3].inner_text, :station => tr.search("td")[5].inner_text)
-      res << hash
+    doc.search("#catalogtable center table tbody tr").collect do |tr|
+      parse_result_tr(tr)
     end
-    res
   end
 
   def get_many_results_string(results_hash)
