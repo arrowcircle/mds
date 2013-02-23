@@ -1,5 +1,6 @@
 class Author < ActiveRecord::Base
   include Searchable
+  include Parametrizer
   attr_accessible :name
   has_many :stories
   validates :name, :presence => true
@@ -15,9 +16,4 @@ class Author < ActiveRecord::Base
     end
   end
 
-  def to_param
-    n = Russian.translit(self.name)
-    slug = n.gsub(' ','-').gsub(/[^\x00-\x7F]+/, '').gsub(/[^\w_ \-]+/i,   '').gsub(/[ \-]+/i,      '-').gsub(/^\-|\-$/i,      '').downcase
-    "#{id}-#{slug}"
-  end
 end
