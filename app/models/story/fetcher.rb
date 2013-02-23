@@ -27,9 +27,7 @@ module Story::Fetcher
   end
 
   def get_results
-    doc = fetch_search_results
-    res = []
-    doc.search("#catalogtable center table tbody tr").collect do |tr|
+    fetch_search_results.search("#catalogtable center table tbody tr").collect do |tr|
       parse_result_tr(tr)
     end
   end
