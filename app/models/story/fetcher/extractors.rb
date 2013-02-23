@@ -21,7 +21,7 @@ module Story::Fetcher::Extractors
   end
 
   def extract_air_date doc
-    date_array = doc.search("#attachtitle").inner_text.gsub("Вернуться в каталог", "").split("\n").map(&:squish)[2].gsub("Дата выхода в эфир: ", "").split(".").reverse
+    date_array = get_info(doc)[2].gsub("Дата выхода в эфир: ", "").split(".").reverse
     if date_array.size == 3
       Date.civil(date_array[0].to_i, date_array[1].to_i, date_array[2].to_i)
     else
@@ -29,8 +29,12 @@ module Story::Fetcher::Extractors
     end
   end
 
+  def get_info doc
+    doc.search("#attachtitle").inner_text.gsub("Вернуться в каталог", "").split("\n").map(&:squish)
+  end
+
   def get_station doc
-    case doc.search("#attachtitle").inner_text.gsub("Вернуться в каталог", "").split("\n").map(&:squish)[4].gsub("Радиостанция: ", "")
+    case get_info(doc)[4].gsub("Радиостанция: ", "")
       when "Станция" then 0
       when "Муз-ТВ" then 1
       when "Пионер FM" then 4
