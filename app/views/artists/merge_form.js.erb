@@ -1,5 +1,5 @@
-<% if @new_artist %>
-  window.location.href = "<%= artist_tracks_path(@new_artist)%>";
+<% if @new_parent %>
+  window.location.href = "<%= artist_tracks_path(@new_parent)%>";
 <% else %>
   $("#modal_window").html("<%= j render('merge_form')%>");
 <% end %>

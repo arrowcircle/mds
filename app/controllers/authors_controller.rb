@@ -1,5 +1,6 @@
  #coding: utf-8
 class AuthorsController < ApplicationController
+  include Mergable
   autocomplete :author, :name, :extra_data => [:id]
   # GET /authors
   # GET /authors.json
@@ -21,20 +22,6 @@ class AuthorsController < ApplicationController
 
   def merge_form
     @author = Author.find(params[:id])
-  end
-
-  def merge
-    if user_signed_in? && current_user.can_destroy?
-      @author = Author.find(params[:id])
-      @new_author = @author.merge(params[:author_id])
-      if @new_author
-        render "merge_form"
-      else
-        render "merge_form"
-      end
-    else
-      render "merge_form"
-    end
   end
 
   # GET /authors/new
