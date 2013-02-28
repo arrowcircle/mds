@@ -19,7 +19,7 @@ module Searchable
     def search(query)
       s = self.scoped
       s = s.includes(includes_symbol) if includes_symbol
-      s = s.where("#{search_table_name}.name ILIKE ?", "#{query}%") if query && query.length > 0
+      s = s.where("#{search_table_name}.name ILIKE ?", "%#{query.downcase}%") if query && query.length > 0
       s.order("#{search_table_name}.name")
     end
   end
