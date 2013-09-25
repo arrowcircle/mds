@@ -13,7 +13,7 @@ set :use_sudo, false
 set :scm, "git"
 set :repository, "git://github.com/arrowcircle/mds.git"
 set :branch, "master"
-set :rvm_ruby_string, '1.9.3@mds'
+set :rvm_ruby_string, '1.9.3-p327@mds'
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
