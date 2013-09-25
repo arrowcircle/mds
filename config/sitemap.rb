@@ -13,13 +13,13 @@ SitemapGenerator::Sitemap.create do
   Author.find_each do |author|
     add author_stories_path(author)
     author.stories.find_each do |story|
-      add [author, story]
+      add author_story_path(author, story)
     end
   end
   Artist.find_each do |artist|
     add artist_tracks_path(artist)
     artist.tracks.find_each do |track|
-      add [artist, track]
+      add artist_track_path(artist, track)
     end
   end
 
