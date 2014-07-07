@@ -38,7 +38,7 @@ namespace :unicorn do
   %w[start stop].each do |command|
     desc "#{command} unicorn"
     task command, roles: :app do
-      run "sudo service #{application} #{command}"
+      run "touch #{release_path}/tmp/restart.txt"
     end
     after "deploy:#{command}", "unicorn:#{command}"
   end
