@@ -13,7 +13,7 @@ set :use_sudo, false
 set :scm, "git"
 set :repository, "git://github.com/arrowcircle/mds.git"
 set :branch, "master"
-set :rvm_ruby_string, '1.9.3-p327@mds'
+set :rvm_ruby_string, '2.1.2@mds'
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
@@ -64,10 +64,10 @@ namespace :sync do
 
     run_locally "rsync --recursive --times --rsh=ssh --compress --human-readable --progress webmaster@verstka.redde.ru:#{current_path}/tmp/#{remote_settings["database"]}_dump tmp/"
 
-    run_locally "dropdb -U #{local_settings["username"]} --host=#{local_settings["host"]} --port=#{local_settings["port"]} #{local_settings["database"]}"
+    run_locally "rake db:rollback STEP=9999"
 
-    run_locally "createdb -U #{local_settings["username"]} --host=#{local_settings["host"]} --port=#{local_settings["port"]} -T template0 #{local_settings["database"]}"
     run_locally "pg_restore -U #{local_settings["username"]} --host=#{local_settings["host"]} --port=#{local_settings["port"]} -d #{local_settings["database"]} --no-owner tmp/#{remote_settings["database"]}_dump"
+    run_locally "rake db:schema:dump"
   end
 end
 
