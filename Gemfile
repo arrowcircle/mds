@@ -13,7 +13,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem "less-rails"
-  gem 'twitter-bootstrap-rails'
+  gem 'twitter-bootstrap-rails', "~> 2.2.8"
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', '~> 0.10.2', :platforms => :ruby
@@ -27,7 +27,7 @@ gem 'nokogiri'
 gem 'unicode'
 gem 'airbrake', "3.1.2"
 gem 'jquery-rails'
-#gem 'turbo-sprockets-rails3'
+gem 'turbo-sprockets-rails3'
 gem 'haml-rails'
 gem 'devise'
 gem 'russian'

@@ -52,23 +52,21 @@ namespace :unicorn do
   after "deploy:restart", "unicorn:restart"
 end
 
-namespace :sync do
-  desc "Dump remote production postgresql database, rsync to localhost"
-  task :db do
-    get("#{current_path}/config/database.yml", "tmp/database.yml")
+desc "Dump remote production postgresql database, rsync to localhost"
+task :sync do
+  get("#{current_path}/config/database.yml", "tmp/database.yml")
 
-    remote_settings = YAML::load_file("tmp/database.yml")["production"]
-    local_settings  = YAML::load_file("config/database.yml")["development"]
+  remote_settings = YAML::load_file("tmp/database.yml")["production"]
+  local_settings  = YAML::load_file("config/database.yml")["development"]
 
-    run "export PGPASSWORD=#{remote_settings["password"]} && pg_dump --host=#{remote_settings["host"]} --port=#{remote_settings["port"]} --username #{remote_settings["username"]} --file #{current_path}/tmp/#{remote_settings["database"]}_dump --no-owner -Fc #{remote_settings["database"]}"
+  run "export PGPASSWORD=#{remote_settings["password"]} && pg_dump --host=#{remote_settings["host"]} --port=#{remote_settings["port"]} --username #{remote_settings["username"]} --file #{current_path}/tmp/#{remote_settings["database"]}_dump --no-owner -Fc #{remote_settings["database"]}"
 
-    run_locally "rsync --recursive --times --rsh=ssh --compress --human-readable --progress webmaster@verstka.redde.ru:#{current_path}/tmp/#{remote_settings["database"]}_dump tmp/"
+  run_locally "rsync --recursive --times --rsh=ssh --compress --human-readable --progress webmaster@verstka.redde.ru:#{current_path}/tmp/#{remote_settings["database"]}_dump tmp/"
 
-    run_locally "rake db:rollback STEP=9999"
+  run_locally "rake db:rollback STEP=9999"
 
-    run_locally "pg_restore -U #{local_settings["username"]} --host=#{local_settings["host"]} --port=#{local_settings["port"]} -d #{local_settings["database"]} --no-owner tmp/#{remote_settings["database"]}_dump"
-    run_locally "rake db:schema:dump"
-  end
+  run_locally "pg_restore -U #{local_settings["username"]} --host=#{local_settings["host"]} --port=#{local_settings["port"]} -d #{local_settings["database"]} --no-owner tmp/#{remote_settings["database"]}_dump"
+  run_locally "rake db:schema:dump"
 end
 
 after "deploy:finalize_update", "deploy:create_symlink_uploads"

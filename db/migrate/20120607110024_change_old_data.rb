@@ -9,5 +9,6 @@ class ChangeOldData < ActiveRecord::Migration
   end
 
   def down
+    add_column :stories, :full, :boolean
   end
 end
