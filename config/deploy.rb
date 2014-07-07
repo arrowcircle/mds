@@ -35,21 +35,13 @@ namespace :deploy do
 end
 
 namespace :unicorn do
-  %w[start stop].each do |command|
+  %w[start stop restart].each do |command|
     desc "#{command} unicorn"
     task command, roles: :app do
       run "touch #{release_path}/tmp/restart.txt"
     end
     after "deploy:#{command}", "unicorn:#{command}"
   end
-
-  desc "restart unicorn"
-  task :restart, roles: :app do
-    run "sudo service #{application} stop"
-    sleep 2
-    run "sudo service #{application} start"
-  end
-  after "deploy:restart", "unicorn:restart"
 end
 
 desc "Dump remote production postgresql database, rsync to localhost"
