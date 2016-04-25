@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(:version => 20130121145509) do
     t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "completed",       :default => false, :null => false
+    t.boolean  "completed",       :default => false
     t.string   "link"
     t.date     "date"
     t.integer  "radio"
@@ -108,8 +108,8 @@ ActiveRecord::Schema.define(:version => 20130121145509) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                                :null => false
-    t.string   "encrypted_password",     :limit => 128,                :null => false
+    t.string   "email",                                 :default => "", :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"

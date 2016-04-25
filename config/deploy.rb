@@ -55,7 +55,7 @@ task :sync do
 
   run_locally "rsync --recursive --times --rsh=ssh --compress --human-readable --progress webmaster@verstka.redde.ru:#{current_path}/tmp/#{remote_settings["database"]}_dump tmp/"
 
-  run_locally "rake db:rollback STEP=9999"
+  run_locally "rake db:drop db:create"
 
   run_locally "pg_restore -U #{local_settings["username"]} --host=#{local_settings["host"]} --port=#{local_settings["port"]} -d #{local_settings["database"]} --no-owner tmp/#{remote_settings["database"]}_dump"
   run_locally "rake db:schema:dump"
