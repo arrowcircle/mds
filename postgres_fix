@@ -1,6 +1,0 @@
-$ su - postgres
-$ psql
-postgres=# ALTER DATABASE mds_development RENAME TO mds_dev;
-postgres=# CREATE DATABASE mds_production WITH ENCODING = 'UTF8' LC_CTYPE = 'ru_RU.UTF-8' TEMPLATE template0;
-postgres=# \q
-$ pg_dump mds_dev | psql mds_production

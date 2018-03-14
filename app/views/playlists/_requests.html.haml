@@ -1,6 +1,0 @@
-- unless @requests.empty?
-  %h2 Запросы на опознание
-  %table.table.table-striped
-    %tbody
-      = render :partial => "request", :collection => @requests, :as => :playlist
-  = paginate @requests

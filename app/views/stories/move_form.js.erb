@@ -1,6 +1,0 @@
-<% if @new_parent %>
-  window.location.href = "<%= author_story_path(@new_parent, @story)%>";
-<% else %>
-  $("#modal_window").html("<%= j render('move_form')%>");
-<% end %>
-$('#modal_window').modal('toggle');

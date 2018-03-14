@@ -1,4 +1,0 @@
-%h1 Теги
-%ul#tag-cloud
-  - tag_cloud Story.tag_counts, %w[s m l] do |tag, css_class|
-    %li= link_to tag.name, tag_path(tag.name), class: css_class
