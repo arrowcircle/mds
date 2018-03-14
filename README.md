@@ -1,24 +1,10 @@
-# README
+# Модель для сборки - плейлисты
+[https://mds.redde.ru](https://mds.redde.ru)
+[![Build Status](https://travis-ci.org/arrowcircle/mds.svg?branch=master)](https://travis-ci.org/arrowcircle/mds)
+[![Maintainability](https://api.codeclimate.com/v1/badges/45a9142908273b150803/maintainability)](https://codeclimate.com/github/arrowcircle/mds/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/45a9142908273b150803/test_coverage)](https://codeclimate.com/github/arrowcircle/mds/test_coverage)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Зависимости
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Ruby 2.5+
+* Postgresql 10+
