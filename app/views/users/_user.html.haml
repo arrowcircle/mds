@@ -1,7 +1,0 @@
-%tr
-  %td
-    .avatar= user_avatar_link user
-  %td
-    .title= link_to user.username, user
-    .user-text
-      Опознал треков: #{Playlist.where(identified_by: user.id).where("track_id is not null").count}

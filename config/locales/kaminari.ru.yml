@@ -1,8 +1,0 @@
-ru:
-  views:
-    pagination:
-      truncate: "..."
-      next: "Туда →"
-      previous: "← Сюда"
-      first: "В начало"
-      last: "В конец"

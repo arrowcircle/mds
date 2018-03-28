@@ -1,61 +1,51 @@
-#source 'https://gems.github.com'
-source "http://rubygems.org"
-gem 'rails', '3.2.11'
+source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+ruby '2.5.0'
 
-gem 'pg'
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 5.2.0.rc2'
+# Use postgresql as the database for Active Record
+gem 'pg', '>= 0.18', '< 2.0'
+# Use Puma as the app server
+gem 'puma', '~> 3.11'
+# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
+gem 'webpacker'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.5'
+# Use Redis adapter to run Action Cable in production
+# gem 'redis', '~> 4.0'
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem "less-rails"
-  gem 'twitter-bootstrap-rails', "~> 2.2.8"
+# Use ActiveStorage variant
+# gem 'mini_magick', '~> 4.8'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', '~> 0.10.2', :platforms => :ruby
-  gem 'therubyracer'
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development
 
-  gem 'uglifier', '>= 1.0.3'
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
+
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails'
+  gem 'capybara'
+end
+
+group :development do
+  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+  gem 'web-console', '>= 3.3.0'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 
-gem 'nokogiri'
-gem 'unicode'
-gem 'airbrake', "3.1.2"
-gem 'jquery-rails'
-gem 'turbo-sprockets-rails3'
-gem 'haml-rails'
-gem 'devise'
-gem 'russian'
-gem 'kaminari'
-gem 'carrierwave'
-gem 'mini_magick'
-gem 'quiet_assets', :group => :development
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'omniauth-twitter'
-gem 'omniauth-vkontakte'
-gem 'omniauth-facebook'
-
-gem 'acts-as-taggable-on'
-gem 'rails3-jquery-autocomplete'
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-gem 'unicorn'
-
-# Deploy with Capistrano
-gem 'capistrano'
-gem 'rvm-capistrano', require: false
-gem 'sitemap_generator'
-gem 'asset-image-opt'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
+# Application deps
+gem 'hamlit-rails'

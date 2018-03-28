@@ -1,4 +1,0 @@
-$("#modal_window").html("<%= escape_javascript(render 'form')%>");
-<% unless @artist.errors.any? %>
-  $('#modal_window').modal('toggle')
-<% end %>
