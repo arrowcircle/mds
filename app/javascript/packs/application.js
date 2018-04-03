@@ -8,4 +8,4 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import 'src/application.css'
-console.log('Hello World from Webpacker')
+import 'bootstrap/dist/css/bootstrap'

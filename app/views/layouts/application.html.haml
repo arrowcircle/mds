@@ -1,10 +1,15 @@
 !!!
 %html
   %head
-    %title Mds
+    %meta{ charset: 'utf-8' }
+    %meta{ content: 'width=device-width, initial-scale=1, shrink-to-fit=no', name: 'viewport' }
+    = stylesheet_pack_tag 'application'
     = csrf_meta_tags
-    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    = render 'logins'
-    = yield
+    %header
+      -# = render 'test'
+      = render 'navigation'
+    %main{ role: 'main' }
+      = render 'flashes'
+      = yield
+      = javascript_pack_tag 'application'
