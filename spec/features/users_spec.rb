@@ -16,8 +16,11 @@ feature 'Sign in' do
     expect(page).to have_content 'Signed in successfully.'
   end
 
-  scenario 'Shows error' do
+  scenario 'Shows error with wrong password' do
     visit new_user_session_url
-    expect(page).to have_content 'Welcome'
+    fill_in :user_email, with: 'abc@def.com'
+    fill_in :user_password, with: '123123aA'
+    click_button 'Log in'
+    expect(page).to have_content 'Invalid Email or password.'
   end
 end
