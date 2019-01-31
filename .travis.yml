@@ -1,5 +1,5 @@
 dist: xenial
-language: nodejs
+language: node_js
 services:
   - postgresql
 notifications:
