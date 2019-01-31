@@ -1,7 +1,7 @@
-- if user_signed_in?
-  = link_to current_user.username, edit_user_registration_path
-  = link_to 'Выход', destroy_user_session_path, method: :delete
-- else
-  = link_to 'Регистрация', new_user_registration_path
-  = link_to 'Вход', new_user_session_path
-  = link_to "Забыли пароль?", new_password_path('user')
+%ul.navbar-nav
+  - if user_signed_in?
+    %li.nav-item= link_to current_user.username, edit_user_registration_path, class: 'nav-link'
+    %li.nav-item= link_to 'Выход', destroy_user_session_path, method: :delete, class: 'nav-link'
+  - else
+    %li.nav-item= link_to 'Регистрация', new_user_registration_path, class: 'nav-link'
+    %li.nav-item= link_to 'Вход', new_user_session_path, class: 'nav-link'

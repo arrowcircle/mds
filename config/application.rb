@@ -28,6 +28,9 @@ module Mds
     # the framework and any gems in your application.
 
     # Don't generate system test files.
-    config.generators.system_tests = nil
+    config.generators do |g|
+      g.factory_bot false
+      g.system_tests = nil
+    end
   end
 end

@@ -1,4 +1,4 @@
-%nav.navbar.navbar-dark.bg-dark.box-shadow
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
   .container.d-flex.justify-content-between
     %a.navbar-brand.d-flex.align-items-center{:href => "#"}
       %svg.mr-2{:fill => "none", :height => "20", :stroke => "currentColor", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", :viewbox => "0 0 24 24", :width => "20", :xmlns => "http://www.w3.org/2000/svg"}
@@ -7,3 +7,4 @@
       %strong Album
     %button.navbar-toggler.collapsed{"aria-controls" => "navbarHeader", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarHeader", "data-toggle" => "collapse", :type => "button"}
       %span.navbar-toggler-icon
+  = render 'logins'
