@@ -7,6 +7,7 @@ notifications:
   email: false
 before_script:
   - nvm install 10.15.1
+  - sudo apt-get update && sudo apt-get install --no-install-recommends yarn
   - yarn
   - cp config/database.yml.ci config/database.yml
   - bundle exec rails db:create db:migrate
