@@ -32,6 +32,7 @@
 .rspec
 
 /db/*.sql
+/config/database.yml
 
 *.komodoproject
 *.swp
