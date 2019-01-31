@@ -6,6 +6,8 @@ rvm:
 notifications:
   email: false
 before_script:
+  - nvm install 10.5.1
+  - yarn
   - cp config/database.yml.ci config/database.yml
   - bundle exec rails db:create db:migrate
 script: bundle exec rspec
