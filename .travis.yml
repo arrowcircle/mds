@@ -1,7 +1,7 @@
 dist: xenial
 language: node_js
 node_js:
-  - 10.15.0
+  - 8.15.0
 services:
   - postgresql
 notifications:
