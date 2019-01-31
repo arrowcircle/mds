@@ -6,6 +6,6 @@ rvm:
 notifications:
   email: false
 before_script:
-  - cp config/database.yml.travis config/database.yml
+  - cp config/database.yml.ci config/database.yml
   - bundle exec rails db:create db:migrate
 script: bundle exec rspec
