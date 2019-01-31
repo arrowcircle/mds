@@ -5,6 +5,7 @@ services:
 notifications:
   email: false
 before_script:
+  - nvm use 10.15.0
   - rvm install 2.5.3
   - gem update --system
   - gem install bundler
