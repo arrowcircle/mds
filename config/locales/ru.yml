@@ -1,0 +1,30 @@
+---
+ru:
+  activerecord:
+    attributes:
+      author:
+        name: Автор
+      story:
+        name: Название
+        link: Ссылка
+        date: Дата эфира
+        radio: Радио
+        tag_list: Тэги
+      playlist:
+        startmin: Начало
+        endmin: Конец
+        identified_by: Кто опознал?
+      user:
+        username: Имя пользователя
+        avatar: Аватар
+    errors:
+      models:
+        user:
+          attributes:
+            username:
+              blank: не может быть пустым
+              too_short: слишком короткое
+            current_password:
+              blank: не может быть пустым
+            password:
+              blank: не может быть пустым

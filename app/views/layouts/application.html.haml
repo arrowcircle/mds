@@ -3,13 +3,11 @@
   %head
     %meta{ charset: 'utf-8' }
     %meta{ content: 'width=device-width, initial-scale=1, shrink-to-fit=no', name: 'viewport' }
-    = stylesheet_pack_tag 'application'
+    = stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = csrf_meta_tags
   %body
-    %header
-      -# = render 'test'
-      = render 'navigation'
+    %header= render 'navigation'
     %main{ role: 'main' }
       = render 'flashes'
       = yield
-      = javascript_pack_tag 'application'
+      = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
