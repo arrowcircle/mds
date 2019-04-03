@@ -7,13 +7,18 @@
   - @users.each do |user|
     %tr
       %td
-        .avatar=# user_avatar_link user
+        .avatar
+          - if user.avatar.present?
+            = image_tag user.avatar_url(:small), width: 32
       %td
-        .title= link_to user.username, [user]
+        .title
+          = link_to [user] do
+            = user.username
         .user-text
           Опознал треков: 
           -#{Playlist.where(identified_by: user.id).where("track_id is not null").count}
 
-= raw pagy_bootstrap_nav(@pagy)
--# = raw pagy_bootstrap_responsive_nav(@pagy)
--# = raw pagy_bootstrap_compact_nav(@pagy)
+- if @pagy.pages > 1
+  = raw pagy_bootstrap_nav(@pagy)
+  -# = raw pagy_bootstrap_responsive_nav(@pagy)
+  -# = raw pagy_bootstrap_compact_nav(@pagy)

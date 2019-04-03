@@ -6,8 +6,15 @@
     = stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = csrf_meta_tags
   %body
-    %header= render 'navigation'
-    %main{ role: 'main' }
-      = render 'flashes'
-      = yield
-      = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    .container
+      %header= render 'navigation'
+      %main{ role: 'main' }
+        = render 'flashes'
+        = yield
+      %footer
+        %p
+          &copy; arrowcircle #{Date.today.year}
+          = link_to 'Обсуждение на форуме', 'http://forum.mds-club.ru/threads/4126-mds-redde-ru', target: :_BLANK
+          |
+          = link_to "Разработка ivyknob.com", "https://ivyknob.com", target: :_BLANK
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'

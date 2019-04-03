@@ -2,8 +2,10 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
   validates :username, presence: true, uniqueness: true, allow_blank: false, length: { minimum: 3 }
+
+  include AvatarUploader::Attachment.new(:avatar)
 
   def self.search(query)
     if query && query.length > 0

@@ -31,7 +31,7 @@ feature 'Sign in' do
       expect(page).to have_content 'Email'
     end
   
-    scenario 'Shows ok result for sign up' do
+    scenario 'Shows confirmation requirement after sign up' do
       u = create(:user)
       visit new_user_registration_url
       fill_in :user_email, with: FFaker::Internet.email
@@ -39,7 +39,7 @@ feature 'Sign in' do
       fill_in :user_password, with: '123123aA'
       fill_in :user_password_confirmation, with: '123123aA'
       click_button 'Регистрация'
-      expect(page).to have_content 'Добро пожаловать!'
+      expect(page).to have_content 'подтвердить учетную запись'
     end
   
     scenario 'Shows error with wrong password' do
