@@ -1,20 +1,25 @@
 !!!
 %html
   %head
+    %title Mimonitor
     %meta{ charset: 'utf-8' }
-    %meta{ content: 'width=device-width, initial-scale=1, shrink-to-fit=no', name: 'viewport' }
-    = stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    %meta{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
     = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
   %body
     .container
       %header= render 'navigation'
-      %main{ role: 'main' }
+      %main{ role: :main }
         = render 'flashes'
         = yield
-      %footer
-        %p
-          &copy; arrowcircle #{Date.today.year}
-          = link_to 'Обсуждение на форуме', 'http://forum.mds-club.ru/threads/4126-mds-redde-ru', target: :_BLANK
-          |
-          = link_to "Разработка ivyknob.com", "https://ivyknob.com", target: :_BLANK
+    %footer.page-footer
+      .footer-copyright.text-center
+        &copy;
+        = link_to 'arrowcircle', 'https://github.com/arrowcircle', rel: :_nofollow
+        #{Date.today.year}
+        = link_to 'Обсуждение на форуме', 'http://forum.mds-club.ru/threads/4126-mds-redde-ru', target: :_BLANK, rel: :_nofollow
+        |
+        = link_to "Разработка ivyknob.com", "https://ivyknob.com", target: :_BLANK, rel: :_nofollow
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'

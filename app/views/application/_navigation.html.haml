@@ -1,10 +1,14 @@
 %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  .container.d-flex.justify-content-between
-    = link_to root_url, class: ['navbar-brand', 'd-flex', 'align-items-center'] do
-      %strong МДС Музыка
-    %button.navbar-toggler.collapsed{"aria-controls" => "navbarHeader", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarHeader", "data-toggle" => "collapse", :type => "button"}
-      %span.navbar-toggler-icon
-    %ul.navbar-nav
-      %li.nav-item= link_to 'Участники', users_path, class: 'nav-link'
-  
+  = link_to root_url, class: ['navbar-brand', 'd-flex', 'align-items-center'] do
+    %strong МДС Музыка
+  %button.navbar-toggler{ 'aria-controls' => 'mainNavbar', 'aria-expanded' => 'false', 'aria-label' => 'Toggle navigation', 'data-target' => '#mainNavbar', "data-toggle" => 'collapse', type: 'button' }
+    %span.navbar-toggler-icon
+  #mainNavbar.collapse.navbar-collapse
+    %ul.navbar-nav.mr-auto
+      %li{ class: ['nav-item', "#{'active' if controller_name == 'users'}"] }
+        = link_to [:users], class: 'nav-link' do
+          = 'Участники'
+          - if controller_name == 'users'
+            %span.sr-only (current)
+
   = render 'logins'
