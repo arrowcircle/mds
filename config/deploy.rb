@@ -1,5 +1,4 @@
 require "bundler/capistrano"
-require "airbrake/capistrano"
 require "rvm/capistrano"
 
 server "verstka.redde.ru", :web, :app, :db, :primary => true
@@ -13,7 +12,7 @@ set :use_sudo, false
 set :scm, "git"
 set :repository, "git://github.com/arrowcircle/mds.git"
 set :branch, "master"
-set :rvm_ruby_string, '2.1.2@mds'
+set :rvm_ruby_string, '2.3.8@mds'
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true

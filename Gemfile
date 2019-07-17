@@ -1,6 +1,5 @@
-#source 'https://gems.github.com'
-source "http://rubygems.org"
-gem 'rails', '3.2.11'
+source "https://rubygems.org"
+gem 'rails', '3.2.22.5'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -25,7 +24,6 @@ end
 
 gem 'nokogiri'
 gem 'unicode'
-gem 'airbrake', "3.1.2"
 gem 'jquery-rails'
 gem 'turbo-sprockets-rails3'
 gem 'haml-rails'
@@ -34,7 +32,7 @@ gem 'russian'
 gem 'kaminari'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'quiet_assets', :group => :development
+gem 'quiet_assets', group: :development
 
 gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
@@ -49,7 +47,7 @@ gem 'rails3-jquery-autocomplete'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-gem 'unicorn'
+# gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano'
