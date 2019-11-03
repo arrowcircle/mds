@@ -9,7 +9,7 @@
         = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
       .form-group
         - if @user.avatar.present?
-          = image_tag @user.avatar_url(:medium), width: 100
+          = image_tag @user.avatar.imgproxy_url(width: 100, resizing_type: :fill)
         = f.label :avatar
         = f.hidden_field :avatar, value: @user.cached_avatar_data
         = f.file_field :avatar

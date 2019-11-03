@@ -9,7 +9,7 @@
     = link_to [user], class: ['list-group-item', 'list-group-action'] do
       .d-flex.w-100.justify-content-between
         - if user.avatar.present?
-          = image_tag user.avatar_url(:small), width: 32, class: ['rounded-circle', 'z-depth-0']
+          = image_tag user.avatar.imgproxy_url(width: 30, height: 30, resizing_type: :fill), class: ['rounded-circle', 'z-depth-0']
         %h5.mb-1= user.username
         %small= "#{time_ago_in_words(user.created_at)} на сайте"
       %p.mb-1

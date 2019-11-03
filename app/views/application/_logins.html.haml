@@ -4,7 +4,7 @@
       %li.nav-item.dropdown
         = link_to edit_user_registration_path, class: 'nav-link' do
           - if current_user.avatar.present?
-            = image_tag current_user.avatar_url(:small), width: 30, class: ['rounded-circle', 'z-depth-0']
+            = image_tag current_user.avatar.imgproxy_url(width: 30, height: 30, resizing_type: :fill), width: 30, class: ['rounded-circle', 'z-depth-0']
           = current_user.username
       %li.nav-item= link_to 'Выход', destroy_user_session_path, method: :delete, class: 'nav-link'
     - else
