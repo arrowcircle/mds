@@ -21,3 +21,4 @@
 * Запустить Minio через докер
 * Запустить Imgproxy через докер
 * `cp .env.sample .env` и отредактировать значения
+* Создать бакеты public: `mds/images` и private: `mds/audio`
