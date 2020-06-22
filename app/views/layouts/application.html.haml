@@ -9,13 +9,13 @@
     = csp_meta_tag
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
   %body
+    %header= render 'navigation'
     .container
-      %header= render 'navigation'
       %main{ role: :main }
         = render 'flashes'
         = yield
     %footer.page-footer
-      .footer-copyright.text-center
+      .footer-copyright.text-center.py-3
         &copy;
         = link_to 'arrowcircle', 'https://github.com/arrowcircle', rel: :_nofollow
         #{Date.today.year}

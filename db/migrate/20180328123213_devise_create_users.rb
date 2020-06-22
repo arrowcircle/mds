@@ -34,7 +34,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
 
       t.text :avatar_data
       t.string :username, null: false
-      t.integer :role
+      t.integer :role, default: 0
+      t.integer :playlists_count, default: 0
       t.timestamps null: false
     end
 

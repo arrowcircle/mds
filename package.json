@@ -2,7 +2,7 @@
   "name": "mds",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^4.0.2",
+    "@rails/webpacker": "^5.1.1",
     "bootstrap": "4",
     "cssnext": "^1.8.4",
     "jquery": "^3.3.1",

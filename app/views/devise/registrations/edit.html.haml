@@ -8,6 +8,9 @@
         = f.label :email
         = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
       .form-group
+        = f.label :username
+        = f.text_field :username, autofocus: true, class: 'form-control'
+      .form-group
         - if @user.avatar.present?
           = image_tag @user.avatar.imgproxy_url(width: 100, resizing_type: :fill)
         = f.label :avatar

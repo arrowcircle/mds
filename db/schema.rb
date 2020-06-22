@@ -35,7 +35,8 @@ ActiveRecord::Schema.define(version: 2018_03_28_123213) do
     t.datetime "locked_at"
     t.text "avatar_data"
     t.string "username", null: false
-    t.integer "role"
+    t.integer "role", default: 0
+    t.integer "playlists_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
