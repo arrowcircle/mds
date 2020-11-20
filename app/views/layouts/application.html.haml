@@ -8,6 +8,7 @@
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     %header= render 'navigation'
     .container
@@ -22,4 +23,3 @@
         = link_to 'Обсуждение на форуме', 'http://forum.mds-club.ru/threads/4126-mds-redde-ru', target: :_BLANK, rel: :_nofollow
         |
         = link_to "Разработка ivyknob.com", "https://ivyknob.com", target: :_BLANK, rel: :_nofollow
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'

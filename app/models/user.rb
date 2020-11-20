@@ -26,4 +26,12 @@ class User < ApplicationRecord
       .gsub(/[ \-]+/i, '-')
       .gsub(/^\-|\-$/i, '')
   end
+
+  def requests_count
+    rand(100)
+  end
+
+  def findings_count
+    rand(100)
+  end
 end

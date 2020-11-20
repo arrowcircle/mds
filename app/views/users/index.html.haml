@@ -11,12 +11,15 @@
         .card{ style: 'width: 18rem;' }
           - if user.avatar.present?
             = image_tag user.avatar.imgproxy_url(width: 200, height: 200, resizing_type: :fill), class: ['z-depth-0', 'card-img-top'], alt: user.username
+          - else
+            %figure.figure
+              -# = image_tag '.../200x200', width: 200, height: 200, class: 'figure-img img-fluid rounded', alt: user.username
           .card-body
-            %h5.card-title= link_to user.username, '#'
+            %h5.card-title= link_to user.username, user_url(user)
             %h6.card-subtitle.mb-2.text-muted= "#{time_ago_in_words(user.created_at)} на сайте"
             %p.card-text
               %p.mb-1
-                Опознал треков: 3
+                Опознал треков: #{user.findings_count}
                 -#{Playlist.where(identified_by: user.id).where("track_id is not null").count}
     %br
 
