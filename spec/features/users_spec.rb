@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 feature 'Sign in' do
@@ -30,9 +32,9 @@ feature 'Sign in' do
       click_link 'Регистрация'
       expect(page).to have_content 'Email'
     end
-  
+
     scenario 'Shows confirmation requirement after sign up' do
-      u = create(:user)
+      create(:user)
       visit new_user_registration_url
       fill_in :user_email, with: FFaker::Internet.email
       fill_in :user_username, with: FFaker::Internet.user_name
@@ -41,7 +43,7 @@ feature 'Sign in' do
       click_button 'Регистрация'
       expect(page).to have_content 'подтвердить учетную запись'
     end
-  
+
     scenario 'Shows error with wrong password' do
       visit new_user_registration_url
       fill_in :user_email, with: 'abc@def.com'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ImageUploader < Shrine
   plugin :remote_url, max_size: 4 * 1024 * 1024
   plugin :determine_mime_type, analyzer: :marcel

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -36,6 +38,8 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'rspec-rails'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
   gem 'letter_opener'
 end
 

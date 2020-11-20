@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :import do
   task users: :environment do
     KEYS = [:id, :email, :encrypted_password, :sign_in_count, :last_sign_in_at, :current_sign_in_at, :created_at, :updated_at, :role, :username].map(&:to_s)

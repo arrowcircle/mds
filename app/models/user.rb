@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -9,9 +11,9 @@ class User < ApplicationRecord
 
   def self.search(query)
     if query && query.length > 0
-      where("username ILIKE ?", "%#{query}%").order("last_sign_in_at DESC")
+      where('username ILIKE ?', "%#{query}%").order('last_sign_in_at DESC')
     else
-      order("last_sign_in_at DESC")
+      order('last_sign_in_at DESC')
     end
   end
 

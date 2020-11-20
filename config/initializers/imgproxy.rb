@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Imgproxy.configure do |config|
   # imgproxy endpoint
   #
@@ -8,7 +10,7 @@ Imgproxy.configure do |config|
   # If unsure, check out https://github.com/imgproxy/imgproxy/blob/master/docs/configuration.md first.
 
   # Hex-encoded signature key
-  
+
   config.hex_key = ENV['IMGPROXY_KEY'] if ENV['IMGPROXY_KEY']
   # Hex-encoded signature salt
   config.hex_salt = ENV['IMGPROXY_SALT'] if ENV['IMGPROXY_SALT']
