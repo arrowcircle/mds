@@ -23,4 +23,10 @@
 * Запустить Imgproxy через докер
 * `cp .env.sample .env` и отредактировать значения
 * `cp config/database.yml.sample config/database.yml` и отредактировать значения
-* Создать бакеты public: `mds/images` и private: `mds/audio`
+* Создать бакеты public: `mds/images` и `cache` и private: `mds/audio`
+
+## Werf
+
+* Установить [multiwerf](https://github.com/flant/multiwerf)
+* Инициализировать в терминале `. $(multiwerf use 1.1 stable --as-file)`
+* Запустить сборку `werf build-and-publish --stages-storage :local --images-repo arrowcircle/mds  --tag-git-tag v0.1.0`

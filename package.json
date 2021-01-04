@@ -2,7 +2,7 @@
   "name": "mds",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^5.1.1",
+    "@rails/webpacker": "5.2.1",
     "bootstrap": "4",
     "cssnext": "^1.8.4",
     "jquery": "^3.3.1",
@@ -11,6 +11,6 @@
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3.2.1"
+    "webpack-dev-server": "^3.11.1"
   }
 }
