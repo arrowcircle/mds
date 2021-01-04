@@ -1,0 +1,11 @@
+.git
+.dockerignore
+.byebug_history
+log/*
+tmp/*
+node_modules
+.env
+public/packs
+public/packs-test
+ansible
+.overmind.sock

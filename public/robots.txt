@@ -1,4 +1,5 @@
 User-Agent: *
+Disallow: *
 Disallow: /users/sign_in
 Disallow: /authors/new*
 Disallow: /artists/new*
