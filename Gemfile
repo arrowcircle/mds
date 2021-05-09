@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.2'
+ruby '2.7.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1'
@@ -66,7 +66,7 @@ gem 'devise-i18n'
 gem 'hamlit-rails'
 gem 'imgproxy'
 gem 'mini_mime'
-gem 'pagy'
+gem 'pagy', '~> 3.10'
 gem 'shrine'
 gem 'sidekiq'
 gem 'sidekiq-cron'

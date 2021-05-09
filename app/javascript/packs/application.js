@@ -11,7 +11,7 @@ import 'src/application.css'
 import 'bootstrap/dist/css/bootstrap'
 
 require('jquery');
-require('popper.js');
+require('@popperjs/core');
 require('bootstrap');
 
 const Rails = require('rails-ujs');

@@ -1,14 +1,15 @@
 %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  = link_to root_url, class: ['navbar-brand', 'd-flex', 'align-items-center'] do
-    %strong МДС Музыка
-  %button.navbar-toggler{ 'aria-controls' => 'mainNavbar', 'aria-expanded' => 'false', 'aria-label' => 'Toggle navigation', 'data-target' => '#mainNavbar', "data-toggle" => 'collapse', type: 'button' }
-    %span.navbar-toggler-icon
-  #mainNavbar.collapse.navbar-collapse
-    %ul.navbar-nav.mr-auto
-      %li{ class: ['nav-item', "#{'active' if controller_name == 'users'}"] }
-        = link_to [:users], class: 'nav-link' do
-          = 'Участники'
-          - if controller_name == 'users'
-            %span.sr-only (current)
+  .container-fluid
+    = link_to root_url, class: ['navbar-brand', 'd-flex', 'align-items-center'] do
+      %strong МДС Музыка
+    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#mainNavbar", "data-bs-toggle" => "collapse", :type => "button"}
+      %span.navbar-toggler-icon
+    #mainNavbar.collapse.navbar-collapse
+      %ul.navbar-nav.mr-auto
+        %li.nav-item
+          - attrs = { class: ['nav-link', "#{'active' if controller_name == 'users'}"] }
+          - attrs.merge!('aria-current' => 'page') if controller_name == 'users'
+          = link_to [:users], attrs do
+            = 'Участники'
 
-  = render 'logins'
+    = render 'logins'

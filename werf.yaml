@@ -2,7 +2,7 @@ project: mds
 configVersion: 1
 ---
 image: ~
-from: arrowcircle/ruby-node:2.7.2-14.15.3
+from: arrowcircle/ruby-node:2.7.3-14.16.1
 docker:
   WORKDIR: /app
   CMD: "puma -C config/puma.rb"

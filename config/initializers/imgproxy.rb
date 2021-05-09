@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Imgproxy.configure do |config|
   # imgproxy endpoint
   #
@@ -11,9 +9,10 @@ Imgproxy.configure do |config|
 
   # Hex-encoded signature key
 
-  config.hex_key = ENV['IMGPROXY_KEY'] if ENV['IMGPROXY_KEY']
+  config.key = ENV['IMGPROXY_KEY'] if ENV['IMGPROXY_KEY']
   # Hex-encoded signature salt
-  config.hex_salt = ENV['IMGPROXY_SALT'] if ENV['IMGPROXY_SALT']
+  config.salt = ENV['IMGPROXY_SALT'] if ENV['IMGPROXY_SALT']
+  config.use_s3_urls = true
 end
 
-Imgproxy.extend_shrine!(host: ENV['IMGPROXY_ENDPOINT'], use_s3: true) # use_s3: true
+Imgproxy.extend_shrine!

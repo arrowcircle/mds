@@ -4,27 +4,27 @@
     %h1= t('.sign_up')
     = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
       = bootstrap_devise_error_messages!
-      .form-group
+      .mb-3
         = f.label :email
         = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
-      .form-group
+      .mb-3
         = f.label :username
         = f.text_field :username, autofocus: true, class: 'form-control'
-      .form-group
+      .mb-3
         = f.label :password
         = f.password_field :password, autocomplete: 'current-password', class: 'form-control'
         - if @minimum_password_length
           %small.form-text.text-muted= t('devise.shared.minimum_password_length', count: @minimum_password_length)
-      .form-group
+      .mb-3
         = f.label :password_confirmation
         = f.password_field :password_confirmation, autocomplete: 'current-password', class: 'form-control'
-      .form-group
+      .mb-3
         - if @user.avatar.present?
           = image_tag @user.avatar.imgproxy_url(width: 100, resizing_type: :fill)
         = f.label :avatar
         = f.hidden_field :avatar, value: @user.cached_avatar_data
         = f.file_field :avatar
-      .form-group
+      .mb-3
         = f.submit t('.sign_up'), class: 'btn btn-primary'
     = render 'devise/shared/links'
   .col-sm-4

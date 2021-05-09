@@ -29,4 +29,4 @@
 
 * Установить [multiwerf](https://github.com/flant/multiwerf)
 * Инициализировать в терминале `. $(multiwerf use 1.1 stable --as-file)`
-* Запустить сборку `werf build-and-publish --stages-storage :local --images-repo arrowcircle/mds  --tag-git-tag v0.1.0`
+* Запустить сборку `werf build-and-publish --stages-storage :local --images-repo arrowcircle/mds --tag-git-tag v0.1.2`
