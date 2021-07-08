@@ -3,6 +3,10 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.lograge.enabled = true
+
+  config.lograge.ignore_actions = ['WelcomeController#health_check']
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
