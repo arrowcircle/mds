@@ -36,10 +36,12 @@ module Mds
 
     config.generators do |g|
       g.factory_bot false
-      g.system_tests = nil
-      g.stylesheets = false
-      g.javascripts = false
-      g.helpers = false
+      g.test_framework false
+      g.system_tests nil
+      g.stylesheets false
+      g.javascripts false
+      g.helpers false
+      g.channel assets: false
     end
   end
 end
