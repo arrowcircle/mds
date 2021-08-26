@@ -1,0 +1,10 @@
+- if @authors.present?
+  %h1 Авторы
+  %table
+    - @authors.each do |author|
+      %tr
+        %td= link_to author.name, [author]
+  - if @pagy.pages > 1
+    = raw pagy_bootstrap_nav(@pagy)
+- else
+  %h3 Мы не нашли авторов. Может добавить?

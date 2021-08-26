@@ -36,7 +36,7 @@ module Mds
 
     config.generators do |g|
       g.factory_bot false
-      g.test_framework false
+      g.test_framework :rspec
       g.system_tests nil
       g.stylesheets false
       g.javascripts false

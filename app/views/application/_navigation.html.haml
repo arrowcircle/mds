@@ -7,6 +7,12 @@
     #mainNavbar.collapse.navbar-collapse
       %ul.navbar-nav.mr-auto
         %li.nav-item
+          - active = %w(authors stories).include?(controller_name)
+          - attrs = { class: ['nav-link', "#{'active' if active}"] }
+          - attrs.merge!('aria-current' => 'page') if active
+          = link_to [:authors], attrs do
+            = 'Книги'
+        %li.nav-item
           - attrs = { class: ['nav-link', "#{'active' if controller_name == 'users'}"] }
           - attrs.merge!('aria-current' => 'page') if controller_name == 'users'
           = link_to [:users], attrs do

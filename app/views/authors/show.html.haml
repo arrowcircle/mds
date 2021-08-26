@@ -1,0 +1,6 @@
+%h1= @author.name
+
+- if @author.description.present?
+  = raw @author.description
+-# - if @author.stories.present?
+-#   = render @author.stories
