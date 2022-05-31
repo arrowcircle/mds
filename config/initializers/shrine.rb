@@ -31,8 +31,8 @@ else
   require 'shrine/storage/s3'
 
   Shrine.storages = {
-    images: Shrine::Storage::S3.new(generate_s3_settings),
-    cache: Shrine::Storage::S3.new(generate_s3_settings.merge(bucket: 'cache', prefix: nil)),
+    images: Shrine::Storage::S3.new(**generate_s3_settings),
+    cache: Shrine::Storage::S3.new(**generate_s3_settings.merge(bucket: 'cache', prefix: nil)),
   }
 end
 
