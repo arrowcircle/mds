@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: [:index, :show]
   root to: 'welcome#index'
+  post :search, as: :search, to: "searches#index"
 
   resources :authors do
   end

@@ -17,15 +17,16 @@
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   %body
     %header= render 'navigation'
-    .container
+    .container.m-8
       %main{ role: :main }
         = render 'flashes'
         = yield
-    %footer.page-footer
-      .footer-copyright.text-center.py-3
+
+    %footer.footer-center.p-4.bg-base-300.text-base-content
+      %div
         &copy;
-        = link_to 'arrowcircle', 'https://github.com/arrowcircle', rel: :_nofollow
+        = link_to 'arrowcircle', 'https://github.com/arrowcircle', rel: :_nofollow, class: :link
         #{Date.today.year}
-        = link_to 'Обсуждение на форуме', 'http://forum.mds-club.ru/threads/4126-mds-redde-ru', target: :_BLANK, rel: :_nofollow
+        = link_to 'Обсуждение на форуме', 'http://forum.mds-club.ru/threads/4126-mds-redde-ru', target: :_BLANK, rel: :_nofollow, class: :link
         |
-        = link_to "Разработка ivyknob.com", "https://ivyknob.com", target: :_BLANK, rel: :_nofollow
+        = link_to "Разработка ivyknob.com", "https://ivyknob.com", target: :_BLANK, rel: :_nofollow, class: :link

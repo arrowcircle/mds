@@ -1,16 +1,13 @@
-%h1= t('.sign_in')
-= form_for resource, as: resource_name, url: session_path(resource_name), class: 'row align-items-center' do |f|
-  .mb-3
-    = f.label :email
-    = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
-  .mb-3
-    = f.label :password
-    = f.password_field :password, autocomplete: 'current-password', class: 'form-control'
-  - if devise_mapping.rememberable?
-    .mb-3.form-check
-      = f.check_box :remember_me, class: 'form-check-input'
-      = f.label :remember_me, class: 'form-check-label' do
-        = resource.class.human_attribute_name('remember_me')
-  .mb-3
-    = f.submit  t('.sign_in'), class: 'btn btn-primary'
-= render 'devise/shared/links'
+.h-full.w-full.max-w-md.mx-auto.align-middle
+  = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'}) do |f|
+    %h2.text-center Log in
+    = render "devise/shared/error_messages", resource: resource
+    .mb-4
+      = f.label :email, "Email", class: "block text-sm font-bold mb-2 text-gray-700"
+      = f.email_field :email, autofocus: true, autocomplete: "email", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    .mb-4
+      = f.label :password, "Password", class: "block text-sm font-bold mb-2 text-gray-700"
+      = f.password_field :password, autocomplete: "current-password", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    .flex.items-center.justify-between.content-end
+      = f.submit "Log in", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-6 rounded focus:outline-none focus:shadow-outline"
+      = render "devise/shared/links"

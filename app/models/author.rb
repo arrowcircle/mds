@@ -1,3 +1,4 @@
 class Author < ApplicationRecord
-  validates :name, presence: true
+  include Sluggable
+  validates :name, presence: true, uniqueness: true
 end

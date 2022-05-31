@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class UsersController < ApplicationController
   def index
     @pagy, @users = pagy(User.search(params[:search]))

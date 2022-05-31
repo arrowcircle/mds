@@ -1,9 +1,12 @@
-%h1= t('.resend_confirmation_instructions')
-= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-  = bootstrap_devise_error_messages!
-  .form-group
-    = f.label :email
-    = f.email_field :email, autofocus: true, autocomplete: 'email', value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: 'form-control'
-  .form-group
-    = f.submit t('.resend_confirmation_instructions'), class: 'btn btn-primary'
-= render 'devise/shared/links'
+.h-full.w-full.max-w-md.mx-auto.align-middle
+  = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: 'bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' }) do |f|
+    %h2.text-center Resend confirmation instructions
+    = render "devise/shared/error_messages", resource: resource
+    .mb-4
+      = f.label :email, "Email", class: "block text-sm font-bold mb-2 text-gray-700"
+      = f.email_field :email, autofocus: true, autocomplete: "email", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", |
+        value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)                                                                                                            |
+    .flex.items-center.justify-between.content-end
+      = f.submit "Resend confirmation instructions",                                                                              |
+        class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-6rounded focus:outline-none focus:shadow-outline" |
+      = render "devise/shared/links"

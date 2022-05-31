@@ -24,8 +24,7 @@
                   -#{Playlist.where(identified_by: user.id).where("track_id is not null").count}
 
   - if @pagy.pages > 1
-    = raw pagy_bootstrap_nav(@pagy)
-    -# = raw pagy_bootstrap_responsive_nav(@pagy)
-    -# = raw pagy_bootstrap_compact_nav(@pagy)
+    .flex.flex-col.items-center
+      = raw pagy_nav(@pagy)
 - else
   %h3 Таких участников нет :( Попробуй поменять что-то.

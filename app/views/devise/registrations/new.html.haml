@@ -1,30 +1,30 @@
-.row
-  .col-sm-2
-  .col-sm-6
-    %h1= t('.sign_up')
-    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-      = bootstrap_devise_error_messages!
-      .mb-3
-        = f.label :email
-        = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
-      .mb-3
-        = f.label :username
-        = f.text_field :username, autofocus: true, class: 'form-control'
-      .mb-3
-        = f.label :password
-        = f.password_field :password, autocomplete: 'current-password', class: 'form-control'
-        - if @minimum_password_length
-          %small.form-text.text-muted= t('devise.shared.minimum_password_length', count: @minimum_password_length)
-      .mb-3
-        = f.label :password_confirmation
-        = f.password_field :password_confirmation, autocomplete: 'current-password', class: 'form-control'
-      .mb-3
-        - if @user.avatar.present?
-          = image_tag @user.avatar.imgproxy_url(width: 100, resizing_type: :fill)
-        = f.label :avatar
-        = f.hidden_field :avatar, value: @user.cached_avatar_data
-        = f.file_field :avatar
-      .mb-3
-        = f.submit t('.sign_up'), class: 'btn btn-primary'
-    = render 'devise/shared/links'
-  .col-sm-4
+.h-full.w-full.max-w-md.mx-auto.align-middle
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'}) do |f|
+    %h2.text-center Register
+    = render "devise/shared/error_messages", resource: resource
+    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-red-500" : "text-gray-700"}"
+    - input_classes = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline #{alert ? "border-red-500" : nil}"
+    .mb-4
+      = f.label :email, "Email", class: label_classes
+      = f.email_field :email, autofocus: true, autocomplete: "email", class: input_classes
+    .mb-4
+      = f.label :username, "Username", class: label_classes
+      = f.text_field :username, autofocus: true, autocomplete: "username", class: input_classes
+    .mb-4
+      = f.label :password, "Password", class: label_classes
+      - if @minimum_password_length
+        %em.block.text-sm.font-normal.mb-2.text-gray-900
+          (#{@minimum_password_length} characters minimum)
+      = f.password_field :password, autocomplete: "new-password", class: input_classes
+    .mb-4
+      = f.label :password_confirmation, "Confirm password", class: label_classes
+      = f.password_field :password_confirmation, autocomplete: "new-password", class: input_classes
+    .mb-4
+      - if @user.avatar.present?
+        = image_tag @user.avatar.imgproxy_url(width: 100, resizing_type: :fill)
+      = f.label :avatar
+      = f.hidden_field :avatar, value: @user.cached_avatar_data
+      = f.file_field :avatar
+    .flex.items-center.justify-between.content-end
+      = f.submit "Register", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-6 rounded focus:outline-none focus:shadow-outline"
+      = render "devise/shared/links"

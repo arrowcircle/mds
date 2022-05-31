@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+AUTHOR_DUPES = {303=>302, 305=>304, 306=>304, 392=>391, 418=>179, 459=>442}
 namespace :import do
   task users: :environment do
     KEYS = [:id, :email, :encrypted_password, :sign_in_count, :last_sign_in_at, :current_sign_in_at, :created_at, :updated_at, :role, :username].map(&:to_s)
@@ -29,5 +28,27 @@ namespace :import do
       end
       avatars = {}
     end
+  end
+  task authors: :environment do
+    dupes = {}
+    Old::Author.find_in_batches do |batch|
+      batch.each do |old_author|
+        a = Author.find_by(id: old_author.id)
+        a ||= Author.new(id: old_author.id)
+        a.name ||= old_author.name
+        if a.save
+          print '.'
+        else
+          print 'X'
+          old_ids = Old::Author.where(name: old_author.name).map(&:id)
+          new_id = Author.where(name: old_author.name).first.id
+          (old_ids - [new_id]).each do |id|
+            dupes[id] = new_id
+          end
+        end
+      end
+    end
+    puts "\nComplete"
+    puts dupes
   end
 end

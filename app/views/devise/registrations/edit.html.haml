@@ -1,9 +1,56 @@
+.h-full.w-full.max-w-md.mx-auto.align-middle
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' }) do |f|
+    %h2.text-center
+      Edit #{resource_name.to_s.humanize}
+    = render "devise/shared/error_messages", resource: resource
+    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-red-500" : "text-gray-700"}"
+    - input_classes = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline #{alert ? "border-red-500" : nil}"
+    .mb-4
+      = f.label :email, "Email", class: label_classes
+      = f.email_field :email, autofocus: true, autocomplete: "email", class: input_classes
+    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+      .block.text-sm.font-normal.mb-2.text-gray-500
+        Currently waiting confirmation for: #{resource.unconfirmed_email}
+    .mb-4
+      = f.label :username, "Username", class: label_classes
+      = f.text_field :username, autofocus: true, autocomplete: "username", class: input_classes
+    .mb-4
+      - if @user.avatar.present?
+        = image_tag @user.avatar.imgproxy_url(width: 100, resizing_type: :fill)
+      = f.label :avatar
+      = f.hidden_field :avatar, value: @user.cached_avatar_data
+      = f.file_field :avatar
+    .mb-4
+      = f.label :password, "Password", class: label_classes
+      %i.block.text-sm.font-normal.mb-2.text-gray-900 (leave blank if you don't want to change it)
+      = f.password_field :password, autocomplete: "new-password", class: input_classes
+      - if @minimum_password_length
+        %em.block.text-sm.font-normal.mb-2.text-gray-900
+          = @minimum_password_length
+          characters minimum
+    .mb-4
+      = f.label :password_confirmation, "Confirm Password", class: label_classes
+      = f.password_field :password_confirmation, autocomplete: "new-password", class: input_classes
+    .mb-4
+      = f.label :current_password, "Current Password", class: label_classes
+      %i.block.text-sm.font-normal.mb-2.text-gray-900 (we need your current password to confirm your changes)
+      = f.password_field :current_password, autocomplete: "current-password", class: input_classes
+    .flex.items-center.justify-between.content-end
+      = f.submit "Update", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-6 rounded focus:outline-none focus:shadow-outline"
+      = link_to "Back", :back, class: "font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border border-gray-500"
+.h-full.w-full.max-w-xs.mx-auto.align-middle
+  .bg-white.shadow-md.rounded.px-8.pt-6.pb-8.mb-4
+    %h3.text-center Cancel my account
+    .mb-4
+      Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"}
+
+
 %h1 Редактирование профиля #{current_user.username}
 .row
   .col-sm-2
   .col-sm-6
     = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-      = bootstrap_devise_error_messages!
+      -# = bootstrap_devise_error_messages!
       .mb-3
         = f.label :email
         = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
