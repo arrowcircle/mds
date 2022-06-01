@@ -1,22 +1,22 @@
 .navbar.bg-base-100
   .navbar-start
-    = link_to root_url, class: "btn btn-ghost normal-case text-xl" do
+    = link_to root_url, class: "btn btn-ghost btn-compact normal-case text-xl" do
       МДС Музыка
     %ul.menu.menu-horizontal.p-0
       - active = %w(authors stories).include?(controller_name)
       - attrs = { class: ["#{'active' if active}"] }
-      %li{**attrs}
+      %li.px-2{**attrs}
         = link_to [:authors], attrs do
           = 'Книги'
 
       - active = controller_name == "users"
       - attrs = { class: ["#{'active' if active}"] }
-      %li{**attrs}
+      %li.pr-2{**attrs}
         = link_to [:users], attrs do
           = 'Участники'
     .form-control
       = form_with url: search_url do |f|
-        = text_field_tag :q, params[:q], placeholder: "Search", class: "input input-bordered"
+        = text_field_tag :q, params[:q], placeholder: "Поиск", class: "input input-bordered"
   .navbar-end
     %ul.menu.menu-horizontal.p-0.bg-base-100
       - if user_signed_in?

@@ -3,13 +3,12 @@
 @tailwind utilities;
 
 h1 {
-  @apply font-medium leading-tight text-4xl mt-0 mb-2 flex-row;
+  @apply font-medium leading-tight text-xl flex-row;
 }
 
 h2 {
-  @apply font-medium leading-tight text-2xl;
+  @apply font-medium leading-tight text-lg;
 }
-
 
 .pagy-nav {
   @apply flex space-x-2;

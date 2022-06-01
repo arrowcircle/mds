@@ -1,13 +1,13 @@
-.flex.flex-row.items-center
+.flex.flex-row.items-center.align-center
   %h1.mr-2
     Авторы
   = link_to "+ Добавить", [:new, :author], class: "btn btn-ghost"
-  .search-pane.flex-1.flex-row.pl-2
+  .search-pane.flex-1.pl-2.pb-2
     = form_tag authors_path, method: :get, class: 'has-search' do
-      = text_field_tag :q, params[:q], placeholder: 'Поиск', class: 'form-control'
+      = text_field_tag :q, params[:q], placeholder: 'Поиск', class: "input input-bordered"
 
 - if @authors.present?
-  .overflow-x-auto
+  .overflow-x-auto.mt-2
     %table.table.w-full
       %thead
         %tr

@@ -8,10 +8,7 @@
 
 .flex.flex-row.items-center
   %h2.mr-2.flex-row Рассказы
-  = link_to "Добавить", [:new, @author, :story], class: "btn btn-ghost flex-row"
-  .search-pane.flex-1.flex-row.pl-2
-    = form_tag [@author], method: :get, class: 'has-search' do
-      = text_field_tag :q, params[:q], placeholder: 'Поиск', class: 'form-control'
+  = link_to "+ Добавить", [:new, @author, :story], class: "btn btn-ghost flex-row"
 
 - if @stories.present?
   .overflow-x-auto

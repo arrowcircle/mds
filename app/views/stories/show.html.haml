@@ -1,0 +1,56 @@
+.flex.flex-row.items-center
+  %h1.mr-2
+    = link_to @author.name, [@author], class: :link
+    = "-"
+    = @story.name
+  = link_to "ред", [:edit, @author, @story], class: "btn btn-ghost"
+%ul.list-disc.pl-2
+  - if @story.date.present?
+    %li
+      Дата эфира:
+      = l @story.date, format: "%d %B, %Y"
+  - if @story.radio.present?
+    %li
+      Радио:
+      = Story.human_enum_name(:radio, @story.radio)
+
+- if @story.description.present?
+  = raw @story.description
+
+.flex.flex-row.items-center
+  %h2.mr-2.flex-row Плейлист
+  = link_to "+ Опознать трек", [:new, @author, :story], class: "btn btn-ghost flex-row"
+  = link_to "Что играет?", [:new, @author, :story], class: "btn btn-ghost flex-row"
+- if false
+  - if @stories.present?
+    .overflow-x-auto
+      %table.table.w-full
+        %thead
+          %tr
+            %th Название
+            %th
+        %tbody
+          - @stories.each do |story|
+            %tr
+              %td
+                = link_to [@author, story] do
+                  = "#{story.name} (#{story.completed ? 'Полностью' : story.playlists_count})"
+
+              %td
+                - if user_signed_in? && current_user.admin?
+                  .text-right
+                    = link_to "Ред", [:edit, @author, story], class: "btn btn-ghost btn-sm"
+                    = link_to "Удалить", [@author, story], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm"
+
+    - if @pagy.pages > 1
+      .flex.flex-col.items-center
+        = raw pagy_nav(@pagy)
+  - else
+    %h2 У этого автора пока нет рассказов.
+    %p
+      Может
+      = link_to "+ добавить", [:new, @author, :story], class: "link link-primary"
+      = "?"
+
+
+-# = audio_tag "http://mds.mds-club.ru/Slushatel_Svetlana_-_Perimetr.mp3", autoplay: true, controls: true, data: { turbo_permanent: true }

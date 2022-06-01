@@ -9,6 +9,15 @@ ru:
         link: Ссылка
         date: Дата эфира
         radio: Радио
+        radios:
+          station: Станция 2000
+          muztv: Муз ТВ
+          silver_rain: Серебряный дождь
+          energy: Энергия
+          pioneer: Пионер ФМ
+          live: Лайв
+          podcast: Подкаст
+          station_1068: Станция 106.8
         tag_list: Тэги
       playlist:
         startmin: Начало

@@ -1,9 +1,9 @@
-.flex.flex-row.items-left
-  %h1
+.flex.flex-row.items-center
+  %h1.mr-2
     Участники проекта
   .search-pane.flex-1.flex-row.pl-2
-    = form_tag users_path, method: :get, class: 'has-search' do
-      = text_field_tag :q, params[:q], placeholder: 'Поиск', class: 'form-control'
+    = form_tag authors_path, method: :get, class: 'has-search' do
+      = text_field_tag :q, params[:q], placeholder: 'Поиск', class: "input input-bordered"
 
 - if @users.present?
   .flex.flex-col.items-center
