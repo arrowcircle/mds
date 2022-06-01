@@ -1,16 +1,16 @@
 .h-full.w-full.max-w-xl.mx-auto.align-middle.bg-slate-50
   %h1.text-center.pt-8
-    - if @story.persisted?
-      Редактровать рассказ
+    - if @track.persisted?
+      Редактровать трек
     - else
-      Добавить рассказ
+      Добавить трек
 
-  = form_with model: [@author, @story], class: 'shadow-md rounded px-8 pt-6 pb-8 mb-4' do |f|
-    - if @story.errors.any?
+  = form_with model: [@artist, @track], class: 'shadow-md rounded px-8 pt-6 pb-8 mb-4' do |f|
+    - if @track.errors.any?
       .mb-4
-        %span Ошибки при сохранении: #{@story.errors.size}
+        %span Ошибки при сохранении: #{@track.errors.size}
         %ul.list-disc.pl-4
-          - @story.errors.each do |error|
+          - @track.errors.each do |error|
             %li= error.full_message
 
     - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-red-500" : "text-gray-700"}"
@@ -21,9 +21,9 @@
       = f.text_field :name, autofocus: true, autocomplete: :off, class: input_classes, placeholder: "Название рассказа"
     .mb-4
       = f.label :image, "Изображение", class: label_classes
-      - if @author.image.present?
-        = image_tag @story.image.imgproxy_url(width: 100, resizing_type: :fill)
-      = f.hidden_field :image, value: @story.cached_image_data
+      - if @track.image.present?
+        = image_tag @track.image.imgproxy_url(width: 100, resizing_type: :fill)
+      = f.hidden_field :image, value: @track.cached_image_data
       = f.file_field :image
     .mb-4
       = f.label :description, "Описание", class: label_classes

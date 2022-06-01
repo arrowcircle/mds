@@ -1,0 +1,40 @@
+.flex.flex-row.items-center
+  %h1.mr-2= @artist.name
+  = link_to "ред", [:edit, @artist], class: "btn btn-ghost"
+  = link_to "назад", :back, class: "btn btn-ghost"
+  
+- if @artist.description.present?
+  = raw @artist.description
+
+.flex.flex-row.items-center
+  %h2.mr-2.flex-row Треки
+  = link_to "+ Добавить", [:new, @artist, :track], class: "btn btn-ghost flex-row"
+
+- if @tracks.present?
+  .overflow-x-auto
+    %table.table.w-full
+      %thead
+        %tr
+          %th Название
+          %th
+      %tbody
+        - @tracks.each do |track|
+          %tr
+            %td
+              = link_to [@artist, track] do
+                = "#{track.name} (#{track.playlists_count})"
+            %td
+              - if user_signed_in? && current_user.admin?
+                .text-right
+                  = link_to "Ред", [:edit, @artist, track], class: "btn btn-ghost btn-sm"
+                  = link_to "Удалить", [@artist, track], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm"
+
+  - if @pagy.pages > 1
+    .flex.flex-col.items-center
+      = raw pagy_nav(@pagy)
+- else
+  %h2 У этого артиста пока нет треков.
+  %p
+    Может
+    = link_to "+ добавить", [:new, @artist, :track], class: "link link-primary"
+    = "?"

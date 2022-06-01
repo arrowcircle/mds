@@ -74,4 +74,91 @@ namespace :import do
     Story.find_by_sql("SELECT setval('stories_id_seq', COALESCE((SELECT MAX(id)+1 FROM stories), 1), false);")
     Author.all.each { |a| Author.reset_counters(a.id, :stories) }
   end
+
+  task authors: :environment do
+    dupes = {}
+    Old::Author.find_in_batches do |batch|
+      batch.each do |old_author|
+        a = Author.find_by(id: old_author.id)
+        a ||= Author.new(id: old_author.id)
+        a.name ||= old_author.name
+        if a.save
+          print '.'
+        else
+          print 'X'
+          old_ids = Old::Author.where(name: old_author.name).map(&:id)
+          new_id = Author.where(name: old_author.name).first.id
+          (old_ids - [new_id]).each do |id|
+            dupes[id] = new_id
+          end
+        end
+      end
+    end
+    puts "\nComplete"
+    puts dupes
+    Author.find_by_sql("SELECT setval('authors_id_seq', COALESCE((SELECT MAX(id)+1 FROM authors), 1), false);")
+  end
+
+  task artists: :environment do
+    Old::Artist.find_in_batches do |batch|
+      batch.each do |old|
+        a = Artist.find_by(id: old.id)
+        a ||= Artist.new(id: old.id)
+        %w(name).each do |field|
+          a.send("#{field}=", old.send(field)) unless a.send(field).present?
+        end
+        if a.save
+          print '.'
+        else
+          print 'X'
+        end
+      end
+    end
+    puts "\nComplete"
+    Artist.find_by_sql("SELECT setval('artists_id_seq', COALESCE((SELECT MAX(id)+1 FROM artists), 1), false);")
+  end
+
+  task tracks: :environment do
+    Old::Track.find_in_batches do |batch|
+      batch.each do |old|
+        a = Track.find_by(id: old.id)
+        a ||= Track.new(id: old.id)
+        %w(name artist_id).each do |field|
+          a.send("#{field}=", old.send(field)) unless a.send(field).present?
+        end
+        if a.save
+          print '.'
+        else
+          print 'X'
+        end
+      end
+    end
+    puts "\nComplete"
+    Track.find_by_sql("SELECT setval('tracks_id_seq', COALESCE((SELECT MAX(id)+1 FROM tracks), 1), false);")
+    Artist.all.each { |a| Artist.reset_counters(a.id, :tracks) }
+  end
+
+  task playlists: :environment do
+    Old::Playlist.find_in_batches do |batch|
+      batch.each do |old|
+        a = Playlist.find_by(id: old.id)
+        a ||= Playlist.new(id: old.id)
+        %w(track_id story_id user_id identified_by).each do |field|
+          a.send("#{field}=", old.send(field)) unless a.send(field).present?
+        end
+        a.start_min = old.startmin
+        a.end_min = old.endmin
+        if a.save
+          print '.'
+        else
+          print 'X'
+          puts a.errors.map(&:full_message)
+        end
+      end
+    end
+    puts "\nComplete"
+    Playlist.find_by_sql("SELECT setval('playlists_id_seq', COALESCE((SELECT MAX(id)+1 FROM playlists), 1), false);")
+    Story.all.each { |a| Story.reset_counters(a.id, :playlists) }
+    Track.all.each { |a| Track.reset_counters(a.id, :playlists) }
+  end
 end

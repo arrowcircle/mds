@@ -19,38 +19,51 @@
 
 .flex.flex-row.items-center
   %h2.mr-2.flex-row Плейлист
-  = link_to "+ Опознать трек", [:new, @author, :story], class: "btn btn-ghost flex-row"
-  = link_to "Что играет?", [:new, @author, :story], class: "btn btn-ghost flex-row"
-- if false
-  - if @stories.present?
-    .overflow-x-auto
-      %table.table.w-full
-        %thead
+  = link_to "+ Опознать трек", [:new, @author, @story, :playlist], class: "btn btn-ghost flex-row"
+  = link_to "Что играет?", [:new, @author, @story, :playlist, playlist: { request: true }], class: "btn btn-ghost flex-row"
+
+- if @playlists.present?
+  .overflow-x-auto
+    %table.table.w-full
+      %thead
+        %tr
+          %th Название
+          %th Время
+          %th Слушать
+          %th
+      %tbody
+        - @playlists.each do |playlist|
           %tr
-            %th Название
-            %th
-        %tbody
-          - @stories.each do |story|
-            %tr
-              %td
-                = link_to [@author, story] do
-                  = "#{story.name} (#{story.completed ? 'Полностью' : story.playlists_count})"
-
-              %td
-                - if user_signed_in? && current_user.admin?
-                  .text-right
-                    = link_to "Ред", [:edit, @author, story], class: "btn btn-ghost btn-sm"
-                    = link_to "Удалить", [@author, story], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm"
-
-    - if @pagy.pages > 1
-      .flex.flex-col.items-center
-        = raw pagy_nav(@pagy)
-  - else
-    %h2 У этого автора пока нет рассказов.
-    %p
-      Может
-      = link_to "+ добавить", [:new, @author, :story], class: "link link-primary"
-      = "?"
+            %td
+              - if playlist.track.present?
+                = link_to [playlist.track.artist, playlist.track] do
+                  = "#{playlist.track.artist.name} - #{playlist.track.name}"
+              - else
+                Запрос на опознание
+            %td
+              - if playlist.start_min || playlist.end_min
+                = "с #{playlist.start_min} мин"
+                - if playlist.end_min
+                  = "по #{playlist.end_min} мин"
+              - else
+                Не указано
+            %td
+              - if playlist.track.present?
+                = link_to "VK", "https://vk.com/search?c[per_page]=200&c[q]=#{playlist.track.artist.name} - #{playlist.track.name}&c[section]=audio", target: :_blank
+                = link_to "Я.М", "https://music.yandex.ru/search?text=#{playlist.track.artist.name} - #{playlist.track.name}", target: :_blank
+                = link_to "Discogs", "https://www.discogs.com/search/?q=#{playlist.track.artist.name} - #{playlist.track.name}&type=all", target: :_blank
+                = link_to "Spotify", "https://open.spotify.com/search/#{playlist.track.artist.name} - #{playlist.track.name}", target: :_blank
+            %td
+              - if user_signed_in? && current_user.admin?
+                .text-right
+                  = link_to "Ред", [:edit, @author, @story, playlist], class: "btn btn-ghost btn-sm"
+                  = link_to "Удалить", [@author, @story, playlist], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm"
+- else
+  %h2 В этом рассказе пока нет опознанных треков.
+  %p
+    Может
+    = link_to "опознать", [:new, @author, @story, :playlist], class: "link link-primary"
+    = "?"
 
 
 -# = audio_tag "http://mds.mds-club.ru/Slushatel_Svetlana_-_Perimetr.mp3", autoplay: true, controls: true, data: { turbo_permanent: true }

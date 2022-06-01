@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_01_135915) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_01_175041) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "artists", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.text "image_data"
+    t.integer "tracks_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "authors", force: :cascade do |t|
     t.string "name"
@@ -21,6 +30,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_01_135915) do
     t.integer "stories_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "playlists", force: :cascade do |t|
+    t.bigint "track_id"
+    t.bigint "story_id"
+    t.integer "start_min"
+    t.integer "end_min"
+    t.integer "user_id"
+    t.integer "identified_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["identified_by"], name: "index_playlists_on_identified_by"
+    t.index ["story_id"], name: "index_playlists_on_story_id"
+    t.index ["track_id"], name: "index_playlists_on_track_id"
+    t.index ["user_id"], name: "index_playlists_on_user_id"
   end
 
   create_table "stories", force: :cascade do |t|
@@ -36,6 +60,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_01_135915) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_stories_on_author_id"
+  end
+
+  create_table "tracks", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.text "image_data"
+    t.bigint "artist_id"
+    t.integer "playlists_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_tracks_on_artist_id"
   end
 
   create_table "users", force: :cascade do |t|

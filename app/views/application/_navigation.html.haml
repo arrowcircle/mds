@@ -9,6 +9,12 @@
         = link_to [:authors], attrs do
           = 'Книги'
 
+      - active = %w(artists tracks).include?(controller_name)
+      - attrs = { class: ["#{'active' if active}"] }
+      %li.px-2{**attrs}
+        = link_to [:artists], attrs do
+          = 'Музыка'
+
       - active = controller_name == "users"
       - attrs = { class: ["#{'active' if active}"] }
       %li.pr-2{**attrs}

@@ -14,6 +14,7 @@ class Story < ApplicationRecord
   include Sluggable
   include ImageUploader::Attachment(:image)
   belongs_to :author, counter_cache: true
+  has_many :playlists, dependent: :destroy
 
   validates :name, presence: true
 end

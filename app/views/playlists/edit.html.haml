@@ -1,0 +1,42 @@
+.h-full.w-full.max-w-xl.mx-auto.align-middle.bg-slate-50
+  %h1.text-center.pt-8
+    - if @playlist.persisted?
+      Редактровать плейлист
+    - else
+      - if @playlist.request
+        Что играет?
+      - else
+        Опознать трек
+
+  = form_with model: [@author, @story, @playlist], class: 'shadow-md rounded px-8 pt-6 pb-8 mb-4' do |f|
+    - if @playlist.errors.any?
+      .mb-4
+        %span Ошибки при сохранении: #{@playlist.errors.size}
+        %ul.list-disc.pl-4
+          - @playlist.errors.each do |error|
+            %li= error.full_message
+
+    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-red-500" : "text-gray-700"}"
+    - input_classes = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline #{alert ? "border-red-500" : nil}"
+
+    - unless @playlist.request
+      .mb-4{"data-autocomplete-url-value" => search_artists_path, "autocomplete-min-length-value" => 0, "data-controller" => "autocomplete", id: "artist_search"}
+        = f.label :artist_name, "Артист", class: label_classes
+        = f.text_field :artist_name, data: { "autocomplete-target" => :input }, class: input_classes, placeholder: "Имя артиста"
+        = f.hidden_field :artist_id, data: { "autocomplete-target" => :hidden }
+        %ul.list-group{"data-autocomplete-target" => :results}
+      .mb-4{"data-autocomplete-url-value" => @playlist.track ? search_artist_tracks_path(@playlist.track.artist) : nil, "autocomplete-min-length-value" => 0, "data-controller" => "autocomplete", id: "track_search"}
+        = label_tag :track, "Трек", class: label_classes
+        = f.text_field :track_name, data: { "autocomplete-target" => :input },  class: input_classes, disabled: !@playlist.track.present?, placeholder: "Название трека"
+        = f.hidden_field :track_id, data: { "autocomplete-target" => :hidden }
+        %ul.list-group{"data-autocomplete-target" => :results}
+
+    .mb-4
+      = f.label :start_min, "Начало, мин", class: label_classes
+      = f.text_field :start_min, autocomplete: :off, class: input_classes, placeholder: "Начало"
+    .mb-4
+      = f.label :end_min, "Конец, мин", class: label_classes
+      = f.text_field :end_min, autocomplete: :off, class: input_classes, placeholder: "Конец"
+    = f.hidden_field :request
+    = f.submit "Сохранить", class: "btn"
+    = link_to "Назад", :back, class: "btn btn-ghost"
