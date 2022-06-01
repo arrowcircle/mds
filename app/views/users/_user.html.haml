@@ -1,0 +1,12 @@
+.card.card-compact.card-side.bg-slate-100.shadow-lg.w-full.p-0.m-2
+  %figure.ml-2
+    - if user.avatar.present?
+      = image_tag user.avatar.imgproxy_url(width: 100, height: 100, resizing_type: :fill), alt: user.username, class: "rounded-lg"
+    - else
+      -# = image_tag '.../200x200', width: 200, height: 200, class: 'figure-img img-fluid rounded', alt: user.username
+  .card-body
+    %h5.card-title= link_to user.username, user_url(user)
+    %p= "#{time_ago_in_words(user.created_at)} на сайте"
+    %p
+      Опознал треков: #{user.findings_count}
+      -#{Playlist.where(identified_by: user.id).where("track_id is not null").count}

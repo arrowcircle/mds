@@ -1,0 +1,32 @@
+.h-full.w-full.max-w-xl.mx-auto.align-middle.bg-slate-50
+  %h1.text-center.pt-8
+    - if @author.persisted?
+      Редактровать автора
+    - else
+      Добавить автора
+  = form_with model: @author, class: 'shadow-md rounded px-8 pt-6 pb-8 mb-4' do |f|
+
+    - if @author.errors.any?
+      .mb-4
+        %span Ошибки при сохранении: #{@author.errors.size}
+        %ul.list-disc.pl-4
+          - @author.errors.each do |error|
+            %li= error.full_message
+
+    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-red-500" : "text-gray-700"}"
+    - input_classes = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline #{alert ? "border-red-500" : nil}"
+
+    .mb-4
+      = f.label :name, "Имя", class: label_classes
+      = f.text_field :name, autofocus: true, autocomplete: :off, class: input_classes, placeholder: "Имя автора"
+    .mb-4
+      = f.label :image, "Изображение", class: label_classes
+      - if @author.image.present?
+        = image_tag @author.image.imgproxy_url(width: 100, resizing_type: :fill)
+      = f.hidden_field :image, value: @author.cached_image_data
+      = f.file_field :image
+    .mb-4
+      = f.label :description, "Описание", class: label_classes
+      = f.text_area :description,autocomplete: :off, class: input_classes, placeholder: "Описание"
+    = f.submit "Сохранить", class: "btn"
+    = link_to "Назад", :back, class: "btn btn-ghost"

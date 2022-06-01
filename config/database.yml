@@ -22,6 +22,9 @@ default: &default
   host: localhost
   # user: postgres
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  collation: ru_RU.UTF-8
+  ctype: ru_RU.UTF-8
+  template: template0
 
 development:
   primary:

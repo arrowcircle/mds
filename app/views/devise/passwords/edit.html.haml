@@ -1,4 +1,4 @@
-.h-full.w-full.max-w-md.mx-auto.align-middle
+.h-full.w-full.max-w-xl.mx-auto.align-middle
   = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' }) do |f|
     %h2.text-center Change your password
     = render "devise/shared/error_messages", resource: resource

@@ -13,6 +13,16 @@ class ApplicationController < ActionController::Base
     end
 
   private
+    def authenticate_user
+      return true if user_signed_in?
+      return redirect_to rool_url, alert: "Нужно залогиниться", status: :see_other
+    end
+
+    def authenticate_admin
+      return true if user_signed_in? && current_user.admin?
+      return redirect_to root_url, alert: "Только для админов", status: :see_other
+    end
+
     def metadata
       @metadata ||= OpenStruct.new(title: title, description: description, og: og)
     end

@@ -1,5 +1,12 @@
+.flex.flex-row.items-center
+  %h1.mr-2
+    Авторы
+  = link_to "+ Добавить", [:new, :author], class: "btn btn-ghost"
+  .search-pane.flex-1.flex-row.pl-2
+    = form_tag authors_path, method: :get, class: 'has-search' do
+      = text_field_tag :q, params[:q], placeholder: 'Поиск', class: 'form-control'
+
 - if @authors.present?
-  %h1.text-3xl Авторы
   .overflow-x-auto
     %table.table.w-full
       %thead
@@ -9,11 +16,15 @@
       %tbody
         - @authors.each do |author|
           %tr
-            %td= link_to author.name, [author]
             %td
-              .text-right
-                = link_to "Ред", [:edit, author], class: "btn btn-ghost btn-sm"
-                = link_to "Удалить", [author], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm"
+              = link_to [author] do
+                = "#{author.name} (Рассказов: #{rand(100)})"
+
+            %td
+              - if user_signed_in? && current_user.admin?
+                .text-right
+                  = link_to "Ред", [:edit, author], class: "btn btn-ghost btn-sm"
+                  = link_to "Удалить", [author], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm"
 
   - if @pagy.pages > 1
     .flex.flex-col.items-center

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+  @apply font-medium leading-tight text-4xl mt-0 mb-2 flex-row;
+}
+
 .pagy-nav {
   @apply flex space-x-2;
 }

@@ -17,6 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_08_26_122003) do
   create_table "authors", force: :cascade do |t|
     t.string "name"
     t.text "description"
+    t.text "image_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

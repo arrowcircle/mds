@@ -50,5 +50,6 @@ namespace :import do
     end
     puts "\nComplete"
     puts dupes
+    Author.find_by_sql("SELECT setval('authors_id_seq', COALESCE((SELECT MAX(id)+1 FROM authors), 1), false);")
   end
 end
