@@ -3,4 +3,5 @@ class Author < ApplicationRecord
   extend Searchable
   validates :name, presence: true, uniqueness: true
   include ImageUploader::Attachment(:image)
+  has_many :stories, dependent: :destroy
 end

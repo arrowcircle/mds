@@ -6,6 +6,11 @@ h1 {
   @apply font-medium leading-tight text-4xl mt-0 mb-2 flex-row;
 }
 
+h2 {
+  @apply font-medium leading-tight text-2xl;
+}
+
+
 .pagy-nav {
   @apply flex space-x-2;
 }

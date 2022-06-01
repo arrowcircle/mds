@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post :search, as: :search, to: "searches#index"
 
   resources :authors do
+    resources :stories
   end
   get 'health_check', to: 'welcome#health_check'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

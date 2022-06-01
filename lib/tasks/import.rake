@@ -52,4 +52,25 @@ namespace :import do
     puts dupes
     Author.find_by_sql("SELECT setval('authors_id_seq', COALESCE((SELECT MAX(id)+1 FROM authors), 1), false);")
   end
+
+  task stories: :environment do
+    Old::Story.find_in_batches do |batch|
+      batch.each do |old_story|
+        a = Story.find_by(id: old_story.id)
+        a ||= Story.new(id: old_story.id)
+        %w(name author_id completed radio date).each do |field|
+          a.send("#{field}=", old_story.send(field)) unless a.send(field).present?
+        end
+        dupe_author_id = AUTHOR_DUPES[a.author_id]
+        a.author_id = dupe_author_id if dupe_author_id.present?
+        if a.save
+          print '.'
+        else
+          print 'X'
+        end
+      end
+    end
+    puts "\nComplete"
+    Story.find_by_sql("SELECT setval('stories_id_seq', COALESCE((SELECT MAX(id)+1 FROM stories), 1), false);")
+  end
 end

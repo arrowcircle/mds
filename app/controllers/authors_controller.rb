@@ -2,11 +2,14 @@ class AuthorsController < ApplicationController
   before_action :authenticate_user, only: [:new, :create]
   before_action :authenticate_admin, only: [:edit, :update, :destroy]
   def index
-    @pagy, @authors = pagy(Author.search(params[:q]).order(:name))
+    scope = Author.search(params[:q])
+    scope = scope.order(:name)
+    @pagy, @authors = pagy(scope)
   end
 
   def show
-    @author = Author.find(params[:id])
+    @author = Author.includes(:stories).find(params[:id])
+    @pagy, @stories = pagy(@author.stories)
   end
 
   def new

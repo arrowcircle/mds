@@ -18,7 +18,7 @@
           %tr
             %td
               = link_to [author] do
-                = "#{author.name} (Рассказов: #{rand(100)})"
+                = "#{author.name} (Рассказов: #{author.stories_count})"
 
             %td
               - if user_signed_in? && current_user.admin?
