@@ -8,8 +8,8 @@ docker:
   CMD: "puma -C config/puma.rb"
   ENV:
     LC_ALL: "en_US.UTF-8"
-    S3_ACCESS_KEY: "1"
-    S3_SECRET: "1"
+    AWS_ACCESS_KEY_ID: "1"
+    AWS_SECRET_ACCESS_KEY: "1"
     S3_HOST: "http://localhost"
     S3_REGION: "1"
     DATABASE_URL: "postgres://postgres:postgres@postgres:5432/mds_production"
@@ -28,7 +28,7 @@ shell:
   setup:
   - cd /app
   - export DATABASE_URL="postgres://pg:pg@pg:5432/db" RAILS_ENV=production
-  - export S3_ACCESS_KEY=1 S3_SECRET=1 S3_HOST=http://localhost S3_REGION=1 SECRET_KEY_BASE=a
+  - export AWS_ACCESS_KEY_ID=1 AWS_SECRET_ACCESS_KEY=1 S3_HOST=http://localhost S3_REGION=1 SECRET_KEY_BASE=a
   - bundle exec rake webpacker:compile
 git:
   - add: /

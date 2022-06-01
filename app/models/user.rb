@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
   validates :username, presence: true, uniqueness: true, allow_blank: false, length: { minimum: 3 }
 
-  include ImageUploader::Attachment.new(:avatar)
+  include ImageUploader::Attachment(:avatar)
 
   def self.search(query)
     if query && query.length > 0
