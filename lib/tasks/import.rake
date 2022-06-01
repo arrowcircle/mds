@@ -72,5 +72,6 @@ namespace :import do
     end
     puts "\nComplete"
     Story.find_by_sql("SELECT setval('stories_id_seq', COALESCE((SELECT MAX(id)+1 FROM stories), 1), false);")
+    Author.all.each { |a| Author.reset_counters(a.id, :stories) }
   end
 end

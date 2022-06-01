@@ -9,7 +9,7 @@ class AuthorsController < ApplicationController
 
   def show
     @author = Author.includes(:stories).find(params[:id])
-    @pagy, @stories = pagy(@author.stories)
+    @pagy, @stories = pagy(Story.search(params[:q], @author.stories))
   end
 
   def new
