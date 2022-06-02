@@ -36,9 +36,17 @@
           %tr{"data-start-min" => playlist.start_min.present? ? playlist.start_min : nil}
             %td
               - if playlist.track.present?
-                = link_to playlist.track.artist.name, [playlist.track.artist], class: :link
-                = "-"
-                = link_to playlist.track.name, [playlist.track.artist, playlist.track], class: :link
+                .flex.flex-col.items-left
+                  .link
+                    = link_to playlist.track.artist.name, [playlist.track.artist], class: :link
+                    = "-"
+                    = link_to playlist.track.name, [playlist.track.artist, playlist.track], class: :link
+                  - if playlist.identifier.present?
+                    .no-flex
+                      опознал
+                      - if playlist.identifier.avatar.present?
+                        = image_tag playlist.identifier.avatar.imgproxy_url(height: 80, width: 80, resize: :fill), class: "avatar rounded-full w-4"
+                      = link_to playlist.identifier.username, [playlist.identifier], class: :link
               - else
                 Запрос на опознание
             %td

@@ -4,7 +4,7 @@ class StoriesController < ApplicationController
   before_action :authenticate_admin, only: [:edit, :update, :destroy]
   def show
     @story = @author.stories.find(params[:id])
-    @playlists = @story.playlists.includes(track: :artist).order(:start_min)
+    @playlists = @story.playlists.includes(:identifier, track: :artist).order(:start_min)
   end
 
   def new
