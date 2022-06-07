@@ -1,6 +1,8 @@
 AUTHOR_DUPES = {303=>302, 305=>304, 306=>304, 392=>391, 418=>179, 459=>442}
 namespace :import do
+  task all: [:users, :authors, :stories, :artists, :tracks, :playlists]
   task users: :environment do
+    puts "\n== Importing users\n"
     KEYS = [:id, :email, :encrypted_password, :sign_in_count, :last_sign_in_at, :current_sign_in_at, :created_at, :updated_at, :role, :username].map(&:to_s)
     avatars = {}
     users = JSON.parse(File.read('tmp/users.json'))
@@ -29,31 +31,9 @@ namespace :import do
       avatars = {}
     end
   end
-  task authors: :environment do
-    dupes = {}
-    Old::Author.find_in_batches do |batch|
-      batch.each do |old_author|
-        a = Author.find_by(id: old_author.id)
-        a ||= Author.new(id: old_author.id)
-        a.name ||= old_author.name
-        if a.save
-          print '.'
-        else
-          print 'X'
-          old_ids = Old::Author.where(name: old_author.name).map(&:id)
-          new_id = Author.where(name: old_author.name).first.id
-          (old_ids - [new_id]).each do |id|
-            dupes[id] = new_id
-          end
-        end
-      end
-    end
-    puts "\nComplete"
-    puts dupes
-    Author.find_by_sql("SELECT setval('authors_id_seq', COALESCE((SELECT MAX(id)+1 FROM authors), 1), false);")
-  end
 
   task stories: :environment do
+    puts "\n== Importing stories\n"
     Old::Story.find_in_batches do |batch|
       batch.each do |old_story|
         a = Story.find_by(id: old_story.id)
@@ -76,6 +56,7 @@ namespace :import do
   end
 
   task authors: :environment do
+    puts "\n== Importing authors\n"
     dupes = {}
     Old::Author.find_in_batches do |batch|
       batch.each do |old_author|
@@ -100,6 +81,7 @@ namespace :import do
   end
 
   task artists: :environment do
+    puts "\n== Importing artists\n"
     Old::Artist.find_in_batches do |batch|
       batch.each do |old|
         a = Artist.find_by(id: old.id)
@@ -119,6 +101,7 @@ namespace :import do
   end
 
   task tracks: :environment do
+    puts "\n== Importing tracks\n"
     Old::Track.find_in_batches do |batch|
       batch.each do |old|
         a = Track.find_by(id: old.id)
@@ -139,6 +122,7 @@ namespace :import do
   end
 
   task playlists: :environment do
+    puts "\n== Importing playlists\n"
     Old::Playlist.find_in_batches do |batch|
       batch.each do |old|
         a = Playlist.find_by(id: old.id)

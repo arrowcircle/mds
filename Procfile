@@ -4,3 +4,4 @@ js: yarn build --watch
 css: yarn build:css --watch
 minio: mkdir -p tmp/minio && minio server tmp/minio --console-address :9090
 imgproxy: imgproxy
+meilisearch: meilisearch --log-level=ERROR --db-path tmp/meilisearch
