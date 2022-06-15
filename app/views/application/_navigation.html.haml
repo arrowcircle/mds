@@ -1,30 +1,32 @@
-.navbar.bg-base-100
+.navbar.bg-base-200
   .navbar-start
-    = link_to root_url, class: "btn btn-ghost btn-compact normal-case text-xl" do
-      МДС Музыка
-    %ul.menu.menu-horizontal.p-0
+    = link_to root_url, class: "normal-case text-lg font-bold flex" do
+      МДС&nbsp;Музыка
+    %ul.menu.menu-horizontal.p-0.hidden{ class: "md:flex" }
       - active = %w(authors stories).include?(controller_name)
-      - attrs = { class: ["#{'active' if active}"] }
-      %li.px-2{**attrs}
+      - attrs = { class: ["p-1 text-sm #{'active' if active}"] }
+      %li.p1.text-sm{ class: "#{'active' if active}"}
         = link_to [:authors], attrs do
           = 'Книги'
 
       - active = %w(artists tracks).include?(controller_name)
-      - attrs = { class: ["#{'active' if active}"] }
-      %li.px-2{**attrs}
+      - attrs = { class: ["p-1 text-sm #{'active' if active}"] }
+      %li.p1.text-sm{ class: "#{'active' if active}"}
         = link_to [:artists], attrs do
           = 'Музыка'
 
       - active = controller_name == "users"
-      - attrs = { class: ["#{'active' if active}"] }
-      %li.pr-2{**attrs}
+      - attrs = { class: ["p-1 text-sm #{'active' if active}"] }
+      %li.p1.text-sm{ class: "#{'active' if active}"}
         = link_to [:users], attrs do
           = 'Участники'
-    .form-control
+    .form-control.hidden.p-1{ class: "md:block" }
       = form_with url: search_url do |f|
-        = text_field_tag :q, params[:q], placeholder: "Поиск", class: "input input-bordered"
+        = text_field_tag :q, params[:q], placeholder: "Поиск", class: "input input-bordered input-sm"
   .navbar-end
-    %ul.menu.menu-horizontal.p-0.bg-base-100
+    = render "dropdown"
+
+    %ul.menu.menu-horizontal.p-0.bg-base-200.hidden{ class: "md:flex" }
       - if user_signed_in?
         %li
           = link_to edit_user_registration_path, class: 'nav-link' do
