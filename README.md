@@ -7,8 +7,8 @@
 
 ## Зависимости
 
-* Ruby 2.7+
-* Postgresql 13+
+* Ruby 3.1+
+* Postgresql 14+
 * Imgproxy
 * S3 (AWS или Minio)
 
@@ -18,9 +18,9 @@
 
 ## Развертывание окружения разработки
 
-* Настроить стандартное оружение Rails: Ruby 2.7, Postgresql 13. Устанавливать руби можно через rvm,rbenv или через Docker.
-* Запустить Minio через докер
-* Запустить Imgproxy через докер
+* Настроить стандартное оружение Rails: Ruby 3.1.2, Postgresql 14. Устанавливать руби можно через asdf, rvm ,rbenv или через Docker.
+* Установить minio в систему или через докер
+* Установить Imgproxy в систему или через докер
 * `cp .env.sample .env` и отредактировать значения
 * `cp config/database.yml.sample config/database.yml` и отредактировать значения
 * Создать бакеты public: `mds/images` и `cache` и private: `mds/audio`

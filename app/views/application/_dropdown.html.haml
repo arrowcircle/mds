@@ -1,0 +1,42 @@
+.dropdown{ class: "md:hidden" }
+  %label{ tabindex: "0" }
+    = image_tag 'hamburger.svg', class: "h-10 w-10 text-slate-100"
+
+  - # Dropdown menu
+  %ul.menu.menu-compact.dropdown-content.mt-3.p-2.shadow.bg-base-100.rounded-box.w-52.absolute.-left-40{ tabindex: "0" }
+    - active = %w(authors stories).include?(controller_name)
+    - attrs = { class: ["p-1 text-sm #{'active' if active}"] }
+    %li{ class: "#{'active' if active}"}
+      = link_to [:authors], attrs do
+        = 'Книги'
+
+    - active = %w(artists tracks).include?(controller_name)
+    - attrs = { class: ["p-1 text-sm #{'active' if active}"] }
+    %li{ class: "#{'active' if active}"}
+      = link_to [:artists], attrs do
+        = 'Музыка'
+
+    - active = controller_name == "users"
+    - attrs = { class: ["p-1 text-sm #{'active' if active}"] }
+    %li{ class: "#{'active' if active}"}
+      = link_to [:users], attrs do
+        = 'Участники'
+
+    %hr/
+    
+    %li.form-control.ml-0.pl-0
+      = form_with url: search_url, class: "p-0 py-2" do |f|
+        = text_field_tag :q, params[:q], placeholder: "Поиск", class: "input input-bordered input-sm"
+
+    %hr/
+
+    - if user_signed_in?
+      %li
+        = link_to edit_user_registration_path, class: "p-1" do
+          - if current_user.avatar.present?
+            .mask.mask-squircle.w-auto= image_tag current_user.avatar.imgproxy_url(width: 100, height: 100, resizing_type: :fill), width: 30, class: ['rounded-circle', 'z-depth-0']              
+          = current_user.username
+      %li= link_to 'Выход', destroy_user_session_path, data: { turbo_method: :delete }, class: "p-1"
+    - else
+      %li= link_to 'Регистрация', new_user_registration_path, class: "p-1"
+      %li= link_to 'Войти', new_user_session_path, class: "p-1"

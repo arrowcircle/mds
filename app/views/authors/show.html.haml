@@ -1,0 +1,41 @@
+.flex.flex-row.items-center
+  %h1.mr-2= @author.name
+  = link_to "ред", [:edit, @author], class: "btn btn-ghost"
+  = link_to "назад", :back, class: "btn btn-ghost"
+  
+- if @author.description.present?
+  = raw @author.description
+
+.flex.flex-row.items-center
+  %h2.mr-2.flex-row Рассказы
+  = link_to "+ Добавить", [:new, @author, :story], class: "btn btn-ghost flex-row"
+
+- if @stories.present?
+  .overflow-x-auto
+    %table.table.w-full.table-compact
+      %thead
+        %tr
+          %th Название
+          %th
+      %tbody
+        - @stories.each do |story|
+          %tr
+            %td
+              = link_to [@author, story] do
+                = "#{story.name} (#{story.completed ? 'Полностью' : story.playlists_count})"
+
+            %td
+              - if user_signed_in? && current_user.admin?
+                .text-right
+                  = link_to "Ред", [:edit, @author, story], class: "btn btn-ghost btn-sm"
+                  = link_to "Удалить", [@author, story], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm"
+
+  - if @pagy.pages > 1
+    .flex.flex-col.items-center
+      = raw pagy_nav(@pagy)
+- else
+  %h2 У этого автора пока нет рассказов.
+  %p
+    Может
+    = link_to "+ добавить", [:new, @author, :story], class: "link link-primary"
+    = "?"

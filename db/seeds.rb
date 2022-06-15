@@ -9,17 +9,21 @@
 def s3_test_client
   @s3_test_client ||= Aws::S3::Client.new(
     region: 'us-east-1',
-    access_key_id: ENV['S3_ACCESS_KEY'],
-    secret_access_key: ENV['S3_SECRET'],
+    access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
     endpoint: ENV['S3_HOST'],
     force_path_style: true
   )
 end
 
 def create_bucket(name)
-  s3_test_client.create_bucket(bucket: name)
-rescue
-  true
+  s3_test_client.create_bucket(bucket: name, acl: :public)
+rescue Aws::S3::Errors::BucketAlreadyOwnedByYou
+  puts "Already created bucket: #{name}"
 end
 
-%w(images cache).each { |n| create_bucket(n) }
+def create_folder(bucket, name)
+  s3_test_client.put_object(bucket: bucket, acl: :public, key: "#{name}/")
+end
+
+%w(images cache).each { |n| create_bucket(n); create_folder(n, "mds") }

@@ -1,0 +1,13 @@
+<% if resource.errors.any? %>
+  <div id="error_explanation">
+    <h2 class="text-lg text-bold">
+      Ошибки:
+      <%= resource.errors.count %>
+    </h2>
+    <ul class="list-disc m-4">
+      <% resource.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

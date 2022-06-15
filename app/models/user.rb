@@ -7,7 +7,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
   validates :username, presence: true, uniqueness: true, allow_blank: false, length: { minimum: 3 }
 
-  include ImageUploader::Attachment.new(:avatar)
+  ADMINS = %w(
+    zarrazzaa@yandex.ru
+  )
+
+  include ImageUploader::Attachment(:avatar)
 
   def self.search(query)
     if query && query.length > 0
@@ -35,5 +39,9 @@ class User < ApplicationRecord
 
   def findings_count
     rand(100)
+  end
+
+  def admin?
+    ADMINS.include?(email.downcase)
   end
 end

@@ -1,37 +1,41 @@
-%h1 Редактирование профиля #{current_user.username}
-.row
-  .col-sm-2
-  .col-sm-6
-    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-      = bootstrap_devise_error_messages!
-      .mb-3
-        = f.label :email
-        = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
-      .mb-3
-        = f.label :username
-        = f.text_field :username, autofocus: true, class: 'form-control'
-      .mb-3
-        - if @user.avatar.present?
-          = image_tag @user.avatar.imgproxy_url(width: 100, resizing_type: :fill)
-        = f.label :avatar
-        = f.hidden_field :avatar, value: @user.cached_avatar_data
-        = f.file_field :avatar
-      .mb-3
-        = f.label :password
-        = f.password_field :password, autocomplete: 'new-password', class: 'form-control'
-        %small.form-text.text-muted= t('.leave_blank_if_you_don_t_want_to_change_it')
-      .mb-3
-        = f.label :password_confirmation
-        = f.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-control'
-      .mb-3
-        = f.label :current_password
-        = f.password_field :current_password, autocomplete: 'current-password', class: 'form-control'
-        %small.form-text.text-muted= t('.we_need_your_current_password_to_confirm_your_changes')
-      .mb-3
-        = f.submit t('.update'), class: 'btn btn-primary'
-        или
-        = link_to 'вернуться назад', :back
-    %p
-      = t('.unhappy')
-      ? #{link_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete}.
-  .col-sm-4
+.h-full.w-full.max-w-xl.mx-auto.align-middle
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' }, data: { turbo: false }) do |f|
+    %h2.text-center
+      Редактирование профиля #{current_user.username}
+    = render "devise/shared/error_messages", resource: resource
+    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-red-500" : "text-gray-700"}"
+    - input_classes = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline #{alert ? "border-red-500" : nil}"
+    .mb-4
+      = f.label :email, "Email", class: label_classes
+      = f.email_field :email, autofocus: true, autocomplete: "email", class: input_classes
+    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+      .block.text-sm.font-normal.mb-2.text-gray-500
+        Currently waiting confirmation for: #{resource.unconfirmed_email}
+    .mb-4
+      = f.label :username, "Username", class: label_classes
+      = f.text_field :username, autofocus: true, autocomplete: "username", class: input_classes
+    .mb-4
+      - if @user.avatar.present?
+        = image_tag @user.avatar.imgproxy_url(width: 100, resizing_type: :fill)
+      = f.label :avatar
+      = f.hidden_field :avatar, value: @user.cached_avatar_data
+      = f.file_field :avatar
+    .mb-4
+      = f.label :password, "Пароль", class: label_classes
+      %i.block.text-sm.font-normal.mb-2.text-gray-900 (оставьте пустым, если не хотите поменять)
+      = f.password_field :password, autocomplete: "new-password", class: input_classes
+      - if @minimum_password_length
+        %em.block.text-sm.font-normal.mb-2.text-gray-900
+          минимум
+          = @minimum_password_length
+          символов
+    .mb-4
+      = f.label :password_confirmation, "Подтверждение пароля", class: label_classes
+      = f.password_field :password_confirmation, autocomplete: "new-password", class: input_classes
+    .mb-4
+      = f.label :current_password, "Текущий пароль", class: label_classes
+      %i.block.text-sm.font-normal.mb-2.text-gray-900 (текущий пароль нужен для подтверждения)
+      = f.password_field :current_password, autocomplete: "current-password", class: input_classes
+    .flex.items-center.justify-between.content-end
+      = f.submit "Сохранить", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-6 rounded focus:outline-none focus:shadow-outline"
+      = link_to "Назад", :back, class: "font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border border-gray-500"

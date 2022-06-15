@@ -1,0 +1,36 @@
+.flex.flex-row.items-center.align-center
+  %h1.mr-2
+    Авторы
+  = link_to "+ Добавить", [:new, :author], class: "btn btn-ghost"
+  .search-pane.flex-1.pl-2.pb-2
+    = form_tag authors_path, method: :get, class: 'has-search' do
+      = text_field_tag :q, params[:q], placeholder: 'Поиск', class: "input input-bordered"
+
+- if @authors.present?
+  .overflow-x-auto.mt-2
+    %table.table.w-full.table-compact
+      %thead
+        %tr
+          %th Имя
+          %th
+      %tbody
+        - @authors.each do |author|
+          %tr
+            %td
+              = link_to [author] do
+                = "#{author.name} (Рассказов: #{author.stories_count})"
+
+            %td
+              - if user_signed_in? && current_user.admin?
+                .text-right
+                  = link_to "Ред", [:edit, author], class: "btn btn-ghost btn-sm"
+                  = link_to "Удалить", [author], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm"
+
+  - if @pagy.pages > 1
+    .flex.flex-col.items-center
+      = raw pagy_nav(@pagy)
+- else
+  %h3
+    Мы не нашли авторов. Может
+    = link_to "добавить", [:new, :author]
+    = "?"

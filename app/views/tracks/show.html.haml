@@ -1,0 +1,31 @@
+.flex.flex-row.items-center
+  %h1.mr-2
+    = link_to @artist.name, [@artist], class: :link
+    = "-"
+    = @track.name
+  = link_to "ред", [:edit, @artist, @track], class: "btn btn-ghost"
+  
+- if @track.description.present?
+  = raw @track.description
+
+.flex.flex-row.items-center
+  %h2.mr-2.flex-row Играет в рассказах
+
+- if @stories.present?
+  .overflow-x-auto
+    %table.table.w-full
+      %thead
+        %tr
+          %th Название
+      %tbody
+        - @stories.each do |story|
+          %tr
+            %td
+              = link_to [story.author, story] do
+                = "#{story.name} (#{story.completed ? 'Полностью' : story.playlists_count})"
+
+- else
+  %h2 Этот трек пока не играет ни в одном рассказе.
+
+
+-# = audio_tag "http://mds.mds-club.ru/Slushatel_Svetlana_-_Perimetr.mp3", autoplay: true, controls: true, data: { turbo_permanent: true }

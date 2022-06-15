@@ -5,7 +5,7 @@ require 'rails_helper'
 feature 'Sign in' do
   scenario 'Access login page from main page' do
     visit root_url
-    click_link 'Вход'
+    click_link 'Войти'
     expect(page).to have_content 'Email'
   end
 
@@ -70,7 +70,7 @@ feature 'Sign in' do
     it 'Searches user' do
       u1 = create(:user)
       u2 = create(:user)
-      visit users_path(search: u1.username)
+      visit users_path(q: u1.username)
       expect(page).to have_content u1.username
       expect(page).not_to have_content u2.username
     end

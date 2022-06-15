@@ -1,31 +1,16 @@
-%h1
-  Участники проекта
-  .search-pane
-    = form_tag users_path, method: :get, class: 'has-search' do
-      = text_field_tag :search, params[:search], placeholder: 'Поиск', class: 'form-control'
+.flex.flex-row.items-center
+  %h1.mr-2
+    Участники проекта
+  .search-pane.flex-1.flex-row.pl-2
+    = form_tag authors_path, method: :get, class: 'has-search' do
+      = text_field_tag :q, params[:q], placeholder: 'Поиск', class: "input input-bordered"
 
 - if @users.present?
-  - @users.each_slice(4) do |slice|
-    .row.row-cols-4.p-1
-      - slice.each do |user|
-        .col-sm-3
-          .card.h-100.w-100
-            - if user.avatar.present?
-              = image_tag user.avatar.imgproxy_url(width: 200, height: 200, resizing_type: :fill), class: ['z-depth-0', 'card-img-top'], alt: user.username
-            - else
-              %figure.figure
-                -# = image_tag '.../200x200', width: 200, height: 200, class: 'figure-img img-fluid rounded', alt: user.username
-            .card-body
-              %h5.card-title= link_to user.username, user_url(user)
-              %h6.card-subtitle.mb-2.text-muted= "#{time_ago_in_words(user.created_at)} на сайте"
-              %p.card-text
-                %p.mb-1
-                  Опознал треков: #{user.findings_count}
-                  -#{Playlist.where(identified_by: user.id).where("track_id is not null").count}
+  .flex.flex-col.items-center
+    = render @users
 
   - if @pagy.pages > 1
-    = raw pagy_bootstrap_nav(@pagy)
-    -# = raw pagy_bootstrap_responsive_nav(@pagy)
-    -# = raw pagy_bootstrap_compact_nav(@pagy)
+    .flex.flex-col.items-center
+      = raw pagy_nav(@pagy)
 - else
   %h3 Таких участников нет :( Попробуй поменять что-то.
