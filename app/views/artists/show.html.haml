@@ -1,14 +1,25 @@
 .flex.flex-row.items-center
-  %h1.mr-2= @artist.name
-  = link_to "ред", [:edit, @artist], class: "btn btn-ghost"
-  = link_to "назад", :back, class: "btn btn-ghost"
-  
+  .flex-auto.flex.flex-row.items-center
+    %h1.mr-2= @artist.name
+    = link_to [:edit, @artist], class: "btn btn-sm btn-ghost" do
+      = image_tag "edit.svg", class: "w-4 h-4"
+      ред
+  .flex-auto.text-right
+    = link_to :back, class: "btn btn-sm btn-ghost" do
+      = image_tag "arrow_left.svg", class: "w-4 h-4"
+      назад
+%hr/
 - if @artist.description.present?
   = raw @artist.description
-
 .flex.flex-row.items-center
-  %h2.mr-2.flex-row Треки
-  = link_to "+ Добавить", [:new, @artist, :track], class: "btn btn-ghost flex-row"
+  .flex-auto
+    %h2.mr-2.flex-row Треки
+  .flex-auto.text-right
+    = link_to [:new, @artist, :track], class: "btn btn-sm btn-ghost flex-row" do
+      = image_tag "add.svg", class: "w-4 h-4"
+      добавить
+
+%hr.py-2/
 
 - if @tracks.present?
   .overflow-x-auto

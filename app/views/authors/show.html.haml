@@ -1,15 +1,24 @@
 .flex.flex-row.items-center
-  %h1.mr-2= @author.name
-  = link_to "ред", [:edit, @author], class: "btn btn-ghost"
-  = link_to "назад", :back, class: "btn btn-ghost"
-  
+  .flex-1.flex.flex-row.items-center
+    .flex
+      %h1.mr-2= @author.name
+    .flex
+      = link_to [:edit, @author], class: "btn btn-sm btn-ghost" do
+        = image_tag "edit.svg", class: "h-4 w-4"
+        ред.
+      
+  .flex-1.text-right
+    = link_to :back, class: "btn btn-sm btn-ghost" do
+      = image_tag "arrow_left.svg", class: "h-4 w-4"
+      назад
+%hr/
 - if @author.description.present?
   = raw @author.description
 
 .flex.flex-row.items-center
-  %h2.mr-2.flex-row Рассказы
-  = link_to "+ Добавить", [:new, @author, :story], class: "btn btn-ghost flex-row"
-
+  %h2.mr-2.flex-row.flex-1 Рассказы
+  .flex.text-right.flex= link_to "+ Добавить", [:new, @author, :story], class: "btn btn-sm btn-ghost flex-row"
+%hr.py-2
 - if @stories.present?
   .overflow-x-auto
     %table.table.w-full.table-compact

@@ -1,13 +1,12 @@
 .flex.flex-row.items-center.align-center
-  %h1.mr-2
-    Авторы
-  = link_to [:new, :author], class: "btn btn-ghost" do
-    = image_tag "add.svg", class: "w-4 h-4"
-    Добавить
-  .search-pane.flex-1.pl-2.pb-2
-    = form_tag authors_path, method: :get, class: 'has-search' do
-      = text_field_tag :q, params[:q], placeholder: 'Поиск', class: "input input-bordered"
-
+  .flex-1
+    %h1.mr-2
+      Авторы
+  .flex-1.text-right
+    = link_to [:new, :author], class: "btn btn-sm btn-ghost" do
+      = image_tag "add.svg", class: "w-4 h-4"
+      Добавить
+%hr
 - if @authors.present?
   .overflow-x-auto.mt-2
     %table.table.w-full.table-compact

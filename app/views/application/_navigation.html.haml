@@ -2,23 +2,21 @@
   .navbar-start
     = link_to root_url, class: "normal-case text-lg font-bold flex" do
       МДС&nbsp;Музыка
-    %ul.menu.menu-horizontal.p-0.hidden{ class: "md:flex" }
+    %ul.menu.menu-horizontal.p-0.hidden{ class: "md:flex lg:px-2" }
       - active = %w(authors stories).include?(controller_name)
-      - attrs = { class: ["p-1 text-sm #{'active' if active}"] }
-      %li.p1.text-sm{ class: "#{'active' if active}"}
-        = link_to [:authors], attrs do
+
+      %li.p1.text-sm{ class: "lg:px-2 lg:text-base"}
+        = link_to [:authors], class: "#{'active' if active}" do
           = 'Книги'
 
       - active = %w(artists tracks).include?(controller_name)
-      - attrs = { class: ["p-1 text-sm #{'active' if active}"] }
-      %li.p1.text-sm{ class: "#{'active' if active}"}
-        = link_to [:artists], attrs do
+      %li.p1.text-sm{ class: "lg:px-2 lg:text-base"}
+        = link_to [:artists], class: "#{'active' if active}" do
           = 'Музыка'
 
       - active = controller_name == "users"
-      - attrs = { class: ["p-1 text-sm #{'active' if active}"] }
-      %li.p1.text-sm{ class: "#{'active' if active}"}
-        = link_to [:users], attrs do
+      %li.p1.text-sm{ class: "lg:px-2 lg:text-base"}
+        = link_to [:users], class: "#{'active' if active}" do
           = 'Участники'
     .form-control.hidden.p-1{ class: "md:block" }
       = form_with url: search_url do |f|

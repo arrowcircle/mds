@@ -1,11 +1,12 @@
 .flex.flex-row.items-center.align-center
-  %h1.mr-2
-    Артисты
-  = link_to "+ Добавить", [:new, :artist], class: "btn btn-ghost"
-  .search-pane.flex-1.pl-2.pb-2
-    = form_tag artists_path, method: :get, class: 'has-search' do
-      = text_field_tag :q, params[:q], placeholder: 'Поиск', class: "input input-bordered"
-
+  .flex-auto
+    %h1.mr-2
+      Артисты
+  .flex-auto.text-right
+    = link_to [:new, :artist], class: "btn btn-sm btn-ghost" do
+      = image_tag "add.svg", class: "w-4 h-4"
+      добавить
+%hr/
 - if @artists.present?
   .overflow-x-auto.mt-2
     %table.table.w-full.table-compact

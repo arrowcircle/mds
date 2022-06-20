@@ -1,9 +1,17 @@
 .flex.flex-row.items-center
-  %h1.mr-2
-    = link_to @author.name, [@author], class: :link
-    = "-"
-    = @story.name
-  = link_to "ред", [:edit, @author, @story], class: "btn btn-ghost"
+  .flex-auto.flex.flex-row.items-center
+    %h1.mr-2
+      = link_to @author.name, [@author], class: :link
+      = "-"
+      = @story.name
+    = link_to [:edit, @author, @story], class: "btn btn-sm btn-ghost" do
+      = image_tag "edit.svg", class: "w-4 h-4"
+      ред.
+  .flex-auto.text-right
+    = link_to :back, class: "btn btn-sm btn-ghost" do
+      = image_tag "arrow_left.svg", class: "h-4 w-4"
+      назад
+
 %ul.list-disc.pl-2
   - if @story.date.present?
     %li
@@ -17,11 +25,17 @@
 - if @story.description.present?
   = raw @story.description
 
-.flex.flex-row.items-center
-  %h2.mr-2.flex-row Плейлист
-  = link_to "+ Опознать трек", [:new, @author, @story, :playlist], class: "btn btn-ghost flex-row"
-  = link_to "Что играет?", [:new, @author, @story, :playlist, playlist: { request: true }], class: "btn btn-ghost flex-row"
+%hr/
 
+.flex.flex-row.items-center
+  .flex-auto
+    %h2.mr-2 Плейлист
+  .flex-auto.flex.flex-row.items-center.align-right.justify-end
+    = link_to [:new, @author, @story, :playlist], class: "btn btn-sm btn-ghost" do
+      = image_tag "add.svg", class: "w-4 h-4"
+      Опознать трек
+    = link_to "Что играет?", [:new, @author, @story, :playlist, playlist: { request: true }], class: "btn btn-sm btn-ghost"
+%hr.py-2
 - if @playlists.present?
   .overflow-x-auto
     %table.table.w-full.table-compact
@@ -56,6 +70,9 @@
                   = "по #{playlist.end_min} мин"
               - else
                 Не указано
+              %br
+              = time_ago_in_words playlist.created_at
+              назад
             %td
               - if playlist.track.present?
                 .flex.flex-row.items-center

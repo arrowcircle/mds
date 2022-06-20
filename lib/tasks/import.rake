@@ -128,7 +128,7 @@ namespace :import do
       batch.each do |old|
         a = Playlist.find_by(id: old.id)
         a ||= Playlist.new(id: old.id)
-        %w(track_id story_id user_id identified_by).each do |field|
+        %w(track_id story_id user_id identified_by created_at updated_at).each do |field|
           a.send("#{field}=", old.send(field)) unless a.send(field).present?
         end
         a.start_min = old.startmin
@@ -143,8 +143,11 @@ namespace :import do
     end
     puts "\nComplete"
     Playlist.find_by_sql("SELECT setval('playlists_id_seq', COALESCE((SELECT MAX(id)+1 FROM playlists), 1), false);")
+    puts "Updating playlists count on stories"
     Story.all.each { |a| Story.reset_counters(a.id, :playlists) }
+    puts "Updating playlists count on tracks"
     Track.all.each { |a| Track.reset_counters(a.id, :playlists) }
+    puts "Updating playlists count on users"
     User.all.each { |a| User.reset_counters(a.id, :identified_playlists) }
   end
 end

@@ -13,11 +13,11 @@ class ApplicationController < ActionController::Base
 
     def authenticate_user!
       return true if current_user
-      return redirect_to rool_url, alert: "Нужно залогиниться", status: :see_other
+      return redirect_to root_url, alert: "Нужно залогиниться", status: :see_other
     end
 
     def authenticate_admin!
-      return true if current_user? && current_user.admin?
+      return true if current_user && current_user.admin?
       return redirect_to root_url, alert: "Только для админов", status: :see_other
     end
 

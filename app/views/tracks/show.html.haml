@@ -3,13 +3,23 @@
     = link_to @artist.name, [@artist], class: :link
     = "-"
     = @track.name
-  = link_to "ред", [:edit, @artist, @track], class: "btn btn-ghost"
+  = link_to [:edit, @artist, @track], class: "btn btn-sm btn-ghost" do
+    = image_tag "edit.svg", class: "w-4 h-4"
+    ред
+  .flex-auto.text-right
+    = link_to [@artist], class: "btn btn-sm btn-ghost" do
+      = image_tag "arrow_left.svg", class: "h-4 w-4"
+      назад
   
 - if @track.description.present?
   = raw @track.description
 
-.flex.flex-row.items-center
+%hr
+
+.flex.flex-row.items-center.py-2
   %h2.mr-2.flex-row Играет в рассказах
+
+%hr.py-2/
 
 - if @stories.present?
   .overflow-x-auto
