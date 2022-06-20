@@ -70,8 +70,10 @@
             %td
               - if user_signed_in? && current_user.admin?
                 .text-right
-                  = link_to "Ред", [:edit, @author, @story, playlist], class: "btn btn-ghost btn-sm"
-                  = link_to "Удалить", [@author, @story, playlist], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm"
+                  = link_to [:edit, @author, @story, playlist], class: "btn btn-ghost btn-sm" do
+                    = image_tag "edit.svg", class: "h-4 w-4"
+                  = link_to [@author, @story, playlist], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
+                    = image_tag "trash.svg", class: "h-4 w-4"
 - else
   %h2 В этом рассказе пока нет опознанных треков.
   %p

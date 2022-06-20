@@ -1,7 +1,9 @@
 .flex.flex-row.items-center.align-center
   %h1.mr-2
     Авторы
-  = link_to "+ Добавить", [:new, :author], class: "btn btn-ghost"
+  = link_to [:new, :author], class: "btn btn-ghost" do
+    = image_tag "add.svg", class: "w-4 h-4"
+    Добавить
   .search-pane.flex-1.pl-2.pb-2
     = form_tag authors_path, method: :get, class: 'has-search' do
       = text_field_tag :q, params[:q], placeholder: 'Поиск', class: "input input-bordered"
@@ -23,8 +25,10 @@
             %td
               - if user_signed_in? && current_user.admin?
                 .text-right
-                  = link_to "Ред", [:edit, author], class: "btn btn-ghost btn-sm"
-                  = link_to "Удалить", [author], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm"
+                  = link_to [:edit, author], class: "btn btn-ghost btn-sm" do
+                    = image_tag "edit.svg", class: "h-4 w-4"
+                  = link_to [author], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
+                    = image_tag "trash.svg", class: "h-4 w-4"
 
   - if @pagy.pages > 1
     .flex.flex-col.items-center

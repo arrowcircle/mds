@@ -7,6 +7,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
   validates :username, presence: true, uniqueness: true, allow_blank: false, length: { minimum: 3 }
 
+  has_many :playlists
+  has_many :identified_playlists, class_name: "Playlist", foreign_key: :identified_by, inverse_of: :identifier
+
   ADMINS = %w(
     zarrazzaa@yandex.ru
   )

@@ -6,6 +6,7 @@ class Playlist < ApplicationRecord
 
   attr_accessor :request, :artist_name, :track_name
   before_save :create_artist_and_track
+  before_validation :strip_names
 
   scope :requests, -> { where(track_id: nil) }
   scope :identified, -> { where.not(track_id: nil) }
@@ -14,6 +15,12 @@ class Playlist < ApplicationRecord
     return true unless track.present?
     @track_name = track.name
     @artist_name = track.artist.name
+  end
+
+  def strip_names
+    @track_name.strip! if @track_name.present?
+    @artist_name.strip! if @artist_name.present?
+    true
   end
 
   def create_artist_and_track

@@ -23,8 +23,10 @@
             %td
               - if user_signed_in? && current_user.admin?
                 .text-right
-                  = link_to "Ред", [:edit, artist], class: "btn btn-ghost btn-sm"
-                  = link_to "Удалить", [artist], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm"
+                  = link_to [:edit, artist], class: "btn btn-ghost btn-sm" do
+                    = image_tag "edit.svg", class: "h-4 w-4"
+                  = link_to [artist], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
+                    = image_tag "trash.svg", class: "h-4 w-4"
 
   - if @pagy.pages > 1
     .flex.flex-col.items-center
