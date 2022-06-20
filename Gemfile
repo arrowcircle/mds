@@ -94,18 +94,17 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Application deps
 gem "aws-sdk-s3", "~> 1.14"
-gem "devise"
-gem "devise-i18n"
-gem "devise-tailwinded"
+gem "email_validator"
 gem "hamlit-rails"
 gem "imgproxy"
 gem "lograge"
+gem 'meilisearch'
 gem "mini_mime"
 gem "pagy"
+gem "passwordless", git: "https://github.com/mikker/passwordless.git", ref: :c512b6e
 gem "russian"
 gem "shrine"
 gem "sidekiq"
 gem "sidekiq-cron"
 # gem "view_component", require: "view_component/engine"
 # gem "view_component-contrib"
-gem 'meilisearch'

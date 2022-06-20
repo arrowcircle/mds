@@ -1,7 +1,7 @@
 class PlaylistsController < ApplicationController
   before_action :set_author_and_story
-  before_action :authenticate_user, only: [:new, :create]
-  before_action :authenticate_admin, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_admin!, only: [:edit, :update, :destroy]
 
   def new
     @playlist = @story.playlists.build(playlist_params)

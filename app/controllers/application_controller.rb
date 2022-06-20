@@ -2,24 +2,22 @@
 
 class ApplicationController < ActionController::Base
   include Pagy::Backend
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  include Passwordless::ControllerHelpers
 
-  protected
-    def configure_permitted_parameters
-      keys = [:username, :email, :avatar]
-      [:sign_up, :sign_in, :account_update].each do |key|
-        devise_parameter_sanitizer.permit(key, keys: keys)
-      end
-    end
+  helper_method :current_user
 
   private
-    def authenticate_user
-      return true if user_signed_in?
+    def current_user
+      @current_user ||= authenticate_by_session(User)
+    end
+
+    def authenticate_user!
+      return true if current_user
       return redirect_to rool_url, alert: "Нужно залогиниться", status: :see_other
     end
 
-    def authenticate_admin
-      return true if user_signed_in? && current_user.admin?
+    def authenticate_admin!
+      return true if current_user? && current_user.admin?
       return redirect_to root_url, alert: "Только для админов", status: :see_other
     end
 

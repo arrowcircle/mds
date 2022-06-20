@@ -27,13 +27,13 @@
     = render "dropdown"
 
     %ul.menu.menu-horizontal.p-0.bg-base-200.hidden{ class: "md:flex" }
-      - if user_signed_in?
+      - if current_user.present?
         %li
-          = link_to edit_user_registration_path, class: 'nav-link' do
+          = link_to profile_path, class: "p-1" do
             - if current_user.avatar.present?
               .mask.mask-squircle.w-auto= image_tag current_user.avatar.imgproxy_url(width: 100, height: 100, resizing_type: :fill), width: 30, class: ['rounded-circle', 'z-depth-0']              
             = current_user.username
-        %li= link_to 'Выход', destroy_user_session_path, data: { turbo_method: :delete }
+        %li= link_to 'Выход', users.sign_out_path, data: { turbo_method: :delete }, class: "p-1"
       - else
-        %li= link_to 'Регистрация', new_user_registration_path
-        %li= link_to 'Войти', new_user_session_path
+        %li= link_to 'Регистрация', [:new, :user], class: "p-1"
+        %li= link_to 'Войти', users.sign_in_path, class: "p-1"

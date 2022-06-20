@@ -8,5 +8,4 @@
     %h5.card-title= link_to user.username, user_url(user)
     %p= "#{time_ago_in_words(user.created_at)} на сайте"
     %p
-      Опознал треков: #{user.findings_count}
-      -#{Playlist.where(identified_by: user.id).where("track_id is not null").count}
+      Опознал треков: #{user.playlists_count}

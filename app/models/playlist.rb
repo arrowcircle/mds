@@ -1,7 +1,7 @@
 class Playlist < ApplicationRecord
   belongs_to :story, counter_cache: true
   belongs_to :track, optional: true, counter_cache: true
-  belongs_to :identifier, class_name: "User", foreign_key: "identified_by", optional: true
+  belongs_to :identifier, class_name: "User", foreign_key: "identified_by", optional: true, counter_cache: :playlists_count
   belongs_to :user, optional: true
 
   attr_accessor :request, :artist_name, :track_name

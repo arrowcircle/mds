@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :story do
     author
-    title { FFaker::Book.title }
+    name { FFaker::Book.title }
   end
 end
