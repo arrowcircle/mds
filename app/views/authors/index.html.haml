@@ -23,7 +23,7 @@
                 = "#{author.name} (Рассказов: #{author.stories_count})"
 
             %td
-              - if user_signed_in? && current_user.admin?
+              - if current_user.present? && current_user.admin?
                 .text-right
                   = link_to [:edit, author], class: "btn btn-ghost btn-sm" do
                     = image_tag "edit.svg", class: "h-4 w-4"

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
-  validates :username, presence: true, uniqueness: true, allow_blank: false, length: { minimum: 3 }
+  validates :username, presence: true, uniqueness: true, allow_blank: false, length: { minimum: 2 }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, email: {mode: :strict, require_fqdn: true}
+
+
+  passwordless_with :email
 
   has_many :playlists
   has_many :identified_playlists, class_name: "Playlist", foreign_key: :identified_by, inverse_of: :identifier
@@ -18,9 +18,9 @@ class User < ApplicationRecord
 
   def self.search(query)
     if query && query.length > 0
-      where('username ILIKE ?', "%#{query}%").order('last_sign_in_at DESC')
+      where('username ILIKE ?', "%#{query}%").order(playlists_count: :desc)
     else
-      order('last_sign_in_at DESC')
+      order(playlists_count: :desc)
     end
   end
 
@@ -37,11 +37,7 @@ class User < ApplicationRecord
   end
 
   def requests_count
-    rand(100)
-  end
-
-  def findings_count
-    rand(100)
+    playlists.where(track_id: nil).count
   end
 
   def admin?

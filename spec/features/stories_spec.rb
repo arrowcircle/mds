@@ -6,7 +6,7 @@ feature 'Stories' do
   let(:story) { create(:story) }
 
   scenario 'Visits story page' do
-    visit [story.author, story]
+    visit author_story_path(story.author, story)
     expect(page).to have_content story.name
   end
 end

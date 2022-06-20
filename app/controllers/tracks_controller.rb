@@ -1,7 +1,7 @@
 class TracksController < ApplicationController
   before_action :set_artist
-  before_action :authenticate_user, only: [:new, :create]
-  before_action :authenticate_admin, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_admin!, only: [:edit, :update, :destroy]
   def search
     @tracks = Track.search(params[:q], @artist.tracks).order(:name).limit(10)
     render "search", layout: false

@@ -1,6 +1,6 @@
 class ArtistsController < ApplicationController
-  before_action :authenticate_user, only: [:new, :create]
-  before_action :authenticate_admin, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_admin!, only: [:edit, :update, :destroy]
   def search
     @artists = Artist.search(params[:q]).order(:name).limit(10)
     render "search", layout: false

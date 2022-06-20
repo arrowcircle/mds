@@ -1,35 +1,36 @@
 AUTHOR_DUPES = {303=>302, 305=>304, 306=>304, 392=>391, 418=>179, 459=>442}
 namespace :import do
   task all: [:users, :authors, :stories, :artists, :tracks, :playlists]
+  
   task users: :environment do
+    FileUtils.rm_f("tmp/minio/images/*")
     puts "\n== Importing users\n"
-    KEYS = [:id, :email, :encrypted_password, :sign_in_count, :last_sign_in_at, :current_sign_in_at, :created_at, :updated_at, :role, :username].map(&:to_s)
-    avatars = {}
-    users = JSON.parse(File.read('tmp/users.json'))
-    users.each_slice(100) do |slice|
-      insert = slice.map { |i| i.slice(*KEYS) }
-      insert.each do |i|
-        i['username'] = i['email'] unless i['username'].present?
-        %w(created_at updated_at last_sign_in_at current_sign_in_at).each do |field|
-          if i[field].present?
-            i[field] = DateTime.strptime(i[field], '%m/%d/%Y %H:%M:%S')
-          else
-            i[field] = Time.now
+    KEYS = [:id, :email, :created_at, :role, :username].map(&:to_s)
+    Old::User.find_in_batches do |batch|
+      batch.each do |ou|
+        user = User.find_by(id: ou.id)
+        user ||= User.new
+        KEYS.each do |k|
+          user[k] = ou[k] unless user[k].present?
+        end
+        user.email ||= user.username
+        unless user.avatar.present?
+          if ou.avatar.present?
+            user.avatar_remote_url = "https://mds.redde.ru/uploads/user/avatar/#{ou.id}/#{ou.avatar}"
+          end
+        end
+        if user.save
+          print '.'
+        else
+          print 'x'
+          if Old::Playlist.where(user_id: ou.id).any? || Old::Playlist.where(identified_by: ou.id).any?
+            puts user.errors.map(&:full_message)
+            puts user.email
           end
         end
       end
-      res = User.insert_all(insert, returning: [:id])
-      res.rows.each do |id|
-        ava = slice.select { |i| i['id'].to_i == id.first.to_i }.try(:first)
-        avatars[id.first.to_i] = ava['avatar'] if ava['avatar'].present?
-      end
-      avatars.each do |id, image|
-        u = User.find(id)
-        u.avatar_remote_url = "https://mds.redde.ru/uploads/user/avatar/#{id}/#{image}"
-        u.save(validate: false)
-      end
-      avatars = {}
     end
+    puts "\nComplete"
   end
 
   task stories: :environment do
@@ -144,5 +145,6 @@ namespace :import do
     Playlist.find_by_sql("SELECT setval('playlists_id_seq', COALESCE((SELECT MAX(id)+1 FROM playlists), 1), false);")
     Story.all.each { |a| Story.reset_counters(a.id, :playlists) }
     Track.all.each { |a| Track.reset_counters(a.id, :playlists) }
+    User.all.each { |a| User.reset_counters(a.id, :identified_playlists) }
   end
 end

@@ -68,7 +68,7 @@
                   = link_to "https://open.spotify.com/search/#{playlist.track.artist.name} - #{playlist.track.name}", target: :_blank do
                     = image_tag "spotify.svg", width: 32, height: 32, alt: "Spotify"
             %td
-              - if user_signed_in? && current_user.admin?
+              - if current_user.present? && current_user.admin?
                 .text-right
                   = link_to [:edit, @author, @story, playlist], class: "btn btn-ghost btn-sm" do
                     = image_tag "edit.svg", class: "h-4 w-4"

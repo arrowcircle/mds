@@ -1,6 +1,6 @@
 class AuthorsController < ApplicationController
-  before_action :authenticate_user, only: [:new, :create]
-  before_action :authenticate_admin, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_admin!, only: [:edit, :update, :destroy]
   def index
     scope = Author.search(params[:q])
     scope = scope.order(:name)
