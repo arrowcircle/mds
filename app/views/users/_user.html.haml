@@ -1,4 +1,4 @@
-.card.card-compact.card-side.shadow-lg.w-full.p-0.m-2
+.card.card-compact.card-side.shadow-lg.w-full.p-0.border
   %figure.ml-2
     - if user.avatar.present?
       = image_tag user.avatar.imgproxy_url(width: 100, height: 100, resizing_type: :fill), alt: user.username, class: "rounded-lg"

@@ -43,7 +43,7 @@
                     = image_tag "trash.svg", class: "h-4 w-4"
 
   - if @pagy.pages > 1
-    .flex.flex-col.items-center
+    .flex.flex-col.items-center.my-2
       = raw pagy_nav(@pagy)
 - else
   %h2 У этого артиста пока нет треков.
