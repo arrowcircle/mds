@@ -1,2 +1,69 @@
-%h1 Welcome#index
-%p Find me in app/views/welcome/index.html.haml
+.hero.bg-base-200.rounded-xl
+  .hero-content.text-center
+    .max-w-3xl
+      %h1 МДС Музыка
+      %p.py-6
+        = link_to "Модель для сборки", "https://mds.ru/", class: :underline, target: :_blank
+        = " - "
+        культовая российская радиопередача, представляет собой литературно-музыкальный симбиоз, состоящий из лучших произведений российской и зарубежной прозы преимущественно фантастического жанра в сопровождении звукового ряда лучших направлений современной электронной музыки.
+      %p
+        МДС Музыка - это проект систематизации музыки из любимой радиопередачи. Здесь можно найти плейлисты - списки исполнителей и треков из рассказов.
+
+%h2.mt-2 Обновления
+%hr.my-2
+
+.overflow-x-auto
+  %table.table.w-full.table-compact
+    %thead
+      %tr
+        %th Название
+        %th Время
+        %th Слушать
+    %tbody
+      - @playlists.each do |playlist|
+        %tr{"data-start-min" => playlist.start_min.present? ? playlist.start_min : nil}
+          %td
+            .flex.flex-col.items-left
+              .link
+                = link_to playlist.story.author.name, [playlist.story.author], class: :link
+                = "-"
+                = link_to playlist.story.name, [playlist.story.author, playlist.story], class: :link
+              - if playlist.identifier.present?
+                .flex.flex-row.gap-2
+                  - if playlist.track.present?
+                    .link
+                      = link_to playlist.track.artist.name, [playlist.track.artist], class: :link
+                      = "-"
+                      = link_to playlist.track.name, [playlist.track.artist, playlist.track], class: :link
+                  - else
+                    Запрос на опознание
+                  опознал
+                  - if playlist.identifier.avatar.present?
+                    = image_tag playlist.identifier.avatar.imgproxy_url(height: 80, width: 80, resize: :fill), class: "avatar rounded-full w-4"
+                  = link_to playlist.identifier.username, [playlist.identifier], class: :link
+      
+          %td
+            - if playlist.start_min || playlist.end_min
+              = "с #{playlist.start_min} мин"
+              - if playlist.end_min
+                = "по #{playlist.end_min} мин"
+            - else
+              Не указано
+            %br
+            = time_ago_in_words playlist.created_at
+            назад
+          %td
+            - if playlist.track.present?
+              .flex.flex-row.items-center
+                = link_to "https://vk.com/search?c[per_page]=200&c[q]=#{playlist.track.artist.name} - #{playlist.track.name}&c[section]=audio", target: :_blank do
+                  = image_tag "vk.svg", width: 32, height: 32, alt: "VK"
+                = link_to "https://music.yandex.ru/search?text=#{playlist.track.artist.name} - #{playlist.track.name}", target: :_blank do
+                  = image_tag "yandex_music.svg", width: 32, height: 32, alt: "Яндекс.Музыка"
+                = link_to "https://www.discogs.com/search/?q=#{playlist.track.artist.name} - #{playlist.track.name}&type=all", target: :_blank do
+                  = image_tag "discogs.svg", width: 32, height: 32, alt: "Discogs"
+                = link_to "https://open.spotify.com/search/#{playlist.track.artist.name} - #{playlist.track.name}", target: :_blank do
+                  = image_tag "spotify.svg", width: 32, height: 32, alt: "Spotify"
+
+- if @pagy.pages > 1
+  .flex.flex-col.items-center.my-2
+    = raw pagy_nav(@pagy)
