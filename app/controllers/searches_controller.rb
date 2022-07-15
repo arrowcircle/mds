@@ -1,5 +1,5 @@
 class SearchesController < ApplicationController
   def index
-    render text: "Hello from search"
+    @results = Search.search(params[:q])
   end
 end

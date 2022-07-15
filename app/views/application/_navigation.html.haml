@@ -19,7 +19,7 @@
         = link_to [:users], class: "#{'active' if active}" do
           = 'Участники'
     .form-control.hidden.p-1{ class: "md:block" }
-      = form_with url: search_url do |f|
+      = form_with url: search_url, data: { turbo: false } do |f|
         = text_field_tag :q, params[:q], placeholder: "Поиск", class: "input input-bordered input-sm"
   .navbar-end
     = render "dropdown"

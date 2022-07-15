@@ -1,0 +1,33 @@
+.flex.flex-row.items-center
+  %h1.mr-2 Поиск
+
+%hr/
+
+- if @results.values.flatten.present?
+  - @results.each do |key, items|
+    - if items.present?
+      %table.ml-2.table.table-compact.w-full.my-2
+        %thead
+          %tr
+            %th= key
+        %tbody
+          - items.each do |item|
+            %tr
+              %td
+                - case item.class.name
+                - when "Author"
+                  = link_to item.name, [item]
+                - when "Story"
+                  = link_to "#{item.author.name} - #{item.name}", [item.author, item]
+                - when "Artist"
+                  = link_to item.name, [item]
+                - when "Track"
+                  = link_to "#{item.artist.name} - #{item.name}", [item.artist, item]
+                - when "User"
+                  = link_to [item] do
+                    .flex.items-center.gap-1
+                      - if item.avatar.present?
+                        = image_tag item.avatar.imgproxy_url(width: 100, height: 100, resizing_type: :fill), alt: item.username, class: "rounded-lg w-8 h-8"
+                      = item.username
+- else
+  %p.font-bold Ничего не найдено :( Попробуй поменять поисковый запрос.

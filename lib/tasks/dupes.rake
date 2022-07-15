@@ -2,8 +2,8 @@ namespace :dupes do
   task artists: :environment do
     dupes = {}
     client = MeiliSearch::Client.new('http://127.0.0.1:7700')
-    client.delete_index('artists')
-    index = client.index('artists')
+    client.delete_index('mds_artists')
+    index = client.index('mds_artists')
 
     index.update_settings({"typoTolerance" => {enabled: false}})
     puts "Indexing artists"
@@ -45,8 +45,8 @@ namespace :dupes do
   task tracks: :environment do
     dupes = {}
     client = MeiliSearch::Client.new('http://127.0.0.1:7700')
-    client.delete_index('tracks')
-    index = client.index('tracks')
+    client.delete_index('mds_tracks')
+    index = client.index('mds_tracks')
 
     index.update_settings({"typoTolerance" => {enabled: false}})
     puts "Indexing tracks"

@@ -59,7 +59,7 @@
                     .no-flex
                       опознал
                       - if playlist.identifier.avatar.present?
-                        = image_tag playlist.identifier.avatar.imgproxy_url(height: 80, width: 80, resize: :fill), class: "avatar rounded-full w-4"
+                        = image_tag playlist.identifier.avatar.imgproxy_url(height: 80, width: 80, resize: :fill), class: "avatar rounded-full w-4 h-4"
                       = link_to playlist.identifier.username, [playlist.identifier], class: :link
               - else
                 Запрос на опознание
