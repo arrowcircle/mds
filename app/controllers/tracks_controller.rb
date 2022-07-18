@@ -9,7 +9,7 @@ class TracksController < ApplicationController
 
   def show
     @track = @artist.tracks.find(params[:id])
-    @stories = @track.stories
+    @stories = @track.stories.includes(:author).order("authors.name")
   end
 
   def new

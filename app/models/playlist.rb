@@ -34,4 +34,8 @@ class Playlist < ApplicationRecord
     t.save
     self.track_id = t.id
   end
+
+  def search_query
+    "#{track.artist.name} - #{track.name}"
+  end
 end

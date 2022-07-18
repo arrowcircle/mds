@@ -32,7 +32,7 @@
           %tr
             %td
               = link_to [story.author, story] do
-                = "#{story.name} (#{story.completed ? 'Полностью' : story.playlists_count})"
+                = "#{story.author.name} - #{story.name} (#{story.completed ? 'Полностью' : story.playlists_count})"
 
 - else
   %h2 Этот трек пока не играет ни в одном рассказе.
