@@ -1,24 +1,23 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  validates :username, presence: true, uniqueness: true, allow_blank: false, length: { minimum: 2 }
-  validates :email, presence: true, uniqueness: { case_sensitive: false }, email: {mode: :strict, require_fqdn: true}
-
+  validates :username, presence: true, uniqueness: true, allow_blank: false, length: {minimum: 2}
+  validates :email, presence: true, uniqueness: {case_sensitive: false}, email: {mode: :strict, require_fqdn: true}
 
   passwordless_with :email
 
   has_many :playlists
   has_many :identified_playlists, class_name: "Playlist", foreign_key: :identified_by, inverse_of: :identifier
 
-  ADMINS = %w(
+  ADMINS = %w[
     zarrazzaa@yandex.ru
-  )
+  ]
 
   include ImageUploader::Attachment(:avatar)
 
   def self.search(query)
     if query && query.length > 0
-      where('username ILIKE ?', "%#{query}%").order(playlists_count: :desc)
+      where("username ILIKE ?", "%#{query}%").order(playlists_count: :desc)
     else
       order(playlists_count: :desc)
     end
@@ -29,11 +28,11 @@ class User < ApplicationRecord
   end
 
   def slug
-    @slug ||= username.strip.tr(' ', '-')
-      .gsub(/[^\x00-\x7F]+/, '')
-      .gsub(/[^\w_ \-]+/i, '')
-      .gsub(/[ \-]+/i, '-')
-      .gsub(/^\-|\-$/i, '')
+    @slug ||= username.strip.tr(" ", "-")
+      .gsub(/[^\x00-\x7F]+/, "")
+      .gsub(/[^\w_ \-]+/i, "")
+      .gsub(/[ \-]+/i, "-")
+      .gsub(/^-|-$/i, "")
   end
 
   def requests_count

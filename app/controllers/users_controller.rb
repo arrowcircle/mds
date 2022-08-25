@@ -14,24 +14,25 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to root_path, notice: 'Спасибо за регистрацию', status: :see_other
+      redirect_to root_path, notice: "Спасибо за регистрацию", status: :see_other
     else
       render "new", status: :unprocessable_entity
     end
   end
 
   private
-    def title
-      return 'Участиники проекта' if action_name == 'index'
-      "#{@user.username} | Участиники проекта"
-    end
 
-    def description
-      return 'Список всех участиников проекта' if action_name == 'index'
-      "#{@user.username} | Страница участника проекта"
-    end
+  def title
+    return "Участиники проекта" if action_name == "index"
+    "#{@user.username} | Участиники проекта"
+  end
 
-    def tags
-      'Участники, модель для сборки, список пользователей'
-    end
+  def description
+    return "Список всех участиников проекта" if action_name == "index"
+    "#{@user.username} | Страница участника проекта"
+  end
+
+  def tags
+    "Участники, модель для сборки, список пользователей"
+  end
 end

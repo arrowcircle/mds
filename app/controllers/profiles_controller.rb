@@ -5,7 +5,7 @@ class ProfilesController < ApplicationController
 
   def update
     if current_user.update(user_attributes)
-      redirect_to root_path, notice: 'Профиль обновлен', status: :see_other
+      redirect_to root_path, notice: "Профиль обновлен", status: :see_other
     else
       render "show", status: :unprocessable_entity
     end

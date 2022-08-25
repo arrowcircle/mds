@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-feature 'Stories' do
+feature "Stories" do
   let(:story) { create(:story) }
 
-  scenario 'Visits story page' do
+  scenario "Visits story page" do
     visit author_story_path(story.author, story)
     expect(page).to have_content story.name
   end

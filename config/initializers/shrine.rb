@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-require 'shrine'
+require "shrine"
 
 def generate_s3_settings
-  minio_settings = { endpoint: ENV['S3_HOST'], force_path_style: true }
+  minio_settings = {endpoint: ENV["S3_HOST"], force_path_style: true}
 
   res = {
-    access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-    bucket: 'images',
-    prefix: 'mds',
-    region: 'us-east-1',
+    access_key_id: ENV["AWS_ACCESS_KEY_ID"],
+    secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
+    bucket: "images",
+    prefix: "mds",
+    region: "us-east-1",
     public: true
   }
 
-  if ENV['S3_HOST'].present?
+  if ENV["S3_HOST"].present?
     res.merge!(minio_settings)
   end
 
@@ -22,16 +22,16 @@ def generate_s3_settings
 end
 
 if Rails.env.test?
-  require 'shrine/storage/file_system'
+  require "shrine/storage/file_system"
   Shrine.storages = {
-    cache: Shrine::Storage::FileSystem.new('public', prefix: 'uploads/cache'),
-    store: Shrine::Storage::FileSystem.new('public', prefix: 'uploads'),
+    cache: Shrine::Storage::FileSystem.new("public", prefix: "uploads/cache"),
+    store: Shrine::Storage::FileSystem.new("public", prefix: "uploads")
   }
 else
-  require 'shrine/storage/s3'
+  require "shrine/storage/s3"
 
   Shrine.storages = {
-    cache: Shrine::Storage::S3.new(**generate_s3_settings.merge(bucket: 'cache', prefix: "mds")),
+    cache: Shrine::Storage::S3.new(**generate_s3_settings.merge(bucket: "cache", prefix: "mds")),
     store: Shrine::Storage::S3.new(**generate_s3_settings)
   }
 end

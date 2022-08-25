@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-feature 'Sign in' do
-  scenario 'Access login page from main page' do
+feature "Sign in" do
+  scenario "Access login page from main page" do
     visit root_url
     first(:link, "Войти").click
-    expect(page).to have_content 'Email'
+    expect(page).to have_content "Email"
   end
 
-  scenario 'Shows ok result for sign in' do
+  scenario "Shows ok result for sign in" do
     u = create(:user)
     visit users.sign_in_path
     fill_in :passwordless_email, with: u.email
@@ -18,25 +18,25 @@ feature 'Sign in' do
     skip "В транзакции не работает"
     link = send(Passwordless.mounted_as).token_sign_in_url(session.token)
     visit link
-    expect(page).to have_content 'Вход в систему выполнен'
+    expect(page).to have_content "Вход в систему выполнен"
   end
 
-  feature 'Sign up' do
-    scenario 'Access registration page from main page' do
+  feature "Sign up" do
+    scenario "Access registration page from main page" do
       visit root_url
-      first(:link, 'Регистрация').click
-      expect(page).to have_content 'Email'
+      first(:link, "Регистрация").click
+      expect(page).to have_content "Email"
     end
   end
 
-  feature 'Index' do
-    it 'Accesses users from main page' do
+  feature "Index" do
+    it "Accesses users from main page" do
       visit root_url
-      first(:link, 'Участники').click
-      expect(page).to have_content 'Участники проекта'
+      first(:link, "Участники").click
+      expect(page).to have_content "Участники проекта"
     end
 
-    it 'Shows users page' do
+    it "Shows users page" do
       u1 = create(:user)
       u2 = create(:user)
       visit users_path
@@ -44,7 +44,7 @@ feature 'Sign in' do
       expect(page).to have_content u2.username
     end
 
-    it 'Searches user' do
+    it "Searches user" do
       u1 = create(:user)
       u2 = create(:user)
       visit users_path(q: u1.username)
@@ -52,7 +52,7 @@ feature 'Sign in' do
       expect(page).not_to have_content u2.username
     end
 
-    it 'Shows user profile' do
+    it "Shows user profile" do
       u = create(:user)
       visit users_path
       click_link u.username

@@ -8,10 +8,10 @@
 
 def s3_test_client
   @s3_test_client ||= Aws::S3::Client.new(
-    region: 'us-east-1',
-    access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-    endpoint: ENV['S3_HOST'],
+    region: "us-east-1",
+    access_key_id: ENV["AWS_ACCESS_KEY_ID"],
+    secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
+    endpoint: ENV["S3_HOST"],
     force_path_style: true
   )
 end
@@ -26,4 +26,7 @@ def create_folder(bucket, name)
   s3_test_client.put_object(bucket: bucket, acl: :public, key: "#{name}/")
 end
 
-%w(images cache).each { |n| create_bucket(n); create_folder(n, "mds") }
+%w[images cache].each { |n|
+  create_bucket(n)
+  create_folder(n, "mds")
+}

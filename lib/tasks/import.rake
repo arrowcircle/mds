@@ -1,7 +1,7 @@
-AUTHOR_DUPES = {303=>302, 305=>304, 306=>304, 392=>391, 418=>179, 459=>442}
+AUTHOR_DUPES = {303 => 302, 305 => 304, 306 => 304, 392 => 391, 418 => 179, 459 => 442}
 namespace :import do
   task all: [:users, :authors, :stories, :artists, :tracks, :playlists]
-  
+
   task users: :environment do
     FileUtils.rm_f("tmp/minio/images/*")
     puts "\n== Importing users\n"
@@ -20,9 +20,9 @@ namespace :import do
           end
         end
         if user.save
-          print '.'
+          print "."
         else
-          print 'x'
+          print "x"
           if Old::Playlist.where(user_id: ou.id).any? || Old::Playlist.where(identified_by: ou.id).any?
             puts user.errors.map(&:full_message)
             puts user.email
@@ -39,15 +39,15 @@ namespace :import do
       batch.each do |old_story|
         a = Story.find_by(id: old_story.id)
         a ||= Story.new(id: old_story.id)
-        %w(name author_id completed radio date).each do |field|
+        %w[name author_id completed radio date].each do |field|
           a.send("#{field}=", old_story.send(field)) unless a.send(field).present?
         end
         dupe_author_id = AUTHOR_DUPES[a.author_id]
         a.author_id = dupe_author_id if dupe_author_id.present?
         if a.save
-          print '.'
+          print "."
         else
-          print 'X'
+          print "X"
         end
       end
     end
@@ -65,9 +65,9 @@ namespace :import do
         a ||= Author.new(id: old_author.id)
         a.name ||= old_author.name
         if a.save
-          print '.'
+          print "."
         else
-          print 'X'
+          print "X"
           old_ids = Old::Author.where(name: old_author.name).map(&:id)
           new_id = Author.where(name: old_author.name).first.id
           (old_ids - [new_id]).each do |id|
@@ -87,13 +87,13 @@ namespace :import do
       batch.each do |old|
         a = Artist.find_by(id: old.id)
         a ||= Artist.new(id: old.id)
-        %w(name).each do |field|
+        %w[name].each do |field|
           a.send("#{field}=", old.send(field)) unless a.send(field).present?
         end
         if a.save
-          print '.'
+          print "."
         else
-          print 'X'
+          print "X"
         end
       end
     end
@@ -107,13 +107,13 @@ namespace :import do
       batch.each do |old|
         a = Track.find_by(id: old.id)
         a ||= Track.new(id: old.id)
-        %w(name artist_id).each do |field|
+        %w[name artist_id].each do |field|
           a.send("#{field}=", old.send(field)) unless a.send(field).present?
         end
         if a.save
-          print '.'
+          print "."
         else
-          print 'X'
+          print "X"
         end
       end
     end
@@ -128,15 +128,15 @@ namespace :import do
       batch.each do |old|
         a = Playlist.find_by(id: old.id)
         a ||= Playlist.new(id: old.id)
-        %w(track_id story_id user_id identified_by created_at updated_at).each do |field|
+        %w[track_id story_id user_id identified_by created_at updated_at].each do |field|
           a.send("#{field}=", old.send(field)) unless a.send(field).present?
         end
         a.start_min = old.startmin
         a.end_min = old.endmin
         if a.save
-          print '.'
+          print "."
         else
-          print 'X'
+          print "X"
           puts a.errors.map(&:full_message)
         end
       end

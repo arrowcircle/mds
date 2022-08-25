@@ -98,7 +98,7 @@ gem "email_validator"
 gem "hamlit-rails"
 gem "imgproxy"
 gem "lograge"
-gem 'meilisearch'
+gem "meilisearch"
 gem "mini_mime"
 gem "pagy"
 gem "passwordless", git: "https://github.com/mikker/passwordless.git", ref: :c512b6e

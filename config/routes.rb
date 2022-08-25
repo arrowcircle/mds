@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   passwordless_for :users
-  root to: 'welcome#index'
+  root to: "welcome#index"
   resources :artists do
     get :search, on: :collection
     resources :tracks do
@@ -17,6 +17,6 @@ Rails.application.routes.draw do
   resource :profile, only: [:show, :update]
   post :search, as: :search, to: "searches#index"
   resources :users, only: [:index, :show, :new, :create]
-  get 'health_check', to: 'welcome#health_check'
+  get "health_check", to: "welcome#health_check"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
