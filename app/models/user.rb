@@ -30,8 +30,8 @@ class User < ApplicationRecord
   def slug
     @slug ||= username.strip.tr(" ", "-")
       .gsub(/[^\x00-\x7F]+/, "")
-      .gsub(/[^\w_ \-]+/i, "")
-      .gsub(/[ \-]+/i, "-")
+      .gsub(/[^\w_ -]+/i, "")
+      .gsub(/[ -]+/i, "-")
       .gsub(/^-|-$/i, "")
   end
 

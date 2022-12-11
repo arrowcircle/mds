@@ -22,12 +22,12 @@
     - unless @playlist.request
       .mb-4{"data-autocomplete-url-value" => search_artists_path, "autocomplete-min-length-value" => 0, "data-controller" => "autocomplete", id: "artist_search"}
         = f.label :artist_name, "Артист", class: label_classes
-        = f.text_field :artist_name, data: { "autocomplete-target" => :input }, class: input_classes, placeholder: "Имя артиста"
+        = f.text_field :artist_name, data: { "autocomplete-target" => :input, "action" => "focusin->autocomplete#fetchResults:once focusout->autocomplete#close:once" }, class: input_classes, placeholder: "Имя артиста"
         = f.hidden_field :artist_id, data: { "autocomplete-target" => :hidden }
         %ul.list-group{"data-autocomplete-target" => :results}
       .mb-4{"data-autocomplete-url-value" => @playlist.track ? search_artist_tracks_path(@playlist.track.artist) : nil, "autocomplete-min-length-value" => 0, "data-controller" => "autocomplete", id: "track_search"}
         = label_tag :track, "Трек", class: label_classes
-        = f.text_field :track_name, data: { "autocomplete-target" => :input },  class: input_classes, disabled: !@playlist.track.present?, placeholder: "Название трека"
+        = f.text_field :track_name, data: { "autocomplete-target" => :input, "action" => "focusin->autocomplete#fetchResults:once focusout->autocomplete#close:once"}, class: input_classes, disabled: !@playlist.track.present?, placeholder: "Название трека"
         = f.hidden_field :track_id, data: { "autocomplete-target" => :hidden }
         %ul.list-group{"data-autocomplete-target" => :results}
 

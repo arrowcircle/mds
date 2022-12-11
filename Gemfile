@@ -10,13 +10,15 @@ gem "rails", "~> 7.0"
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
-gem "puma", "~> 5"
+gem "puma", "~> 6"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 # gem "webpacker", "~> 5.1"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.5"
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
+# gem "redis-client"
+
 # Use ActiveModel has_secure_password
 # gem "bcrypt", "~> 3.1.7"
 
@@ -101,10 +103,10 @@ gem "lograge"
 gem "meilisearch"
 gem "mini_mime"
 gem "pagy"
-gem "passwordless", git: "https://github.com/mikker/passwordless.git", ref: :c512b6e
+gem "passwordless", git: "https://github.com/mikker/passwordless.git", ref: "029d24e"
 gem "russian"
 gem "shrine"
-gem "sidekiq"
+gem "sidekiq", "<8"
 gem "sidekiq-cron"
 # gem "view_component", require: "view_component/engine"
 # gem "view_component-contrib"

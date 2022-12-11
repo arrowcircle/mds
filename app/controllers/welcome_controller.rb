@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
   def index
-    @pagy, @playlists = pagy(Playlist.includes(track: :artist, story: :author).order(updated_at: :desc))
+    @pagy, @playlists = pagy(Playlist.includes(:user, :identifier, track: :artist, story: :author).order(updated_at: :desc))
   end
 
   def health_check

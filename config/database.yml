@@ -88,7 +88,7 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: mds_production
-  username: mds
-  password: <%= ENV['MDS_DATABASE_PASSWORD'] %>
+  primary:
+    url: <%= ENV['DATABASE_URL'] %>
+  old:
+    url: <%= ENV['OLD_DATABASE_URL'] %>

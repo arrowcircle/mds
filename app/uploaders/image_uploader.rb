@@ -6,7 +6,7 @@ class ImageUploader < Shrine
   plugin :default_storage, store: :store, cache: :cache
 
   Attacher.validate do
-    validate_extension_inclusion %w[jpg jpeg png gif]
+    validate_extension_inclusion %w[jpg jpeg png gif webp avif]
     validate_mime_type_inclusion %w[image/jpeg image/png image/gif]
   end
 end
