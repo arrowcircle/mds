@@ -8,8 +8,8 @@ def generate_s3_settings
   res = {
     access_key_id: ENV["AWS_ACCESS_KEY_ID"],
     secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
-    bucket: "images",
-    prefix: "mds",
+    bucket: "mds",
+    prefix: "images",
     region: "us-east-1",
     public: true
   }
@@ -31,7 +31,7 @@ else
   require "shrine/storage/s3"
 
   Shrine.storages = {
-    cache: Shrine::Storage::S3.new(**generate_s3_settings.merge(bucket: "cache", prefix: "mds")),
+    cache: Shrine::Storage::S3.new(**generate_s3_settings.merge(bucket: "mds", prefix: "cache")),
     store: Shrine::Storage::S3.new(**generate_s3_settings)
   }
 end

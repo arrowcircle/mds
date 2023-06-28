@@ -76,6 +76,8 @@
             %td
               - if playlist.track.present?
                 .flex.flex-row.items-center
+                  = link_to "https://www.youtube.com/results?search_query=#{CGI.escape playlist.search_query}&c[section]=audio", target: :_blank do
+                    = image_tag "youtube.svg", width: 32, height: 32, alt: "Youtube"
                   = link_to "https://vk.com/search?c[per_page]=200&c[q]=#{CGI.escape playlist.search_query}&c[section]=audio", target: :_blank do
                     = image_tag "vk.svg", width: 32, height: 32, alt: "VK"
                   = link_to "https://music.yandex.ru/search?text=#{CGI.escape playlist.search_query}", target: :_blank do

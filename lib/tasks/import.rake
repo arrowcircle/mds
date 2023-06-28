@@ -1,4 +1,4 @@
-AUTHOR_DUPES = {303 => 302, 305 => 304, 306 => 304, 392 => 391, 418 => 179, 459 => 442}
+AUTHOR_DUPES = {}
 namespace :import do
   task all: [:users, :authors, :stories, :artists, :tracks, :playlists]
 
@@ -24,8 +24,11 @@ namespace :import do
         else
           print "x"
           if Old::Playlist.where(user_id: ou.id).any? || Old::Playlist.where(identified_by: ou.id).any?
+            puts "\n== User have playlists, attention: "
             puts user.errors.map(&:full_message)
             puts user.email
+          else
+            puts "\n= Delete user with id: #{user.id} email: #{user.email}"
           end
         end
       end
@@ -35,6 +38,7 @@ namespace :import do
 
   task stories: :environment do
     puts "\n== Importing stories\n"
+    delete = []
     Old::Story.find_in_batches do |batch|
       batch.each do |old_story|
         a = Story.find_by(id: old_story.id)
@@ -48,12 +52,26 @@ namespace :import do
           print "."
         else
           print "X"
+          if Old::Playlist.where(story_id: a.id).any?
+            puts "Story with playlists: "
+            puts a.errors.map(&:full_message)
+            puts a.name
+          else
+            puts "Story without playlists, delete: "
+            puts a.errors.map(&:full_message)
+            puts a.name
+            puts a.id
+            delete << a.id
+          end
         end
       end
     end
     puts "\nComplete"
     Story.find_by_sql("SELECT setval('stories_id_seq', COALESCE((SELECT MAX(id)+1 FROM stories), 1), false);")
     Author.all.each { |a| Author.reset_counters(a.id, :stories) }
+    if delete.present?
+      puts "Story.where(id: [#{delete.join(", ")}]).delete_all"
+    end
   end
 
   task authors: :environment do
@@ -68,6 +86,8 @@ namespace :import do
           print "."
         else
           print "X"
+          puts a.errors.map(&:full_message)
+          puts a.name
           old_ids = Old::Author.where(name: old_author.name).map(&:id)
           new_id = Author.where(name: old_author.name).first.id
           (old_ids - [new_id]).each do |id|
@@ -77,8 +97,19 @@ namespace :import do
       end
     end
     puts "\nComplete"
-    puts dupes
     Author.find_by_sql("SELECT setval('authors_id_seq', COALESCE((SELECT MAX(id)+1 FROM authors), 1), false);")
+    if dupes.keys.any?
+      code = <<~CODE
+        author_dupes = #{dupes}
+
+        author_dupes.each do |dupe_id, original_id|
+          Story.where(author_id: dupe_id).update_all(author_id: original_id)
+        end
+
+        Author.where(id: author_dupes.keys).count
+      CODE
+      puts code
+    end
   end
 
   task artists: :environment do
@@ -103,6 +134,7 @@ namespace :import do
 
   task tracks: :environment do
     puts "\n== Importing tracks\n"
+    delete = []
     Old::Track.find_in_batches do |batch|
       batch.each do |old|
         a = Track.find_by(id: old.id)
@@ -114,12 +146,24 @@ namespace :import do
           print "."
         else
           print "X"
+          
+          if Old::Playlist.where(track_id: a.id).any?
+            puts "Need to deal with it"
+            puts a.errors.map(&:full_message)
+            puts a.name
+            puts a.id
+          else
+            delete << a.id
+          end
         end
       end
     end
     puts "\nComplete"
     Track.find_by_sql("SELECT setval('tracks_id_seq', COALESCE((SELECT MAX(id)+1 FROM tracks), 1), false);")
     Artist.all.each { |a| Artist.reset_counters(a.id, :tracks) }
+    if delete.present?
+      puts "Track.where(id: [#{delete.join(", ")}]).delete_all"
+    end
   end
 
   task playlists: :environment do

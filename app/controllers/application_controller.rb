@@ -4,13 +4,12 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   include Passwordless::ControllerHelpers
 
-  helper_method :current_user
-
   private
 
   def current_user
     @current_user ||= authenticate_by_session(User)
   end
+  helper_method :current_user
 
   def authenticate_user!
     return true if current_user

@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.2"
+ruby "3.2.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
 gem "rails", "~> 7.0"
@@ -55,15 +55,6 @@ group :development, :test do
 end
 
 group :development do
-  gem "capistrano"
-  gem "capistrano-rails"
-  gem "capistrano-bundler"
-  gem "capistrano-rbenv"
-  gem "capistrano-puma"
-  gem "capistrano-sentry", require: false
-  gem "capistrano-yarn"
-  gem "capistrano-db-tasks", require: false
-
   gem "letter_opener"
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
@@ -103,7 +94,7 @@ gem "lograge"
 gem "meilisearch"
 gem "mini_mime"
 gem "pagy"
-gem "passwordless", git: "https://github.com/mikker/passwordless.git", ref: "029d24e"
+gem "passwordless", git: "https://github.com/mikker/passwordless.git", ref: "c459557"
 gem "russian"
 gem "shrine"
 gem "sidekiq", "<8"

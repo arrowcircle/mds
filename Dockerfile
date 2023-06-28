@@ -1,4 +1,4 @@
-FROM node:16 AS nodejs
+FROM node:18 AS nodejs
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn
@@ -7,7 +7,7 @@ COPY . /app
 SHELL ["/bin/bash", "-c"]
 RUN ["yarn", "build", "build:css"]
 
-FROM ruby:3.1.2-slim-bullseye AS base
+FROM ruby:3.2.2-slim-bullseye AS base
 
 # Common dependencies
 RUN apt-get update -qq \
