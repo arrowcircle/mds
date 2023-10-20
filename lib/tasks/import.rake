@@ -146,7 +146,7 @@ namespace :import do
           print "."
         else
           print "X"
-          
+
           if Old::Playlist.where(track_id: a.id).any?
             puts "Need to deal with it"
             puts a.errors.map(&:full_message)

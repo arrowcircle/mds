@@ -28,9 +28,10 @@ gem "turbo-rails"
 # Hotwire"s modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 
-gem "propshaft"
-gem "jsbundling-rails"
-gem "cssbundling-rails"
+# gem "propshaft"
+# gem "jsbundling-rails"
+# gem "cssbundling-rails"
+gem "vite_rails"
 
 # Use ActiveStorage variant
 # gem "mini_magick", "~> 4.8"
@@ -94,7 +95,7 @@ gem "lograge"
 gem "meilisearch"
 gem "mini_mime"
 gem "pagy"
-gem "passwordless", git: "https://github.com/mikker/passwordless.git", ref: "c459557"
+gem "passwordless"
 gem "russian"
 gem "shrine"
 gem "sidekiq", "<8"

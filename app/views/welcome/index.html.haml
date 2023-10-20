@@ -56,15 +56,15 @@
             - if playlist.track.present?
               .flex.flex-row.items-center
                 = link_to "https://www.youtube.com/results?search_query=#{CGI.escape playlist.search_query}&c[section]=audio", target: :_blank do
-                  = image_tag "youtube.svg", width: 32, height: 32, alt: "Youtube"
+                  = vite_image_tag "images/youtube.svg", width: 32, height: 32, alt: "Youtube"
                 = link_to "https://vk.com/search?c[per_page]=200&c[q]=#{playlist.track.artist.name} - #{playlist.track.name}&c[section]=audio", target: :_blank do
-                  = image_tag "vk.svg", width: 32, height: 32, alt: "VK"
+                  = vite_image_tag "images/vk.svg", width: 32, height: 32, alt: "VK"
                 = link_to "https://music.yandex.ru/search?text=#{playlist.track.artist.name} - #{playlist.track.name}", target: :_blank do
-                  = image_tag "yandex_music.svg", width: 32, height: 32, alt: "Яндекс.Музыка"
+                  = vite_image_tag "images/yandex_music.svg", width: 32, height: 32, alt: "Яндекс.Музыка"
                 = link_to "https://www.discogs.com/search/?q=#{playlist.track.artist.name} - #{playlist.track.name}&type=all", target: :_blank do
-                  = image_tag "discogs.svg", width: 32, height: 32, alt: "Discogs"
+                  = vite_image_tag "images/discogs.svg", width: 32, height: 32, alt: "Discogs"
                 = link_to "https://open.spotify.com/search/#{playlist.track.artist.name} - #{playlist.track.name}", target: :_blank do
-                  = image_tag "spotify.svg", width: 32, height: 32, alt: "Spotify"
+                  = vite_image_tag "images/spotify.svg", width: 32, height: 32, alt: "Spotify"
 
 - if @pagy.pages > 1
   .flex.flex-col.items-center.my-2

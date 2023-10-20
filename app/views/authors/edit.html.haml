@@ -22,7 +22,7 @@
     .mb-4
       = f.label :image, "Изображение", class: label_classes
       - if @author.image.present?
-        = image_tag @author.image.imgproxy_url(width: 100, resizing_type: :fill)
+        = vite_image_tag @author.image.imgproxy_url(width: 100, resizing_type: :fill)
       = f.hidden_field :image, value: @author.cached_image_data
       = f.file_field :image
     .mb-4

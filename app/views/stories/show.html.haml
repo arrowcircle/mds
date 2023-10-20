@@ -5,11 +5,11 @@
       = "-"
       = @story.name
     = link_to [:edit, @author, @story], class: "btn btn-sm btn-ghost" do
-      = image_tag "edit.svg", class: "w-4 h-4"
+      = vite_image_tag "images/edit.svg", class: "w-4 h-4"
       ред.
   .flex-auto.text-right
     = link_to :back, class: "btn btn-sm btn-ghost" do
-      = image_tag "arrow_left.svg", class: "h-4 w-4"
+      = vite_image_tag "images/arrow_left.svg", class: "h-4 w-4"
       назад
 
 %ul.list-disc.pl-2
@@ -32,7 +32,7 @@
     %h2.mr-2 Плейлист
   .flex-auto.flex.flex-row.items-center.align-right.justify-end
     = link_to [:new, @author, @story, :playlist], class: "btn btn-sm btn-ghost" do
-      = image_tag "add.svg", class: "w-4 h-4"
+      = vite_image_tag "images/add.svg", class: "w-4 h-4"
       Опознать трек
     = link_to "Что играет?", [:new, @author, @story, :playlist, playlist: { request: true }], class: "btn btn-sm btn-ghost"
 %hr.py-2
@@ -76,23 +76,23 @@
             %td
               - if playlist.track.present?
                 .flex.flex-row.items-center
-                  = link_to "https://www.youtube.com/results?search_query=#{CGI.escape playlist.search_query}&c[section]=audio", target: :_blank do
-                    = image_tag "youtube.svg", width: 32, height: 32, alt: "Youtube"
-                  = link_to "https://vk.com/search?c[per_page]=200&c[q]=#{CGI.escape playlist.search_query}&c[section]=audio", target: :_blank do
-                    = image_tag "vk.svg", width: 32, height: 32, alt: "VK"
-                  = link_to "https://music.yandex.ru/search?text=#{CGI.escape playlist.search_query}", target: :_blank do
-                    = image_tag "yandex_music.svg", width: 32, height: 32, alt: "Яндекс.Музыка"
-                  = link_to "https://www.discogs.com/search/?q=#{CGI.escape playlist.search_query}&type=all", target: :_blank do
-                    = image_tag "discogs.svg", width: 32, height: 32, alt: "Discogs"
-                  = link_to "https://open.spotify.com/search/#{playlist.search_query}", target: :_blank do
-                    = image_tag "spotify.svg", width: 32, height: 32, alt: "Spotify"
+                  = link_to "https://www.youtube.com/results?search_query=#{CGI.escape playlist.search_query}&c[section]=audio", target: :_blank, class: "px-1" do
+                    = vite_image_tag "images/youtube.svg", width: 32, height: 32, alt: "Youtube"
+                  = link_to "https://vk.com/search?c[per_page]=200&c[q]=#{CGI.escape playlist.search_query}&c[section]=audio", target: :_blank, class: "px-1" do
+                    = vite_image_tag "images/vk.svg", width: 32, height: 32, alt: "VK"
+                  = link_to "https://music.yandex.ru/search?text=#{CGI.escape playlist.search_query}", target: :_blank, class: "px-1" do
+                    = vite_image_tag "images/yandex_music.svg", width: 32, height: 32, alt: "Яндекс.Музыка"
+                  = link_to "https://www.discogs.com/search/?q=#{CGI.escape playlist.search_query}&type=all", target: :_blank, class: "px-1" do
+                    = vite_image_tag "images/discogs.svg", width: 32, height: 32, alt: "Discogs"
+                  = link_to "https://open.spotify.com/search/#{playlist.search_query}", target: :_blank, class: "px-1" do
+                    = vite_image_tag "images/spotify.svg", width: 32, height: 32, alt: "Spotify"
             %td
               - if current_user.present? && current_user.admin?
                 .text-right
                   = link_to [:edit, @author, @story, playlist], class: "btn btn-ghost btn-sm" do
-                    = image_tag "edit.svg", class: "h-4 w-4"
+                    = vite_image_tag "images/edit.svg", class: "h-4 w-4"
                   = link_to [@author, @story, playlist], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
-                    = image_tag "trash.svg", class: "h-4 w-4"
+                    = vite_image_tag "images/trash.svg", class: "h-4 w-4"
 - else
   %h2 В этом рассказе пока нет опознанных треков.
   %p

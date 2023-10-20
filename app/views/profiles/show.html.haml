@@ -17,7 +17,7 @@
       = f.text_field :username, class: input_classes
     .mb-4
       - if current_user.avatar.present?
-        = image_tag current_user.avatar.imgproxy_url(width: 100, resizing_type: :fill)
+        = vite_image_tag current_user.avatar.imgproxy_url(width: 100, resizing_type: :fill)
       = f.label :avatar
       = f.hidden_field :avatar, value: current_user.cached_avatar_data
       = f.file_field :avatar

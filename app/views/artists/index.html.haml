@@ -4,7 +4,7 @@
       Артисты
   .flex-auto.text-right
     = link_to [:new, :artist], class: "btn btn-sm btn-ghost" do
-      = image_tag "add.svg", class: "w-4 h-4"
+      = vite_image_tag "images/add.svg", class: "w-4 h-4"
       добавить
 %hr/
 - if @artists.present?
@@ -25,9 +25,9 @@
               - if current_user.present? && current_user.admin?
                 .text-right
                   = link_to [:edit, artist], class: "btn btn-ghost btn-sm" do
-                    = image_tag "edit.svg", class: "h-4 w-4"
+                    = vite_image_tag "edit.svg", class: "h-4 w-4"
                   = link_to [artist], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
-                    = image_tag "trash.svg", class: "h-4 w-4"
+                    = vite_image_path "trash.svg", class: "h-4 w-4"
 
   - if @pagy.pages > 1
     .flex.flex-col.items-center.my-2

@@ -13,8 +13,9 @@
       %meta{ property: k, content: v }
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+    = vite_client_tag
+    = vite_stylesheet_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = vite_javascript_tag "application", "data-turbo-track": "reload", defer: true
   %body.mx-auto
     %header= render 'navigation'
     .m-4

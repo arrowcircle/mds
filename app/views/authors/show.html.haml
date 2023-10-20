@@ -4,12 +4,12 @@
       %h1.mr-2= @author.name
     .flex
       = link_to [:edit, @author], class: "btn btn-sm btn-ghost" do
-        = image_tag "edit.svg", class: "h-4 w-4"
+        = vite_image_tag "images/edit.svg", class: "h-4 w-4"
         ред.
       
   .flex-1.text-right
     = link_to :back, class: "btn btn-sm btn-ghost" do
-      = image_tag "arrow_left.svg", class: "h-4 w-4"
+      = vite_image_tag "images/arrow_left.svg", class: "h-4 w-4"
       назад
 %hr/
 - if @author.description.present?
@@ -37,9 +37,9 @@
               - if current_user.present? && current_user.admin?
                 .text-right
                   = link_to [:edit, @author, story], class: "btn btn-ghost btn-sm" do
-                    = image_tag "edit.svg", class: "h-4 w-4"
+                    = vite_image_tag "images/edit.svg", class: "h-4 w-4"
                   = link_to [@author, story], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
-                    = image_tag "trash.svg", class: "h-4 w-4"
+                    = vite_image_tag "images/strash.svg", class: "h-4 w-4"
 
   - if @pagy.pages > 1
     .flex.flex-col.items-center.my-2

@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  require "sidekiq/web"
+  require "sidekiq/cron/web"
+  if Rails.env.development?
+    mount Sidekiq::Web => "/sidekiq"
+  end
+
   passwordless_for :users
   root to: "welcome#index"
   resources :artists do
