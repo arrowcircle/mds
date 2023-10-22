@@ -39,7 +39,7 @@ jobs:
         env:
           MINIO_ACCESS_KEY: minioadmin1
           MINIO_SECRET_KEY: minioadmin1
-        options: --name=minio --health-cmd "curl http://localhost:9000/minio/health/live"
+        options: --entrypoint "minio server ." --health-cmd "curl -f http://localhost:9000/minio/health/live" --health-interval 10s --health-timeout 5s --health-retries 5
 
     env:
       RAILS_ENV: test
