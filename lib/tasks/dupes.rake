@@ -1,7 +1,12 @@
 namespace :dupes do
   task artists: :environment do
     dupes = {}
-    client = MeiliSearch::Client.new("http://127.0.0.1:7700")
+    seach_host = ENV.fetch("MEILISEARCH_HOST", "http://127.0.0.1:7700")
+    client = if ENV["MEILISEARCH_KEY"]
+      MeiliSearch::Client.new(ENV.fetch(seach_host, ENV.fetch("MEILISEARCH_KEY"))
+    else
+      MeiliSearch::Client.new(ENV.fetch(seach_host)
+    end
     client.delete_index("mds_artists")
     index = client.index("mds_artists")
 

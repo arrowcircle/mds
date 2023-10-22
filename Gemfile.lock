@@ -228,7 +228,7 @@ GEM
     parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
-    passwordless (1.0.0)
+    passwordless (1.0.1)
       bcrypt (>= 3.1.11)
       rails (>= 5.1.4)
     pg (1.5.4)

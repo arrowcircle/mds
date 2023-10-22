@@ -10,10 +10,6 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.cache_classes = true
 
-  config.lograge.enabled = true
-
-  config.lograge.ignore_actions = ["WelcomeController#health_check"]
-
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
@@ -61,8 +57,8 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "mds_production"
+  config.active_job.queue_adapter = :sidekiq
+  config.active_job.queue_name_prefix = "mds_production"
 
   config.action_mailer.perform_caching = false
 
@@ -92,4 +88,30 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # custom config
+  # SSL
+  if ENV["FORCE_SSL"] == "true"
+    config.force_ssl = true
+    config.ssl_options = {redirect: {exclude: ->(request) { request.path =~ /health_check/ }}}
+  end
+
+  # SMTP
+  config.action_mailer.default_url_options = {host: ENV.fetch("DOMAIN_NAME")}
+  config.mandrill_mailer.default_url_options = {host: ENV.fetch("DOMAIN_NAME")}
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    domain: "mds.redde.ru",
+    address: ENV["SMTP_HOST"],
+    port: ENV["SMTP_PORT"]
+    # user_name: ENV['SMTP_USER'],
+    # password: ENV['SMTP_PASSWORD'],
+    # authentication: :login,
+    # enable_starttls_auto: true
+  }
+
+  # LOGS
+  config.lograge.enabled = true
+  config.lograge.ignore_actions = ["WelcomeController#health_check"]
 end

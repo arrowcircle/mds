@@ -11,7 +11,7 @@ feature "Sign in" do
 
   scenario "Shows ok result for sign in" do
     u = create(:user)
-    visit users.sign_in_path
+    visit users_sign_in_path
     fill_in :passwordless_email, with: u.email
     first(:button, "Получить ссылку").click
     session = Passwordless::Session.first
