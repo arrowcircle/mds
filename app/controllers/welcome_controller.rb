@@ -7,8 +7,8 @@ class WelcomeController < ApplicationController
     Rails.logger.silence do
       begin
         ActiveRecord::Base.connection
-        User.first
-        Redis.current.get("healthcheck")
+        User&.first
+        Mds.redis.get("healthcheck")
         obj = {msg: "success", status_code: 200, status: "healthy"}
       rescue ActiveRecord::NoDatabaseError
         obj = {msg: "failure", status_code: 500, status: "unhealthy"}
