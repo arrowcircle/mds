@@ -55,7 +55,7 @@ jobs:
       - name: Install kube config
         run: |
           mkdir -p ~/.kube
-          echo '${{ secrets.KUBECONFIG }}' > ~/.kube/config
+          echo '${{ secrets.KUBE_CONFIG }}' > ~/.kube/config
           chmod go-r ~/.kube/config
 
       - name: Test kubectl
