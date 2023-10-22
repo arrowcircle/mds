@@ -14,7 +14,7 @@ spec:
       containers:
         - name: "db-migrate"
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          command: ['bundle', 'exec', 'rails', 'db:create', 'db:migrate', 'setup:buckets']
+          command: ['bundle', 'exec', 'rails', 'db:create', 'db:migrate', 'db:seed']
           envFrom:
           - configMapRef:
               name: "{{ .Chart.Name }}-config"
