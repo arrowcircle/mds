@@ -39,7 +39,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: production
-    needs: release_production
+    needs: release
     steps:
       - uses: actions/checkout@v3
 
