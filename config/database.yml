@@ -68,9 +68,11 @@ development:
 test:
   <% if ENV["DATABASE_URL"].present? %>
     primary:
+      adapter: postgresql
       url: <%= ENV['DATABASE_URL'] %>
     old:
-      url: <%= ENV['OLD_DATABASE_URL'] %>
+      adapter: postgresql
+      url: <%= ENV['DATABASE_URL'] %>
   <% else %>
     primary:
       <<: *default
