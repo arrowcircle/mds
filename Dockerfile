@@ -1,64 +1,78 @@
-FROM node:18 AS nodejs
-WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn
-ENV NODE_ENV=production
-COPY . /app
-SHELL ["/bin/bash", "-c"]
-RUN ["yarn", "vite", "build"]
+# syntax = docker/dockerfile:1
 
-FROM ruby:3.2.2-slim-bullseye AS base
+# Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
+ARG RUBY_VERSION=3.2.2
+FROM ruby:$RUBY_VERSION-slim as base
 
-# Common dependencies
-RUN apt-get update -qq \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -yq \
-    --no-install-recommends \
-    build-essential \
-    gnupg2 \
-    curl \
-    less \
-    git \
-    vim \
-    ssh \
-  && apt-get clean \
-  && rm -rf /var/cache/apt/archives/* \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-  && truncate -s 0 /var/log/*log
+# Rails app lives here
+WORKDIR /rails
 
-# Add PostgreSQL to sources list
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-  && echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' 11 > /etc/apt/sources.list.d/pgdg.list
+# Set production environment
+ENV RAILS_ENV="production" \
+    BUNDLE_WITHOUT="development:test" \
+    BUNDLE_DEPLOYMENT="1"
 
+# Update gems and bundler
+RUN gem update --system --no-document && \
+    gem install -N bundler
+
+
+# Throw-away build stage to reduce size of final image
+FROM base as build
+
+# Install packages needed to build gems and node modules
 RUN apt-get update -qq && \
-  DEBIAN_FRONTEND=noninteractive apt-get install -yq \
-    --no-install-recommends \
-    libpq-dev \
-    postgresql-client-14 \
-    cron && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    truncate -s 0 /var/log/*log
+    apt-get install --no-install-recommends -y build-essential curl libpq-dev node-gyp pkg-config python-is-python3
 
-# Configure bundler
-ENV LANG=C.UTF-8 \
-  BUNDLE_JOBS=4 \
-  BUNDLE_RETRY=3
+# Install JavaScript dependencies
+ARG NODE_VERSION=18.12.1
+ARG YARN_VERSION=1.22.19
+ENV PATH=/usr/local/node/bin:$PATH
+RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
+    /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
+    npm install -g yarn@$YARN_VERSION && \
+    rm -rf /tmp/node-build-master
 
-RUN mkdir -p /app
+# Install application gems
+COPY --link Gemfile Gemfile.lock ./
+RUN bundle install && \
+    bundle exec bootsnap precompile --gemfile && \
+    rm -rf ~/.bundle/ $BUNDLE_PATH/ruby/*/cache $BUNDLE_PATH/ruby/*/bundler/gems/*/.git
 
-COPY Gemfile* /app
+# Install node modules
+COPY --link package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
-WORKDIR /app
+# Copy application code
+COPY --link . .
 
-RUN bundle install --jobs=10
+# Precompile bootsnap code for faster boot times
+RUN bundle exec bootsnap precompile app/ lib/
 
-COPY . /app
+# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
-COPY --from=nodejs public/vite /app/public
 
-RUN rails assets:precompile
+# Final stage for app image
+FROM base
 
-SHELL ["/bin/bash", "-c"]
+# Install packages needed for deployment
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y curl postgresql-client && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-run ["bundle", "exec", "puma", "-c" "config/puma.rb"]
+# Copy built artifacts: gems, application
+COPY --from=build /usr/local/bundle /usr/local/bundle
+COPY --from=build /rails /rails
+
+# Run and own only the runtime files as a non-root user for security
+RUN useradd rails --create-home --shell /bin/bash && \
+    chown -R rails:rails db log storage tmp
+USER rails:rails
+
+# Deployment options
+ENV RUBY_YJIT_ENABLE="1"
+
+# Start the server by default, this can be overwritten at runtime
+EXPOSE 3000
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
