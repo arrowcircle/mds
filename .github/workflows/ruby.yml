@@ -50,7 +50,7 @@ jobs:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: mds_test
       PGHOST: localhost
-      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/mds_test"
+      DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/mds_test"
 
     steps:
       - uses: actions/checkout@v3
