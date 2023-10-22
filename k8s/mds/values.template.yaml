@@ -1,0 +1,81 @@
+image:
+  repository: arrowcircle/mds
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+config:
+  awsAccessKeyId: "${AWS_ACCESS_KEY_ID}"
+  awsSecretAccessKey: "${AWS_SECRET_ACCESS_KEY}"
+  databaseUrl: "${DATABASE_URL}"
+  oldDatabaseUrl: "${OLD_DATABASE_URL}"
+  domainName: "${DOMAIN_NAME}"
+  imgproxyEndpoint: "${IMGPROXY_ENDPOINT}"
+  imgproxyKey: "${IMGPROXY_KEY}"
+  imgproxySalt: "${IMGPROXY_SALT}"
+  redisUrl: "${REDIS_URL}"
+  s3Host: "${S3_HOST}"
+  secretKeyBase: "${SECRET_KEY_BASE}"
+  meilisearchHost: "${MEILISEARCH_HOST}"
+
+appserver:
+  replicaCount: 1
+  maxSurge: 1
+  maxUnavailable: 0
+
+sidekiq:
+  replicaCount: 1
+  maxSurge: 1
+  maxUnavailable: 0
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podSecurityContext: {}
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: true
+  className: "nginx"
+  hostname: "${DOMAIN_NAME}"
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: le-prod-ci
+  hosts:
+    - host: "${DOMAIN_NAME}"
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: appserver
+              port:
+                number: 3000
+
+  tls:
+  - hosts:
+    - mds.k8s.ivyknob.com
+    secretName: mds.k8s.ivyknob.com
+
+resources: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 1
+  targetCPUUtilizationPercentage: 80
+
+tolerations: []
+
+affinity: {}

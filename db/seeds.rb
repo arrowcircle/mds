@@ -26,7 +26,7 @@ def create_folder(bucket, name)
   s3_test_client.put_object(bucket: bucket, acl: :public, key: "#{name}/")
 end
 
-%w[images cache].each { |n|
+%w[images cache music].each { |n|
   create_bucket(n)
   create_folder(n, "mds")
 }
