@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
   end
 
   def health_check
-    Rails.logger.silence do
+    # Rails.logger.silence do
       begin
         ActiveRecord::Base.connection
         User&.first
@@ -18,6 +18,6 @@ class WelcomeController < ApplicationController
         format.json { render json: obj.except(:status_code), status: obj[:status_code] }
         format.any { render plain: obj[:msg], status: obj[:status_code], content_type: "text/plain" }
       end
-    end
+    # end
   end
 end

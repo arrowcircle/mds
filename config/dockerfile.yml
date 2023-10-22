@@ -5,6 +5,10 @@ options:
   postgresql: true
   redis: true
   yjit: true
+  packages:
+    deploy:
+    - vim
+    vim:
   envs:
     deploy:
       DOMAIN_NAME: mds.k8s.ivyknob.com
