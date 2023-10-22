@@ -61,6 +61,16 @@ jobs:
           ruby-version: 3.2.2
           bundler-cache: true
 
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+          cache-dependency-path: yarn.lock
+
+      - name: Install js deps
+        run: yarn install --frozen-lockfile
+
       - name: Copy test env
         run: cp .env.ci .env
 
