@@ -55,7 +55,7 @@ RUN bundle install --jobs=10
 
 COPY . /app
 
-COPY --from=nodejs app/assets/builds /app/assets
+COPY --from=nodejs public/vite /public
 
 RUN rails assets:precompile
 
