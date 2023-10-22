@@ -1,5 +1,5 @@
 apiVersion: v2
-name: Mds playlists
+name: mds
 description: A Helm chart for Kubernetes to deploy mds playlists
 
 type: application
