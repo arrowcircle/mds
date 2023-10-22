@@ -102,3 +102,5 @@ gem "sidekiq", "<8"
 gem "sidekiq-cron"
 # gem "view_component", require: "view_component/engine"
 # gem "view_component-contrib"
+
+gem "dockerfile-rails", ">= 1.5", :group => :development

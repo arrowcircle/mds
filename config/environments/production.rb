@@ -97,8 +97,7 @@ Rails.application.configure do
   end
 
   # SMTP
-  config.action_mailer.default_url_options = {host: ENV.fetch("DOMAIN_NAME")}
-  config.mandrill_mailer.default_url_options = {host: ENV.fetch("DOMAIN_NAME")}
+  config.action_mailer.default_url_options = {host: ENV.fetch("DOMAIN_NAME", "mds.k8s.ivyknob.com")}
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

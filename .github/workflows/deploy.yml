@@ -10,38 +10,41 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+      - uses: actions/checkout@v4
 
-      - name: Set up Docker Context for Buildx
-        id: buildx-context
-        run: docker context create builders
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      # - name: Set up Docker Context for Buildx
+      #   id: buildx-context
+      #   run: docker context create builders
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-        with:
-          endpoint: builders
+        uses: docker/setup-buildx-action@v3
+        # with:
+        #   endpoint: builders
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: arrowcircle
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
-          allow: "network.host,security.insecure"
-          network: host
+          context: .
+          # allow: "network.host,security.insecure"
+          # network: host
           push: true
           tags: arrowcircle/mds:${{ github.ref_name }}
 
   deploy:
     runs-on: ubuntu-latest
     environment: production
-    needs: release_production
+    needs: release
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install Helm
         uses: azure/setup-helm@v3
@@ -52,8 +55,11 @@ jobs:
       - name: Install kube config
         run: |
           mkdir -p ~/.kube
-          echo '${{ secrets.KUBECONFIG }}' > ~/.kube/config
+          echo '${{ secrets.KUBE_CONFIG }}' > ~/.kube/config
           chmod go-r ~/.kube/config
+
+      - name: Test kubectl
+        run: kubectl get nodes
 
       - name: Install release
         env:
@@ -66,7 +72,6 @@ jobs:
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
           REDIS_URL: ${{ secrets.REDIS_URL }}
           S3_HOST: ${{ secrets.S3_HOST }}
-
           IMGPROXY_ENDPOINT: ${{ vars.IMGPROXY_ENDPOINT }}
           DOMAIN_NAME: ${{ vars.MC_DOMAIN }}
           S3_REGION: ${{ vars.S3_REGION }}

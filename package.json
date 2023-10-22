@@ -18,12 +18,11 @@
     "vite-plugin-stimulus-hmr": "^3.0.0"
   },
   "scripts": {
-    "build": "run-s build:js build:css",
-    "build:js": "yarn esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
-    "build:css": "yarn tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
+    "build": "vite build"
   },
   "devDependencies": {
     "vite": "^4.3.0",
     "vite-plugin-ruby": "^3.2.0"
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }
