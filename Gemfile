@@ -72,6 +72,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem "dockerfile-rails"
 end
 
 group :test do
@@ -102,5 +103,9 @@ gem "sidekiq", "<8"
 gem "sidekiq-cron"
 # gem "view_component", require: "view_component/engine"
 # gem "view_component-contrib"
-
-gem "dockerfile-rails", ">= 1.5", :group => :development
+gem "webrick"
+gem "yabeda-rails"
+gem "yabeda-sidekiq"
+gem "yabeda-http_requests"
+gem "yabeda-puma-plugin"
+gem "yabeda-prometheus" # , github: "yabeda-rb/yabeda-prometheus", ref: "7746697"

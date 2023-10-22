@@ -133,6 +133,7 @@ GEM
     drb (2.1.1)
       ruby2_keywords
     dry-cli (1.0.0)
+    dry-initializer (3.1.1)
     email_validator (2.2.4)
       activemodel
     erubi (1.12.0)
@@ -238,6 +239,7 @@ GEM
       bcrypt (>= 3.1.11)
       rails (>= 5.1.4)
     pg (1.5.4)
+    prometheus-client (4.2.1)
     psych (5.1.1.1)
       stringio
     public_suffix (5.0.3)
@@ -353,6 +355,9 @@ GEM
       fugit (~> 1.8)
       globalid (>= 1.0.1)
       sidekiq (>= 6)
+    sniffer (0.5.0)
+      anyway_config (>= 1.0)
+      dry-initializer (~> 3)
     standard (1.31.2)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
@@ -403,6 +408,30 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yabeda (0.12.0)
+      anyway_config (>= 1.0, < 3)
+      concurrent-ruby
+      dry-initializer
+    yabeda-http_requests (0.2.0)
+      sniffer
+      yabeda
+    yabeda-prometheus (0.9.0)
+      prometheus-client (>= 3.0, < 5.0)
+      rack
+      yabeda (~> 0.10)
+    yabeda-puma-plugin (0.7.1)
+      json
+      puma
+      yabeda (~> 0.5)
+    yabeda-rails (0.9.0)
+      activesupport
+      anyway_config (>= 1.3, < 3)
+      railties
+      yabeda (~> 0.8)
+    yabeda-sidekiq (0.10.0)
+      anyway_config (>= 1.3, < 3)
+      sidekiq
+      yabeda (~> 0.6)
     zeitwerk (2.6.12)
 
 PLATFORMS
@@ -415,7 +444,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   bundle-audit
   capybara
-  dockerfile-rails (>= 1.5)
+  dockerfile-rails
   dotenv-rails
   email_validator
   factory_bot_rails
@@ -448,6 +477,12 @@ DEPENDENCIES
   vite_rails
   web-console
   webdrivers
+  webrick
+  yabeda-http_requests
+  yabeda-prometheus
+  yabeda-puma-plugin
+  yabeda-rails
+  yabeda-sidekiq
 
 RUBY VERSION
    ruby 3.2.2p53
