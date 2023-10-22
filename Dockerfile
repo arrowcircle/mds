@@ -71,8 +71,12 @@ RUN useradd rails --create-home --shell /bin/bash && \
 USER rails:rails
 
 # Deployment options
-ENV RUBY_YJIT_ENABLE="1"
+ENV DOMAIN_NAME="mds.k8s.ivyknob.com" \
+    RUBY_YJIT_ENABLE="1"
+
+# Entrypoint prepares the database.
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+CMD ["./bin/rails", "server"]
