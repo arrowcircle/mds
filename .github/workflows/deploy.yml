@@ -58,6 +58,9 @@ jobs:
           echo '${{ secrets.KUBECONFIG }}' > ~/.kube/config
           chmod go-r ~/.kube/config
 
+      - name: Test kubectl
+        run: kubectl get nodes
+
       - name: Install release
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -69,7 +72,6 @@ jobs:
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
           REDIS_URL: ${{ secrets.REDIS_URL }}
           S3_HOST: ${{ secrets.S3_HOST }}
-
           IMGPROXY_ENDPOINT: ${{ vars.IMGPROXY_ENDPOINT }}
           DOMAIN_NAME: ${{ vars.MC_DOMAIN }}
           S3_REGION: ${{ vars.S3_REGION }}
