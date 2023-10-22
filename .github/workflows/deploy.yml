@@ -33,6 +33,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
+          file: "{context}/Dockerfile"
           # allow: "network.host,security.insecure"
           # network: host
           push: true
