@@ -5,7 +5,7 @@ RUN yarn
 ENV NODE_ENV=production
 COPY . /app
 SHELL ["/bin/bash", "-c"]
-RUN ["yarn", "build", "build:css"]
+RUN ["yarn", "vite", "build"]
 
 FROM ruby:3.2.2-slim-bullseye AS base
 
@@ -56,6 +56,8 @@ RUN bundle install --jobs=10
 COPY . /app
 
 COPY --from=nodejs app/assets/builds /app/assets
+
+RUN rails assets:precompile
 
 SHELL ["/bin/bash", "-c"]
 
