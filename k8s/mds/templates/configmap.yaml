@@ -19,7 +19,7 @@ data:
   RAILS_LOG_TO_STDOUT: "true"
   FORCE_SSL: "true"
   REDIS_URL: "{{ .Values.config.redisUrl }}"
-  {{- if .Values.config.s3Endpoint }}
+  {{- if .Values.config.s3Host }}
   S3_HOST: "{{ .Values.config.s3Host }}"
   {{- end }}
   S3_REGION: "us-east-1"
