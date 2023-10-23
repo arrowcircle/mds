@@ -73,6 +73,7 @@ test:
     old:
       adapter: postgresql
       url: <%= ENV['DATABASE_URL'] %>
+      replica: true
   <% else %>
     primary:
       <<: *default
@@ -107,3 +108,4 @@ production:
     url: <%= ENV['DATABASE_URL'] %>
   old:
     url: <%= ENV['OLD_DATABASE_URL'] %>
+    replica: true
