@@ -39,7 +39,7 @@
                   = link_to [:edit, @author, story], class: "btn btn-ghost btn-sm" do
                     = vite_image_tag "images/edit.svg", class: "h-4 w-4"
                   = link_to [@author, story], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
-                    = vite_image_tag "images/strash.svg", class: "h-4 w-4"
+                    = vite_image_tag "images/trash.svg", class: "h-4 w-4"
 
   - if @pagy.pages > 1
     .flex.flex-col.items-center.my-2

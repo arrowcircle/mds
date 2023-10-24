@@ -17,6 +17,10 @@ config:
   s3Host: "${S3_HOST}"
   secretKeyBase: "${SECRET_KEY_BASE}"
   meilisearchHost: "${MEILISEARCH_HOST}"
+  smtpHost: "${SMTP_HOST}"
+  smtpPort: "${SMTP_PORT}"
+  smtpUser: "${SMTP_USER}"
+  smtpPassword: "${SMTP_PASSWORD}"
 
 appserver:
   replicaCount: 1
