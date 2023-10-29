@@ -4,15 +4,20 @@ module.exports = {
   },
   variants: {},
   content: [
-    './app/views/**/*.html.erb',
-    './app/views/**/*.html.haml',
+    './app/views/**/*.{erb,haml,turbo_stream}',
+    './app/components/**/*.{erb,haml,rb}',
     './app/helpers/**/*.rb',
-    './app/assets/javascript/**/*.css',
-    './app/javascript/**/*.js'
+    './app/javascript/**/*.{js,css}'
   ],
   plugins: [
     require("@tailwindcss/typography"),
     require("@tailwindcss/forms"),
     require("daisyui")
-  ]
+  ],
+  daisyui: {
+    themes: [
+      'light',
+      'dark'
+    ]
+  }
 }

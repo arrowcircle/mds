@@ -1,0 +1,4 @@
+= link_to @link, class: ["btn"] + @classes do
+  - if @icon.present?
+    = vite_image_tag @icon, class: "w-4 h-4"
+  = @title

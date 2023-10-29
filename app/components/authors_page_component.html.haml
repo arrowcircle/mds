@@ -1,0 +1,5 @@
+= render PageTitleComponent.new(title: title, buttons: buttons, metadata: metadata)
+- if @authors.present?
+  = render TableComponent.new(items: @authors, item_class: AuthorItemComponent, current_user:)
+
+  = render PagyComponent.new(@pagy)

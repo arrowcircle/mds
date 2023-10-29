@@ -80,7 +80,7 @@ GEM
       ruby-next-core (>= 0.14.0)
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.839.0)
+    aws-partitions (1.843.0)
     aws-sdk-core (3.185.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -93,7 +93,7 @@ GEM
       aws-sdk-core (~> 3, >= 3.181.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.6)
-    aws-sigv4 (1.6.0)
+    aws-sigv4 (1.6.1)
       aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.1.1)
     bcrypt (3.1.19)
@@ -122,7 +122,7 @@ GEM
     crass (1.0.6)
     date (3.3.3)
     diff-lcs (1.5.0)
-    dockerfile-rails (1.5.11)
+    dockerfile-rails (1.5.12)
       rails (>= 3.0.0)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
@@ -145,7 +145,7 @@ GEM
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
     ffaker (2.23.0)
-    fugit (1.8.1)
+    fugit (1.9.0)
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
     globalid (1.2.1)
@@ -209,6 +209,7 @@ GEM
     matrix (0.4.2)
     meilisearch (0.25.1)
       httparty (>= 0.17.1, < 0.22.0)
+    method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.20.0)
     msgpack (1.7.2)
@@ -287,11 +288,11 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
-    rake (13.0.6)
+    rake (13.1.0)
     rdoc (6.5.0)
       psych (>= 4.0.0)
     redis (4.8.1)
-    redis-client (0.17.0)
+    redis-client (0.18.0)
       connection_pool
     regexp_parser (2.8.2)
     reline (0.3.9)
@@ -328,7 +329,7 @@ GEM
       rubocop-ast (>= 1.28.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.29.0)
+    rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
     rubocop-performance (1.19.1)
       rubocop (>= 1.7.0, < 2.0)
@@ -385,6 +386,10 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
+    view_component (3.6.0)
+      activesupport (>= 5.2.0, < 8.0)
+      concurrent-ruby (~> 1.0)
+      method_source (~> 1.0)
     vite_rails (3.0.17)
       railties (>= 5.1, < 8)
       vite_ruby (~> 3.0, >= 3.2.2)
@@ -474,6 +479,7 @@ DEPENDENCIES
   stimulus-rails
   turbo-rails
   tzinfo-data
+  view_component
   vite_rails
   web-console
   webdrivers

@@ -1,8 +1,1 @@
-%h1= @user.username
-= "#{time_ago_in_words(@user.created_at)} на сайте"
-
-- if @user.playlists_count > 0
-  %h3 Опознал треков: #{@user.playlists_count}
-
-- if @user.requests_count > 0
-  %h3 Последние запросы: #{@user.requests_count}
+= render UserPageComponent.new(@user)

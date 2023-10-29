@@ -1,37 +1,42 @@
-.navbar.bg-base-200.px-8
-  .navbar-start
-    = link_to root_url, class: "normal-case text-lg font-bold flex" do
+.navbar.bg-base-200.px-8{ class: "sm:py-0" }
+  .title.flex-none
+    = link_to root_url, class: "normal-case text-lg font-bold" do
       МДС&nbsp;Музыка
-    %ul.menu.menu-horizontal.p-0.hidden{ class: "md:flex lg:px-2" }
-      - active = %w(authors stories).include?(controller_name)
+      
+  %ul.menu.menu-horizontal.px-1.hidden.flex-1{ class: "md:flex lg:px-2" }
+    - active = %w(authors stories).include?(controller_name)
 
-      %li.p1.text-sm{ class: "lg:px-2 lg:text-base"}
-        = link_to [:authors], class: "#{'active' if active}" do
-          = 'Книги'
+    %li.px-1.text-sm{ class: "lg:px-2 lg:text-base"}
+      = link_to [:authors], class: "#{'active' if active}" do
+        = 'Книги'
 
-      - active = %w(artists tracks).include?(controller_name)
-      %li.p1.text-sm{ class: "lg:px-2 lg:text-base"}
-        = link_to [:artists], class: "#{'active' if active}" do
-          = 'Музыка'
+    - active = %w(artists tracks).include?(controller_name)
+    %li.px-1.text-sm{ class: "lg:px-2 lg:text-base"}
+      = link_to [:artists], class: "#{'active' if active}" do
+        = 'Музыка'
 
-      - active = controller_name == "users"
-      %li.p1.text-sm{ class: "lg:px-2 lg:text-base"}
-        = link_to [:users], class: "#{'active' if active}" do
-          = 'Участники'
-    .form-control.hidden.p-1{ class: "md:block" }
+    - active = controller_name == "users"
+    %li.px-1.text-sm{ class: "lg:px-2 lg:text-base"}
+      = link_to [:users], class: "#{'active' if active}" do
+        = 'Участники'
+
+  .search.flex-none.shrink
+    .form-control.hidden.px-1{ class: "md:flex" }
       = form_with url: search_url, data: { turbo: false } do |f|
         = text_field_tag :q, params[:q], placeholder: "Поиск", class: "input input-bordered input-sm"
-  .navbar-end
+
+  .gap-auto.flex-1{ class: "md:hidden" }
+  .user.flex-none
     = render "dropdown"
 
-    %ul.menu.menu-horizontal.p-0.bg-base-200.hidden{ class: "md:flex" }
+    %ul.menu.menu-horizontal.px-0.bg-base-200.hidden.flex-row.items-center{ class: "md:flex" }
       - if current_user.present?
         %li
-          = link_to profile_path, class: "p-1" do
+          = link_to profile_path, class: "px-1" do
             - if current_user.avatar.present?
               .mask.mask-squircle.w-auto= image_tag current_user.avatar.imgproxy_url(width: 100, height: 100, resizing_type: :fill), width: 30, class: ['rounded-circle', 'z-depth-0']              
             = current_user.username
         %li= link_to 'Выход', users_sign_out_path, data: { turbo_method: :delete }, class: "p-1"
       - else
-        %li= link_to 'Регистрация', [:new, :user], class: "p-1"
-        %li= link_to 'Войти', users_sign_in_path, class: "p-1"
+        %li= link_to 'Регистрация', [:new, :user], class: "px-1"
+        %li= link_to 'Войти', users_sign_in_path, class: "px-1"
