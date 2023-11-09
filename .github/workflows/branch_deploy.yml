@@ -1,4 +1,4 @@
-name: Deploy to k8s
+name: Deploy branch to k8s
 
 on:
   workflow_dispatch:
