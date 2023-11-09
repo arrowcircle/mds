@@ -1,4 +1,4 @@
-%span.sm:block{ class: classes }
+%span.sm:block{ class: %w(mx-1) + classes }
   = link_to @link, class: ["btn", "inline-flex", "items-center"] do
     - if @inline_svg
       = @inline_svg
