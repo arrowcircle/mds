@@ -72,7 +72,7 @@ jobs:
           REDIS_URL: ${{ secrets.REDIS_URL }}
           S3_HOST: ${{ secrets.S3_HOST }}
           IMGPROXY_ENDPOINT: ${{ vars.IMGPROXY_ENDPOINT }}
-          DOMAIN_NAME: ${{ vars.MC_DOMAIN }}
+          DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
           S3_REGION: ${{ vars.S3_REGION }}
         run: |
           envsubst < k8s/mds/values.template.yaml > k8s/mds/values.yaml
