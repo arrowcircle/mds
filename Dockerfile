@@ -71,7 +71,7 @@ RUN useradd rails --create-home --shell /bin/bash && \
 USER rails:rails
 
 # Deployment options
-ENV DOMAIN_NAME="mds.k8s.ivyknob.com" \
+ENV DOMAIN_NAME="mds.redde.ru" \
     RUBY_YJIT_ENABLE="1"
 
 # Entrypoint prepares the database.
