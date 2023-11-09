@@ -1,9 +1,10 @@
+.flex-1{ class: "md:hidden" }
 .dropdown{ class: "md:hidden" }
   %label{ tabindex: "0" }
     = vite_image_tag 'images/hamburger.svg', class: "h-10 w-10 text-slate-100"
 
   - # Dropdown menu
-  %ul.menu.menu-compact.dropdown-content.mt-3.p-2.shadow.bg-base-100.rounded-box.w-52.absolute.-left-40{ tabindex: "0" }
+  %ul.menu.menu-compact.dropdown-content.mt-3.p-2.shadow.bg-base-100.rounded-box.w-52.absolute.-left-40{ tabindex: "0", class: "z-[1]" }
     - active = %w(authors stories).include?(controller_name)
     - attrs = { class: ["p-1 text-sm #{'active' if active}"] }
     %li{ class: "#{'active' if active}"}

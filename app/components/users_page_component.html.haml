@@ -1,0 +1,7 @@
+
+= render PageTitleComponent.new(title: title, buttons: buttons, metadata: metadata)
+- if @users.present?
+  .grid.grid-cols-1{ class: "md:grid-cols-2 gap-2 md:gap-4" }
+    = render @users
+
+  = render PagyComponent.new(@pagy)

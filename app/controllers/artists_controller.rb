@@ -14,7 +14,7 @@ class ArtistsController < ApplicationController
 
   def show
     @artist = Artist.find(params[:id])
-    @pagy, @tracks = pagy(Track.search(params[:q], @artist.tracks.order(:name)))
+    @pagy, @tracks = pagy(Track.search(params[:q], @artist.tracks.includes(:artist).order(:name)))
   end
 
   def new
@@ -53,6 +53,6 @@ class ArtistsController < ApplicationController
   private
 
   def artist_params
-    params.require(:author).permit(:name, :description, :image)
+    params.require(:artist).permit(:name, :description, :image)
   end
 end

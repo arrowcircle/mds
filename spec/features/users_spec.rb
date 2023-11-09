@@ -30,6 +30,8 @@ feature "Sign in" do
   end
 
   feature "Index" do
+    let!(:user) { create(:user) }
+    before(:each) { user }
     it "Accesses users from main page" do
       visit root_url
       first(:link, "Участники").click

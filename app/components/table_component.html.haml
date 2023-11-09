@@ -1,0 +1,9 @@
+.overflow-x-auto.mt-2
+  %table.table.w-full.table-compact
+    %thead
+      %tr
+        - headers.each do |header|
+          %th= header
+    %tbody
+      - items.each do |item|
+        = render item_class.new(item: item, current_user:)
