@@ -1,8 +1,8 @@
 User-Agent: *
-Disallow: *
+
 Disallow: /users/sign_in
 Disallow: /authors/new*
 Disallow: /artists/new*
 Disallow: /*stories/new$
 
-Sitemap: https://mds.redde.ru/sitemap_index.xml.gz
+# Sitemap: https://mds.redde.ru/sitemap_index.xml.gz
