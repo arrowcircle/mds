@@ -41,6 +41,12 @@ class StoriesController < ApplicationController
   end
 
   def story_params
-    params.require(:story).permit(:name, :description, :image, :completed)
+    permitted = [:name]
+    permitted += [:description, :image, :completed, :external_audio_url] if current_user.admin?
+    begin
+      params.require(:story)
+    rescue
+      {}
+    end.permit(permitted)
   end
 end

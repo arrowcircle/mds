@@ -3,9 +3,10 @@
     .flex
       %h1.mr-2= @author.name
     .flex
-      = link_to [:edit, @author], class: "btn btn-sm btn-neutral" do
-        = vite_image_tag "images/edit.svg", class: "h-4 w-4"
-        ред.
+      - if current_user.admin?
+        = link_to [:edit, @author], class: "btn btn-sm btn-neutral" do
+          = vite_image_tag "images/edit.svg", class: "h-4 w-4"
+          ред.
       
   .flex-1.text-right
     = link_to :back, class: "btn btn-sm btn-neutral" do
@@ -34,7 +35,7 @@
                 = "#{story.name} (#{story.completed ? 'Полностью' : story.playlists_count})"
 
             %td
-              - if current_user.present? && current_user.admin?
+              - if current_user.admin?
                 .text-right
                   = link_to [:edit, @author, story], class: "btn btn-neutral btn-sm mr-1" do
                     = vite_image_tag "images/edit.svg", class: "h-4 w-4"

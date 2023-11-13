@@ -1,4 +1,4 @@
-.h-full.w-full.max-w-xl.mx-auto.align-middle.bg-slate-50
+.h-full.w-full.max-w-xl.mx-auto.align-middle
   %h1.text-center.pt-8
     - if @story.persisted?
       Редактровать рассказ
@@ -13,13 +13,13 @@
           - @story.errors.each do |error|
             %li= error.full_message
 
-    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-red-500" : "text-gray-700"}"
-    - input_classes = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline #{alert ? "border-red-500" : nil}"
+    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-red-500" : ""}"
+    - input_classes = "input input-bordered shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline #{alert ? "border-red-500" : nil}"
 
     .mb-4
       = f.label :name, "Название", class: label_classes
       = f.text_field :name, autofocus: true, autocomplete: :off, class: input_classes, placeholder: "Название рассказа"
-    - if user_signed_in?
+    - if current_user.admin?
       .mb-4
         = f.label :image, "Изображение", class: label_classes
         - if @author.image.present?
@@ -28,9 +28,14 @@
         = f.file_field :image
       .mb-4
         = f.label :description, "Описание", class: label_classes
-        = f.text_area :description,autocomplete: :off, class: input_classes, placeholder: "Описание"
-      .mb-4
-        = f.label :completed
+        = f.text_area :description,autocomplete: :off, class: input_classes, placeholder: "Введите описание"
+      .mb-4.flex.flex-row.items-center.gap-1
         = f.check_box :completed, class: :checkbox
-    = f.submit "Сохранить", class: "btn"
+        = f.label :completed, "Опознан полностью?"
+      .mb-4
+        = f.label :external_audio_url, class: label_classes
+        = f.text_field :external_audio_url, class: input_classes, placeholder: "Внешняя ссылка на mp3. Чтобы можно было слушать на сайте"
+        
+
+    = f.submit "Сохранить", class: "btn btn-primary"
     = link_to "Назад", :back, class: "btn btn-neutral"

@@ -1,6 +1,6 @@
 class ArtistsPageComponent < ViewComponent::Base
   attr_reader :current_user
-  def initialize(artists:, pagy:, query: nil, page: nil, current_user: nil)
+  def initialize(artists:, pagy:, query: nil, page: nil, current_user: NullUser.new)
     @artists = artists
     @pagy = pagy
     @query = query
@@ -9,6 +9,7 @@ class ArtistsPageComponent < ViewComponent::Base
   end
 
   def buttons
+    return [] unless current_user.id.present?
     [
       PageTitleButtonComponent.new(title: "Добавить", icon: "images/add.svg", link: [:new, :artist], mobile_visible: true)
     ]

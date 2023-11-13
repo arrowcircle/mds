@@ -9,6 +9,9 @@ ru:
         link: Ссылка
         date: Дата эфира
         radio: Радио
+        description: Описание
+        сompleted: "Опознан полностью?"
+        external_audio_url: Внешняя ссылка на mp3
         radios:
           station: Станция 2000
           muztv: Муз ТВ
