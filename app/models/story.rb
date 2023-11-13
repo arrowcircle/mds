@@ -17,6 +17,7 @@ class Story < ApplicationRecord
     pioneer: 4,
     live: 5,
     podcast: 6,
-    station_1068: 7
+    station_1068: 7,
+    nrg: 8
   }
 end

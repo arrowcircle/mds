@@ -9,7 +9,7 @@ Passwordless.configure do |config|
   config.timeout_at = lambda { 1.hour.from_now }
   config.redirect_to_response_options = {}
 
-  config.after_session_save = lambda do |session, request|
-    Passwordless::Mailer.sign_in(session, session.token).deliver_later
-  end
+  # config.after_session_save = lambda do |session, request|
+  #   Passwordless::Mailer.sign_in(session, session.token).deliver_later
+  # end
 end
