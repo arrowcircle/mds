@@ -69,8 +69,8 @@ ingress:
 
   tls:
   - hosts:
-    - mds.k8s.ivyknob.com
-    secretName: mds.k8s.ivyknob.com
+    - mds.redde.ru
+    secretName: mds.redde.ru
 
 resources: {}
 
