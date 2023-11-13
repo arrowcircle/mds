@@ -11,4 +11,4 @@ options:
     vim:
   envs:
     deploy:
-      DOMAIN_NAME: mds.k8s.ivyknob.com
+      DOMAIN_NAME: mds.redde.ru

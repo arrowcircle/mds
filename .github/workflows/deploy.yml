@@ -72,9 +72,13 @@ jobs:
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
           REDIS_URL: ${{ secrets.REDIS_URL }}
           S3_HOST: ${{ secrets.S3_HOST }}
-          IMGPROXY_ENDPOINT: ${{ vars.IMGPROXY_ENDPOINT }}
-          DOMAIN_NAME: ${{ vars.MC_DOMAIN }}
-          S3_REGION: ${{ vars.S3_REGION }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          IMGPROXY_ENDPOINT: ${{ secrets.IMGPROXY_ENDPOINT }}
+          DOMAIN_NAME: ${{ secrets.DOMAIN_NAME }}
+          S3_REGION: ${{ secrets.S3_REGION }}
         run: |
           envsubst < k8s/mds/values.template.yaml > k8s/mds/values.yaml
           helm upgrade --install --wait -n mds --create-namespace --set image.tag=${{ github.ref_name }} mds ./k8s/mds

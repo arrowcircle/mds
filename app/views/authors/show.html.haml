@@ -3,12 +3,12 @@
     .flex
       %h1.mr-2= @author.name
     .flex
-      = link_to [:edit, @author], class: "btn btn-sm btn-ghost" do
+      = link_to [:edit, @author], class: "btn btn-sm btn-neutral" do
         = vite_image_tag "images/edit.svg", class: "h-4 w-4"
         ред.
       
   .flex-1.text-right
-    = link_to :back, class: "btn btn-sm btn-ghost" do
+    = link_to :back, class: "btn btn-sm btn-neutral" do
       = vite_image_tag "images/arrow_left.svg", class: "h-4 w-4"
       назад
 %hr/
@@ -17,7 +17,7 @@
 
 .flex.flex-row.items-center
   %h2.mr-2.flex-row.flex-1 Рассказы
-  .flex.text-right.flex= link_to "+ Добавить", [:new, @author, :story], class: "btn btn-sm btn-ghost flex-row"
+  .flex.text-right.flex= link_to "+ Добавить", [:new, @author, :story], class: "btn btn-sm btn-neutral flex-row"
 %hr.py-2
 - if @stories.present?
   .overflow-x-auto
@@ -36,7 +36,7 @@
             %td
               - if current_user.present? && current_user.admin?
                 .text-right
-                  = link_to [:edit, @author, story], class: "btn btn-ghost btn-sm" do
+                  = link_to [:edit, @author, story], class: "btn btn-neutral btn-sm mr-1" do
                     = vite_image_tag "images/edit.svg", class: "h-4 w-4"
                   = link_to [@author, story], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
                     = vite_image_tag "images/trash.svg", class: "h-4 w-4"
