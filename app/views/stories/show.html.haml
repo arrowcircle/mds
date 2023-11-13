@@ -22,6 +22,10 @@
     %li
       Радио:
       = Story.human_enum_name(:radio, @story.radio)
+  - if @story.external_audio_url.present?
+    = button_to [:play, @author, @story], class: [:link, :flex, "items-center"], data: { "turbo-method" => :post } do
+      = vite_image_tag "images/play.svg", class: "h-6 w-6"
+      Слушать
 
 - if @story.description.present?
   = raw @story.description
