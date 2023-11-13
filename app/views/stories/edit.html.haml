@@ -19,14 +19,18 @@
     .mb-4
       = f.label :name, "Название", class: label_classes
       = f.text_field :name, autofocus: true, autocomplete: :off, class: input_classes, placeholder: "Название рассказа"
-    .mb-4
-      = f.label :image, "Изображение", class: label_classes
-      - if @author.image.present?
-        = vite_image_tag @story.image.imgproxy_url(width: 100, resizing_type: :fill)
-      = f.hidden_field :image, value: @story.cached_image_data
-      = f.file_field :image
-    .mb-4
-      = f.label :description, "Описание", class: label_classes
-      = f.text_area :description,autocomplete: :off, class: input_classes, placeholder: "Описание"
+    - if user_signed_in?
+      .mb-4
+        = f.label :image, "Изображение", class: label_classes
+        - if @author.image.present?
+          = vite_image_tag @story.image.imgproxy_url(width: 100, resizing_type: :fill)
+        = f.hidden_field :image, value: @story.cached_image_data
+        = f.file_field :image
+      .mb-4
+        = f.label :description, "Описание", class: label_classes
+        = f.text_area :description,autocomplete: :off, class: input_classes, placeholder: "Описание"
+      .mb-4
+        = f.label :completed
+        = f.check_box :completed, class: :checkbox
     = f.submit "Сохранить", class: "btn"
     = link_to "Назад", :back, class: "btn btn-ghost"
