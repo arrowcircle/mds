@@ -3,7 +3,7 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
-import { Autocomplete } from 'stimulus-autocomplete'
+import { Autocomplete } from '../autocomplete'
 import FlashController from "./flash_controller"
 
 application.register('autocomplete', Autocomplete)

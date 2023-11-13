@@ -30,7 +30,7 @@
       .mb-4{"data-autocomplete-url-value" => @playlist.track ? search_artist_tracks_path(@playlist.track.artist) : nil, "data-autocomplete-min-length-value" => 0, "data-controller" => "autocomplete", id: "track_search"}
         = label_tag :track, "Трек", class: label_classes
         -#  "action" => "focusin->autocomplete#fetchResults:once focusout->autocomplete#close:once"
-        = f.text_field :track_name, data: { "autocomplete-target" => :input}, class: input_classes, disabled: !@playlist.track.present?, placeholder: "Название трека"
+        = f.text_field :track_name, data: { "autocomplete-target" => :input}, class: input_classes, placeholder: "Название трека"
         = f.hidden_field :track_id, data: { "autocomplete-target" => :hidden }
         %ul.list-group{"data-autocomplete-target" => :results, class: "m-2 p-2 border-2 bg-white"}
           -# %li{role: :option, "aria-disabled" =>"true"}Start typing to search...
