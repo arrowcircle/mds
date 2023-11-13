@@ -27,8 +27,14 @@
         = f.hidden_field :image, value: @story.cached_image_data
         = f.file_field :image
       .mb-4
+        = f.label :radio, class: label_classes
+        = f.select :radio, options_for_select(Story.radios.map {|key, value| [key.titleize, Story.radios.key(value)]}, @story.radio), class: input_classes
+      .mb-4
+        = f.label :date, class: label_classes
+        = f.date_select :date, class: input_classes
+      .mb-4
         = f.label :description, "Описание", class: label_classes
-        = f.text_area :description,autocomplete: :off, class: input_classes, placeholder: "Введите описание"
+        = f.text_area :description, autocomplete: :off, class: input_classes, placeholder: "Введите описание"
       .mb-4.flex.flex-row.items-center.gap-1
         = f.check_box :completed, class: :checkbox
         = f.label :completed, "Опознан полностью?"

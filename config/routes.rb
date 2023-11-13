@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
   resources :authors do
     resources :stories do
+      patch :play, on: :member
       resources :playlists
     end
   end

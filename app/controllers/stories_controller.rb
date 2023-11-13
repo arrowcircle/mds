@@ -2,6 +2,10 @@ class StoriesController < ApplicationController
   before_action :set_author
   before_action :authenticate_user!, only: [:new, :create]
   before_action :authenticate_admin!, only: [:edit, :update, :destroy]
+  def play
+    @story = @author.stories.find(params[:id])
+  end
+
   def show
     @story = @author.stories.find(params[:id])
     @playlists = @story.playlists.includes(:identifier, track: :artist).order(:start_min)
@@ -42,7 +46,7 @@ class StoriesController < ApplicationController
 
   def story_params
     permitted = [:name]
-    permitted += [:description, :image, :completed, :external_audio_url] if current_user.admin?
+    permitted += [:description, :image, :completed, :external_audio_url, :date, :radio] if current_user.admin?
     begin
       params.require(:story)
     rescue

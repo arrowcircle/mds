@@ -100,7 +100,7 @@ Rails.application.configure do
   end
 
   # SMTP
-  config.action_mailer.default_url_options = {host: ENV.fetch("DOMAIN_NAME", "mds.redde.ru")}
+  config.action_mailer.default_url_options = {host: ENV.fetch("DOMAIN_NAME", "mds.redde.ru"), protocol: "https"}
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
