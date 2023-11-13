@@ -21,6 +21,17 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, alert: "Только для админов", status: :see_other
   end
 
+  def play_item
+    return nil unless session[:playing]
+    @play_item ||= begin
+      klass, id = session[:playing].split(":")
+      klass.constantize.find_by(id: id)
+    rescue
+      nil
+    end
+  end
+  helper_method :play_item
+
   def metadata
     @metadata ||= OpenStruct.new(title: title, description: description, og: og)
   end

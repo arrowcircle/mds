@@ -4,6 +4,16 @@ class StoriesController < ApplicationController
   before_action :authenticate_admin!, only: [:edit, :update, :destroy]
   def play
     @story = @author.stories.find(params[:id])
+    if @story.external_audio_url.present?
+      session[:playing] = "Story:#{@story.id}"
+      redirect_to [@author, @story], status: :see_other
+    else
+      redirect_to [@author, @story], status: :unprocessable_entity, alert: "У этого рассказа нет аудио для прослушивания"
+    end
+  end
+
+  def index
+    redirect_to [@author], status: :moved_permanently
   end
 
   def show
