@@ -50,8 +50,9 @@
             - else
               Не указано
             %br
-            = time_ago_in_words playlist.created_at
-            назад
+            .tooltip{"data-tip": l(playlist.created_at, format: "%H:%M %d %B, %Y")}
+              = time_ago_in_words playlist.created_at
+              назад
           %td
             - if playlist.track.present?
               .flex.flex-row.items-center

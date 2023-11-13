@@ -5,7 +5,7 @@
   %td
     - if current_user.present? && current_user.admin?
       .text-right
-        = link_to [:edit, track.artist, track], class: "btn btn-ghost btn-sm" do
+        = link_to [:edit, track.artist, track], class: "btn btn-neutral btn-sm mr-1" do
           = vite_image_tag "images/edit.svg", class: "h-4 w-4"
         = link_to [track.artist, track], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
           = vite_image_tag "images/trash.svg", class: "h-4 w-4"

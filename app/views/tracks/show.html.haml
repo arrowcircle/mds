@@ -3,11 +3,11 @@
     = link_to @artist.name, [@artist], class: :link
     = "-"
     = @track.name
-  = link_to [:edit, @artist, @track], class: "btn btn-sm btn-ghost" do
+  = link_to [:edit, @artist, @track], class: "btn btn-sm btn-neutral" do
     = vite_image_tag "images/edit.svg", class: "w-4 h-4"
     ред
   .flex-auto.text-right
-    = link_to [@artist], class: "btn btn-sm btn-ghost" do
+    = link_to [@artist], class: "btn btn-sm btn-neutral" do
       = vite_image_tag "images/arrow_left.svg", class: "h-4 w-4"
       назад
   
