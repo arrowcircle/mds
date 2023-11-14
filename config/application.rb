@@ -11,6 +11,9 @@ module Mds
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
     I18n.default_locale = :ru
+    config.active_job.queue_adapter = :sidekiq
+    config.active_job.queue_name_prefix = "mds"
+    config.action_mailer.deliver_later_queue_name = nil
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

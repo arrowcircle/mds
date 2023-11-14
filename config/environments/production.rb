@@ -60,9 +60,6 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  config.active_job.queue_adapter = :sidekiq
-  config.active_job.queue_name_prefix = "mds"
-
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -100,8 +97,8 @@ Rails.application.configure do
   end
 
   # SMTP
-  config.default_url_options = {host: ENV.fetch("DOMAIN_NAME", "mds.redde.ru")}
-  config.action_mailer.default_url_options = {host: ENV.fetch("DOMAIN_NAME", "mds.redde.ru")}
+  # config.default_url_options = {host: ENV.fetch("DOMAIN_NAME", "mds.redde.ru")}
+  config.action_mailer.default_url_options = {host: "mds.redde.ru"}#ENV.fetch("DOMAIN_NAME", "mds.redde.ru")}
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
