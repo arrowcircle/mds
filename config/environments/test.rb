@@ -28,7 +28,7 @@ Rails.application.configure do
   config.cache_store = :null_store
 
   # Raise exceptions instead of rendering exception templates.
-  config.action_dispatch.show_exceptions = false
+  config.action_dispatch.show_exceptions = :none
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
@@ -53,6 +53,11 @@ Rails.application.configure do
 
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
+
+  config.hosts << "www.example.com"
+  host = "www.example.com"
+  config.action_mailer.default_url_options = {host: host}
+  routes.default_url_options[:host] = host
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
