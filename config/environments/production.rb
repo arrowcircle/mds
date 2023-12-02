@@ -115,4 +115,7 @@ Rails.application.configure do
   # LOGS
   config.lograge.enabled = true
   config.lograge.ignore_actions = ["WelcomeController#health_check"]
+
+  # Sessions
+  config.session_store :cookie_store, key: "_mds_session", expire_after: 1.year
 end
