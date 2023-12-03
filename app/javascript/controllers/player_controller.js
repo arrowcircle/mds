@@ -9,14 +9,20 @@ function secondsToDuration(num) {
 }
 
 export default class extends Controller {
-  static targets = ["progress", "time", "duration","player", "play", "pause"];
-  static outlets = ["track"];
-  static values = { duration: Number, track: String };
+  static targets = ["progress", "time", "duration", "player", "play", "pause"];
+  static values = { duration: Number, position: Number };
   static classes = ["playing"];
 
   connect() {
     if (this.playerTarget) {
       this.setupAudioListeners();
+      if (this.playerTarget.autoplay) {
+        this.play();
+      }
+    }
+    if (this.hasDurationTarget && this.playerTarget.duration) {
+      this.durationValue = this.playerTarget.duration;
+      this.durationTarget.textContent = secondsToDuration(this.playerTarget.duration);
     }
   }
 
@@ -27,11 +33,9 @@ export default class extends Controller {
   }
 
   initialize() {
-    this.durationValue = this.playerTarget.duration;
-    if (this.hasDurationTarget)
-      this.durationTarget.textContent = secondsToDuration(this.playerTarget.duration);
     this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
     this.handleEnded = this.handleEnded.bind(this);
+    this.handleMetadataLoaded = this.handleMetadataLoaded.bind(this);
     this.playing = false;
   }
 
@@ -62,35 +66,35 @@ export default class extends Controller {
 
   handleTimeUpdate() {
     const currentTime = this.playerTarget.currentTime;
-
     this.updateProgress(currentTime);
   }
 
-  updateProgress(currentTime) {
-    const percent = (currentTime * 100) / this.durationValue;
-
-    if (this.hasProgressTarget) this.progressTarget.value = percent;
-    if (this.hasTimeTarget)
-      this.timeTarget.textContent = secondsToDuration(currentTime) + " / ";
+  handleMetadataLoaded(event) {
+    this.durationValue = event.target.duration;
+    if (this.hasDurationTarget){
+      this.durationTarget.textContent = secondsToDuration(this.durationValue);
+      this.handleTimeUpdate();
+    }
   }
 
-  disposeAudio() {
-    if (!this.playerTarget) return;
-
-    this.removeAudioListeners();
-    this.pause();
-    this.updateProgress(0);
-
-    delete this.playerTarget;
+  updateProgress(currentTime) {
+    if (currentTime === null) return;
+    if (Number.isNaN(this.durationValue) || this.durationValue == 0) return;
+    const percent = (currentTime * 100) / this.durationValue;
+    if (this.hasProgressTarget) this.progressTarget.value = percent;
+    if (this.hasTimeTarget)
+      this.timeTarget.textContent = secondsToDuration(currentTime);
   }
 
   setupAudioListeners() {
     this.playerTarget.addEventListener("timeupdate", this.handleTimeUpdate);
+    this.playerTarget.addEventListener("loadedmetadata", this.handleMetadataLoaded);
     this.playerTarget.addEventListener("ended", this.handleEnded);
   }
 
   removeAudioListeners() {
     this.playerTarget.removeEventListener("timeupdate", this.handleTimeUpdate);
+    this.playerTarget.removeEventListener("loadedmetadata", this.handleMetadataLoaded);
     this.playerTarget.removeEventListener("ended", this.handleEnded);
   }
 }

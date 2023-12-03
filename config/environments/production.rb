@@ -97,7 +97,7 @@ Rails.application.configure do
   end
 
   # SMTP
-  config.action_mailer.default_url_options = {host: "mds.redde.ru"}#ENV.fetch("DOMAIN_NAME", "mds.redde.ru")}
+  config.action_mailer.default_url_options = {host: "mds.redde.ru"}
   # config.default_url_options[:host] ||= "mds.redde.ru"
   routes.default_url_options[:host] ||= "mds.redde.ru"
 

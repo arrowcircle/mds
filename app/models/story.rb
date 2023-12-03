@@ -20,4 +20,8 @@ class Story < ApplicationRecord
     station_1068: 7,
     nrg: 8
   }
+
+  def play_item_string
+    "#{self.class.name}:#{id}"
+  end
 end

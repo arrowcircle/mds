@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       resources :playlists
     end
   end
+  resource :player, only: [:create, :update, :destroy]
   resource :profile, only: [:show, :update]
   post :search, as: :search, to: "searches#index"
   resources :users, only: [:index, :show, :new, :create]
