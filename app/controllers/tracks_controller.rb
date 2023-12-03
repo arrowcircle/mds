@@ -7,6 +7,10 @@ class TracksController < ApplicationController
     render "search", layout: false
   end
 
+  def index
+    redirect_to [@artist], status: :moved_permanently
+  end
+
   def show
     @track = @artist.tracks.find(params[:id])
     @stories = @track.stories.includes(:author).order("authors.name")

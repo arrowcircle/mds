@@ -2,6 +2,20 @@ class StoriesController < ApplicationController
   before_action :set_author
   before_action :authenticate_user!, only: [:new, :create]
   before_action :authenticate_admin!, only: [:edit, :update, :destroy]
+  def play
+    @story = @author.stories.find(params[:id])
+    if @story.external_audio_url.present?
+      session[:playing] = "Story:#{@story.id}"
+      redirect_to [@author, @story], status: :see_other
+    else
+      redirect_to [@author, @story], status: :unprocessable_entity, alert: "У этого рассказа нет аудио для прослушивания"
+    end
+  end
+
+  def index
+    redirect_to [@author], status: :moved_permanently
+  end
+
   def show
     @story = @author.stories.find(params[:id])
     @playlists = @story.playlists.includes(:identifier, track: :artist).order(:start_min)
@@ -41,6 +55,12 @@ class StoriesController < ApplicationController
   end
 
   def story_params
-    params.require(:story).permit(:name, :description, :image, :completed)
+    permitted = [:name]
+    permitted += [:description, :image, :completed, :external_audio_url, :date, :radio] if current_user.admin?
+    begin
+      params.require(:story)
+    rescue
+      {}
+    end.permit(permitted)
   end
 end

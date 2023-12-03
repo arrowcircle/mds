@@ -10,6 +10,7 @@ class AuthorsPageComponent < ViewComponent::Base
   end
 
   def buttons
+    return [] unless current_user.id.present?
     [
       PageTitleButtonComponent.new(title: "Добавить", icon: "images/add.svg", link: [:new, :author], mobile_visible: true)
     ]

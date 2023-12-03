@@ -12,7 +12,7 @@ class PlaylistsController < ApplicationController
   def create
     @playlist = @story.playlists.build(playlist_params)
     @playlist.set_names
-    @playlist.identifier ||= current_user
+    @playlist.identifier ||= current_user if current_user.id.present?
     if @playlist.save
       redirect_to [@author, @story], status: :see_other, notice: "Трек добавлен"
     else
@@ -28,7 +28,7 @@ class PlaylistsController < ApplicationController
   def update
     @playlist = @story.playlists.find(params[:id])
     @playlist.set_names
-    @playlist.identifier ||= current_user
+    @playlist.identifier ||= current_user if current_user.id.present?
     if @playlist.update(playlist_params)
       redirect_to [@author, @story], status: :see_other, notice: "Трек обновлен"
     else

@@ -1,8 +1,25 @@
 AUTHOR_DUPES = {}
 namespace :import do
-  task all: [:users, :authors, :stories, :artists, :tracks, :playlists]
+  task audio_urls: :environment do
+    stats = {not_found: [], updated: [], skipped: []}
+    Old::Story.where.not(link: "").find_in_batches do |batch|
+      batch.each do |os|
+        s = Story.find_by(id: os.id)
+        next stats[:not_found] << os.id unless s
+        next stats[:skipped] << s.id if s.external_audio_url.present?
+        link = os.link.strip
+        next unless link.present?
+        s.update!(external_audio_url: link)
+        stats[:updated] << s.id
+        print "."
+      end
+    end
+    puts stats
+    puts "\nCompleted"
+  end
 
   task users: :environment do
+    return if Rails.env.production?
     FileUtils.rm_f("tmp/minio/images/*")
     puts "\n== Importing users\n"
     KEYS = [:id, :email, :created_at, :role, :username].map(&:to_s)
@@ -37,6 +54,7 @@ namespace :import do
   end
 
   task stories: :environment do
+    return if Rails.env.production?
     puts "\n== Importing stories\n"
     delete = []
     Old::Story.find_in_batches do |batch|
@@ -75,6 +93,7 @@ namespace :import do
   end
 
   task authors: :environment do
+    return if Rails.env.production?
     puts "\n== Importing authors\n"
     dupes = {}
     Old::Author.find_in_batches do |batch|
@@ -113,6 +132,7 @@ namespace :import do
   end
 
   task artists: :environment do
+    return if Rails.env.production?
     puts "\n== Importing artists\n"
     Old::Artist.find_in_batches do |batch|
       batch.each do |old|
@@ -133,6 +153,7 @@ namespace :import do
   end
 
   task tracks: :environment do
+    return if Rails.env.production?
     puts "\n== Importing tracks\n"
     delete = []
     Old::Track.find_in_batches do |batch|
@@ -167,6 +188,7 @@ namespace :import do
   end
 
   task playlists: :environment do
+    return if Rails.env.production?
     puts "\n== Importing playlists\n"
     Old::Playlist.find_in_batches do |batch|
       batch.each do |old|

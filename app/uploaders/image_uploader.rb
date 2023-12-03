@@ -3,6 +3,7 @@ class ImageUploader < Shrine
   plugin :determine_mime_type, analyzer: :marcel
   plugin :infer_extension, inferrer: :mini_mime
   plugin :validation_helpers
+  plugin :pretty_location
   plugin :default_storage, store: :store, cache: :cache
 
   Attacher.validate do

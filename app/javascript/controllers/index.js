@@ -5,9 +5,11 @@
 import { application } from "./application"
 import { Autocomplete } from '../autocomplete'
 import FlashController from "./flash_controller"
+import PlayerController from "./player_controller"
 
 application.register('autocomplete', Autocomplete)
 application.register("flash", FlashController)
+application.register("player", PlayerController)
 
 function applyAutocomplete() {
   const artistSearch = document.getElementById("artist_search");

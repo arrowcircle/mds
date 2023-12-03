@@ -17,9 +17,11 @@ Rails.application.routes.draw do
   end
   resources :authors do
     resources :stories do
+      patch :play, on: :member
       resources :playlists
     end
   end
+  resource :player, only: [:create, :update, :destroy]
   resource :profile, only: [:show, :update]
   post :search, as: :search, to: "searches#index"
   resources :users, only: [:index, :show, :new, :create]

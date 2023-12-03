@@ -4,9 +4,10 @@
       = link_to @author.name, [@author], class: :link
       = "-"
       = @story.name
-    = link_to [:edit, @author, @story], class: "btn btn-sm btn-neutral" do
-      = vite_image_tag "images/edit.svg", class: "w-4 h-4"
-      ред.
+    - if current_user.admin?
+      = link_to [:edit, @author, @story], class: "btn btn-sm btn-neutral" do
+        = vite_image_tag "images/edit.svg", class: "w-4 h-4"
+        ред.
   .flex-auto.text-right
     = link_to :back, class: "btn btn-sm btn-neutral" do
       = vite_image_tag "images/arrow_left.svg", class: "h-4 w-4"
@@ -21,6 +22,10 @@
     %li
       Радио:
       = Story.human_enum_name(:radio, @story.radio)
+  - if @story.external_audio_url.present?
+    = button_to [:player, play: @story.play_item_string], class: [:link, :flex, "items-center"], data: { "turbo-method" => :post, "turbo-target" => "player" } do
+      = vite_image_tag "images/play.svg", class: "h-6 w-6"
+      Слушать
 
 - if @story.description.present?
   = raw @story.description
@@ -65,27 +70,32 @@
                 Запрос на опознание
             %td
               - if playlist.start_min || playlist.end_min
-                = "с #{playlist.start_min} мин"
-                - if playlist.end_min
-                  = "по #{playlist.end_min} мин"
+                .hidden.lg:block
+                  = "с #{playlist.start_min} мин"
+                  - if playlist.end_min
+                    = "по #{playlist.end_min} мин"
+                .lg:hidden
+                  = "с #{playlist.start_min}"
+                  - if playlist.end_min
+                    = "по #{playlist.end_min}"
               - else
                 Не указано
-              %br
-              .tooltip{"data-tip": l(playlist.created_at, format: "%H:%M %d %B, %Y")}
-                = time_ago_in_words playlist.created_at
-                назад
+              .hidden.md:block
+                .tooltip{"data-tip": l(playlist.created_at, format: "%H:%M %d %B, %Y")}
+                  = time_ago_in_words playlist.created_at
+                  назад
             %td
               - if playlist.track.present?
                 .flex.flex-row.items-center
-                  = link_to "https://www.youtube.com/results?search_query=#{CGI.escape playlist.search_query}&c[section]=audio", target: :_blank, class: "px-1" do
+                  = link_to "https://www.youtube.com/results?search_query=#{CGI.escape playlist.search_query}&c[section]=audio", target: :_blank, class: "md:px-1 px-0" do
                     = vite_image_tag "images/youtube.svg", width: 32, height: 32, alt: "Youtube"
-                  = link_to "https://vk.com/search?c[per_page]=200&c[q]=#{CGI.escape playlist.search_query}&c[section]=audio", target: :_blank, class: "px-1" do
+                  = link_to "https://vk.com/search?c[per_page]=200&c[q]=#{CGI.escape playlist.search_query}&c[section]=audio", target: :_blank, class: "md:px-1 px-0" do
                     = vite_image_tag "images/vk.svg", width: 32, height: 32, alt: "VK"
-                  = link_to "https://music.yandex.ru/search?text=#{CGI.escape playlist.search_query}", target: :_blank, class: "px-1" do
+                  = link_to "https://music.yandex.ru/search?text=#{CGI.escape playlist.search_query}", target: :_blank, class: "md:px-1 px-0" do
                     = vite_image_tag "images/yandex_music.svg", width: 32, height: 32, alt: "Яндекс.Музыка"
-                  = link_to "https://www.discogs.com/search/?q=#{CGI.escape playlist.search_query}&type=all", target: :_blank, class: "px-1" do
+                  = link_to "https://www.discogs.com/search/?q=#{CGI.escape playlist.search_query}&type=all", target: :_blank, class: "md:px-1 px-0" do
                     = vite_image_tag "images/discogs.svg", width: 32, height: 32, alt: "Discogs"
-                  = link_to "https://open.spotify.com/search/#{playlist.search_query}", target: :_blank, class: "px-1" do
+                  = link_to "https://open.spotify.com/search/#{playlist.search_query}", target: :_blank, class: "md:px-1 px-0" do
                     = vite_image_tag "images/spotify.svg", width: 32, height: 32, alt: "Spotify"
             %td
               - if current_user.present? && current_user.admin?

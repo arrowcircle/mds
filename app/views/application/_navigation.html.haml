@@ -30,7 +30,7 @@
     = render "dropdown"
 
     %ul.menu.menu-horizontal.px-0.bg-base-200.hidden.flex-row.items-center{ class: "md:flex" }
-      - if current_user.present?
+      - if current_user.id.present?
         %li
           = link_to profile_path, class: "px-1" do
             - if current_user.avatar.present?
