@@ -61,10 +61,10 @@ jobs:
           ruby-version: 3.2.2
           bundler-cache: true
 
-      - name: Use Node.js 18
+      - name: Use Node.js 20
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20.9
           cache: 'yarn'
           cache-dependency-path: yarn.lock
 
