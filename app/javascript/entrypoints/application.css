@@ -27,7 +27,7 @@ h2 {
     @apply bg-gray-300;
   }
   &:active{
-    @apply bg-gray-400 text-white;
+    @apply btn-primary;
   }
 }
 
@@ -51,7 +51,7 @@ h2 {
     @apply text-white bg-gray-400;
   }
   &:active {
-    @apply bg-gray-400 text-white;
+    @apply btn-primary;
   }
 }
 
@@ -77,4 +77,8 @@ h2 {
 .pagy-combo-nav-js .page.prev.disabled,
 .pagy-combo-nav-js .page.next.disabled {
   @apply text-gray-400 cursor-default;
+}
+
+html.debug * {
+  animation: highlight 0.2s ease;
 }

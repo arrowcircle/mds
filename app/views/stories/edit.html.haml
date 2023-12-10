@@ -41,7 +41,12 @@
       .mb-4
         = f.label :external_audio_url, class: label_classes
         = f.text_field :external_audio_url, class: input_classes, placeholder: "Внешняя ссылка на mp3. Чтобы можно было слушать на сайте"
-        
+      .mb-4
+        = f.hidden_field :audio, value: @story.cached_audio_data, id: nil
+        = f.label :audio, class: label_classes
+        - if @story.audio.present?
+          = @story.audio.metadata["filename"]
+        = f.file_field :audio, class: input_classes, placeholder: "Аудио файл"
 
     = f.submit "Сохранить", class: "btn btn-primary"
-    = link_to "Назад", :back, class: "btn btn-neutral"
+    = link_to "Назад", [@author, @story], class: "btn btn-neutral"

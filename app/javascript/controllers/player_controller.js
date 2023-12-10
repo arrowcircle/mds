@@ -10,14 +10,15 @@ function secondsToDuration(num) {
 
 export default class extends Controller {
   static targets = ["progress", "time", "duration", "player", "play", "pause"];
-  static values = { duration: Number, position: Number };
+  static values = { duration: Number, position: Number, autoplay: Boolean };
   static classes = ["playing"];
 
   connect() {
     if (this.playerTarget) {
       this.setupAudioListeners();
-      if (this.playerTarget.autoplay) {
-        this.play();
+      this.play();
+      if (this.autoplayValue) {
+        // this.play();
       }
     }
     if (this.hasDurationTarget && this.playerTarget.duration) {
@@ -28,6 +29,7 @@ export default class extends Controller {
 
   disconnect() {
     if (this.playerTarget) {
+      this.playerTarget.pause();
       this.removeAudioListeners();
     }
   }

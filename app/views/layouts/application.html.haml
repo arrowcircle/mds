@@ -1,5 +1,5 @@
 !!!
-%html
+%html{class: "#{"debug" if Rails.application.config.x.debug_html}"}
   %head
     %title= title + ' | ' + 'МДС Музыка'
     %meta{ charset: 'utf-8' }
@@ -22,7 +22,8 @@
       %main{ role: :main, class: "2xl:max-w-7xl xl:max-w-6xl lg:max-w-3xl mx-auto" }
         = render 'flashes'
         = yield
-    = render "players/player"
+    = turbo_frame_tag :player, class: "w-max", data: {"turbo-permanent" => ""} do
+      = render "players/player"
     %footer.footer-center.p-4.bg-base-300.text-base-content
       %div
         &copy;

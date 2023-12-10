@@ -23,7 +23,7 @@ gem "redis", "~> 4.0"
 # gem "bcrypt", "~> 3.1.7"
 
 # Hotwire"s SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails"
+gem "turbo-rails", "1.5.0"
 
 # Hotwire"s modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
@@ -51,6 +51,7 @@ group :development, :test do
   gem "dotenv-rails"
   gem "ffaker"
   gem "haml_lint", require: false
+  gem "rubocop-rails"
   gem "lefthook"
   gem "standard"
 end

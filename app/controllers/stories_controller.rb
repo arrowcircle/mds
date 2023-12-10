@@ -56,7 +56,7 @@ class StoriesController < ApplicationController
 
   def story_params
     permitted = [:name]
-    permitted += [:description, :image, :completed, :external_audio_url, :date, :radio] if current_user.admin?
+    permitted += [:description, :image, :completed, :external_audio_url, :date, :radio, :audio] if current_user.admin?
     begin
       params.require(:story)
     rescue
