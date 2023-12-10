@@ -385,7 +385,7 @@
   resolved "https://registry.yarnpkg.com/@hotwired/stimulus/-/stimulus-3.2.2.tgz#071aab59c600fed95b97939e605ff261a4251608"
   integrity sha512-eGeIqNOQpXoPAIP7tC1+1Yc1yl1xnwYqg+3mzqxyrbE5pg5YFBZcA6YoTiByJB6DKAEsiWtl6tjTJS4IYtbB7A==
 
-"@hotwired/turbo-rails@^8.0.0-beta1":
+"@hotwired/turbo-rails@^8.0.0-beta.1":
   version "8.0.0-beta.1"
   resolved "https://registry.yarnpkg.com/@hotwired/turbo-rails/-/turbo-rails-8.0.0-beta.1.tgz#7d5bd2843caa5d8d224eb36f22078311163128bd"
   integrity sha512-x9G95vehf5LR4yYGvhD4z6wBMbmAVi0V87FTfenrmXPru4SfOVDsCwdEINBWsLqOvCgRPQD9eY2nGyDfZlsukg==
@@ -1097,11 +1097,6 @@ hosted-git-info@^2.1.4:
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
   integrity sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==
 
-idiomorph@^0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/idiomorph/-/idiomorph-0.0.9.tgz#938d5964031381b0713398fb283aa3754306fa1b"
-  integrity sha512-X7SGsldE5jQD+peLjNLAnIJDEZtGpuLrNRUBrTWMMnzrx9gwy5U+SCRhaifO2v2Z+8j09IY2J+EYaxHsOLTD0A==
-
 "idiomorph@git+https://github.com/basecamp/idiomorph.git#rollout-build":
   version "0.0.8"
   resolved "git+https://github.com/basecamp/idiomorph.git#e906820368e4c9c52489a3336b8c3826b1bf6de5"
@@ -1344,11 +1339,6 @@ minimatch@^3.0.4:
   integrity sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==
   dependencies:
     brace-expansion "^1.1.7"
-
-morphdom@^2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/morphdom/-/morphdom-2.7.1.tgz#c843fb0c812c943f70dd315fc92c4e169bad512c"
-  integrity sha512-LwrrjplMolniWtOGluKF1EHZ0y78Fa4sq7f/MXCydyNkDof+POf+ruCn+k08l7H7b/JISfRo8Zd0HazuqySY9w==
 
 ms@2.1.2:
   version "2.1.2"
@@ -2125,11 +2115,6 @@ ts-interface-checker@^0.1.9:
   version "0.1.13"
   resolved "https://registry.yarnpkg.com/ts-interface-checker/-/ts-interface-checker-0.1.13.tgz#784fd3d679722bc103b1b4b8030bcddb5db2a699"
   integrity sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==
-
-turbo-view-transitions@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/turbo-view-transitions/-/turbo-view-transitions-0.3.0.tgz#1d19379780ba5e40e6b5eff5d45a2fe90a5a4a8d"
-  integrity sha512-J8sojufiGo+cFKBqn7mSO8Nt2vlV02yOVQH+RZI3lg26ciqkyAAShch7DxlPaZJgjSGVOb12NCzfwsonJeF06Q==
 
 typed-array-buffer@^1.0.0:
   version "1.0.0"
