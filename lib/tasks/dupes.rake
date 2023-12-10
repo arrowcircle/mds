@@ -3,14 +3,14 @@ namespace :dupes do
     dupes = {}
     seach_host = ENV.fetch("MEILISEARCH_HOST", "http://127.0.0.1:7700")
     client = if ENV["MEILISEARCH_KEY"]
-      MeiliSearch::Client.new(ENV.fetch(seach_host, ENV.fetch("MEILISEARCH_KEY")))
-    else
-      MeiliSearch::Client.new(ENV.fetch(seach_host))
-    end
+               MeiliSearch::Client.new(ENV.fetch(seach_host, ENV.fetch("MEILISEARCH_KEY")))
+             else
+               MeiliSearch::Client.new(ENV.fetch(seach_host))
+             end
     client.delete_index("mds_artists")
     index = client.index("mds_artists")
 
-    index.update_settings({"typoTolerance" => {enabled: false}})
+    index.update_settings({ "typoTolerance" => { enabled: false } })
     puts "Indexing artists"
     Artist.find_in_batches do |batch|
       docs = batch.map do |item|
@@ -26,9 +26,11 @@ namespace :dupes do
       batch.each do |artist|
         results = index.search(name: artist.name)["hits"]
         next if results.size <= 1
-        dupes[artist.id] ||= {artist: artist.name, id: artist.id, dupes: []}
+
+        dupes[artist.id] ||= { artist: artist.name, id: artist.id, dupes: [] }
         results.each do |item|
           next if item["id"].to_i == artist.id
+
           dupes[artist.id][:dupes] << {
             id: item["id"],
             name: item["name"]
@@ -38,7 +40,7 @@ namespace :dupes do
       print "."
     end
     puts "\n Results:"
-    dupes.each do |k, v|
+    dupes.each do |_k, v|
       puts "#{v[:artist]} (#{v[:id]}):"
       v[:dupes].each do |d|
         puts "\t#{d[:name]} (#{d[:id]})"
@@ -53,7 +55,7 @@ namespace :dupes do
     client.delete_index("mds_tracks")
     index = client.index("mds_tracks")
 
-    index.update_settings({"typoTolerance" => {enabled: false}})
+    index.update_settings({ "typoTolerance" => { enabled: false } })
     puts "Indexing tracks"
     Track.includes(:artist).find_in_batches do |batch|
       docs = batch.map do |item|
@@ -70,12 +72,15 @@ namespace :dupes do
         processed_names = {}
         artist.tracks.each do |track|
           next if processed_names[track.name.downcase.strip].present?
+
           results = index.search(name: track.name, artist_id: track.artist_id)["hits"]
           results.select! { _1["artist_id"] == artist.id }
           next if results.size <= 1
-          dupes[track.id] ||= {track: track.name, artist: artist.name, artist_id: track.artist_id, dupes: []}
+
+          dupes[track.id] ||= { track: track.name, artist: artist.name, artist_id: track.artist_id, dupes: [] }
           results.each do |item|
             next if item["id"].to_i == track.id
+
             dupes[track.id][:dupes] << {
               id: item["id"],
               name: item["name"],
@@ -341,10 +346,31 @@ namespace :dupes do
       6064 => [6569],
       6739 => [6763],
       6827 => [7021],
-      6034 => [7023]
+      6034 => [7023],
+      1623 => [3166],
+      2225 => [5416],
+      3445 => [6249],
+      288 => [3504],
+      2168 => [2894],
+      1664 => [3396],
+      5814 => [5930],
+      1593 => [1594, 3505],
+      2858 => [5027],
+      1624 => [3502],
+      2504 => [2505],
+      821 => [4834],
+      2461 => [2462],
+      698 => [4217],
+      1626 => [3506],
+      1622 => [3503],
+      1620 => [3501],
+      695 => [4646],
+      1597 => [3507],
+      247 => [4411]
     }
     FIXES.each do |output, inputs|
       Playlist.where(track_id: inputs).update_all(track_id: output)
+      print "."
     end
     Track.where(id: FIXES.values.flatten).destroy_all
     Artist.all.each { |a| Artist.reset_counters(a.id, :tracks) }
