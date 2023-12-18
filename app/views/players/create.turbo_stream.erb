@@ -1,3 +1,1 @@
-<%= turbo_stream.replace "player" do%>
-  <%= render partial: "players/player"%>
-<%end%>
+<%= turbo_stream.update "player", partial: "players/player"%>

@@ -1,42 +1,42 @@
 .navbar.bg-base-200.px-8{ class: "sm:py-0" }
-  .title.flex-none
-    = link_to root_url, class: "normal-case text-lg font-bold" do
-      МДС&nbsp;Музыка
-      
-  %ul.menu.menu-horizontal.px-1.hidden.flex-1{ class: "md:flex lg:px-2" }
+  .navbar-start
+    .title.flex-none
+      = link_to root_url, class: "normal-case text-lg font-bold" do
+        МДС&nbsp;Музыка
+    
     - active = %w(authors stories).include?(controller_name)
-
-    %li.px-1.text-sm{ class: "lg:px-2 lg:text-base"}
-      = link_to [:authors], class: "#{'active' if active}" do
+    %div.px-1.hidden.md:flex.flex-none
+      = link_to [:authors], class: "btn #{ active ? 'btn-primary' : 'btn-ghost'}" do
         = 'Книги'
-
+    
     - active = %w(artists tracks).include?(controller_name)
-    %li.px-1.text-sm{ class: "lg:px-2 lg:text-base"}
-      = link_to [:artists], class: "#{'active' if active}" do
+    %div.px-1.hidden.md:flex.flex-none
+      = link_to [:artists], class: "btn #{ active ? 'btn-primary' : 'btn-ghost'}" do
         = 'Музыка'
 
     - active = controller_name == "users"
-    %li.px-1.text-sm{ class: "lg:px-2 lg:text-base"}
-      = link_to [:users], class: "#{'active' if active}" do
+    %div.px-1.hidden.md:flex
+      = link_to [:users], class: "btn #{ active ? 'btn-primary' : 'btn-ghost'}" do
         = 'Участники'
+  .navbar-center
+  .navbar-end.flex-none
+    .search.flex-none.shrink
+      .form-control.hidden.px-1{ class: "md:flex" }
+        = form_with url: search_url, data: {turbo_frame: :_top} do |f|
+          = text_field_tag :q, params[:q], placeholder: "Поиск", class: "input input-bordered input-sm"
 
-  .search.flex-none.shrink
-    .form-control.hidden.px-1{ class: "md:flex" }
-      = form_with url: search_url, data: { turbo: false } do |f|
-        = text_field_tag :q, params[:q], placeholder: "Поиск", class: "input input-bordered input-sm"
+    .gap-auto.flex-1{ class: "md:hidden" }
+    .user.flex-none
+      = render "dropdown"
 
-  .gap-auto.flex-1{ class: "md:hidden" }
-  .user.flex-none
-    = render "dropdown"
-
-    %ul.menu.menu-horizontal.px-0.bg-base-200.hidden.flex-row.items-center{ class: "md:flex" }
-      - if current_user.id.present?
-        %li
-          = link_to profile_path, class: "px-1" do
-            - if current_user.avatar.present?
-              .mask.mask-squircle.w-auto= image_tag current_user.avatar.imgproxy_url(width: 100, height: 100, resizing_type: :fill), width: 30, class: ['rounded-circle', 'z-depth-0']              
-            = current_user.username
-        %li= link_to 'Выход', users_sign_out_path, data: { turbo_method: :delete }, class: "p-1"
-      - else
-        %li= link_to 'Регистрация', [:new, :user], class: "px-1"
-        %li= link_to 'Войти', users_sign_in_path, class: "px-1"
+      %ul.menu.menu-horizontal.px-0.bg-base-200.hidden.flex-row.items-center{ class: "md:flex" }
+        - if current_user.id.present?
+          %li
+            = link_to profile_path, class: "px-1" do
+              - if current_user.avatar.present?
+                .mask.mask-squircle.w-auto= image_tag current_user.avatar.imgproxy_url(width: 100, height: 100, resizing_type: :fill), width: 30, class: ['rounded-circle', 'z-depth-0']              
+              = current_user.username
+          %li= link_to 'Выход', users_sign_out_path, data: { turbo_method: :delete }, class: "p-1"
+        - else
+          %li= link_to 'Регистрация', [:new, :user], class: "px-1"
+          %li= link_to 'Войти', users_sign_in_path, class: "px-1"

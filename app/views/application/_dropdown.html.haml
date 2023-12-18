@@ -6,20 +6,20 @@
   - # Dropdown menu
   %ul.menu.menu-compact.dropdown-content.mt-3.p-2.shadow.bg-base-100.rounded-box.w-52.absolute.-left-40{ tabindex: "0", class: "z-[1]" }
     - active = %w(authors stories).include?(controller_name)
-    - attrs = { class: ["p-1 text-sm #{'active' if active}"] }
-    %li{ class: "#{'active' if active}"}
+    - attrs = { class: ["p-1 text-sm btn btn-sm #{active ? 'btn-primary' : 'btn-ghost' }"] }
+    %li
       = link_to [:authors], attrs do
         = 'Книги'
 
     - active = %w(artists tracks).include?(controller_name)
-    - attrs = { class: ["p-1 text-sm #{'active' if active}"] }
-    %li{ class: "#{'active' if active}"}
+    - attrs = { class: ["p-1 text-sm btn btn-sm #{active ? 'btn-primary' : 'btn-ghost' }"] }
+    %li
       = link_to [:artists], attrs do
         = 'Музыка'
 
     - active = controller_name == "users"
-    - attrs = { class: ["p-1 text-sm #{'active' if active}"] }
-    %li{ class: "#{'active' if active}"}
+    - attrs = { class: ["p-1 text-sm btn btn-sm #{active ? 'btn-primary' : 'btn-ghost' }"] }
+    %li
       = link_to [:users], attrs do
         = 'Участники'
 

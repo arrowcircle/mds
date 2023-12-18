@@ -2,7 +2,7 @@
   %h1.text-center.pt-8
     Вход по ссылке
 
-  = form_with(model: @session, url: url_for(action: 'update'), scope: 'passwordless', method: 'patch', data: { turbo: false }, class: 'shadow-md rounded px-8 pt-6 pb-8 mb-4') do |f|
+  = form_with(model: @session, url: url_for(action: 'update'), scope: 'passwordless', method: 'patch', class: 'shadow-md rounded px-8 pt-6 pb-8 mb-4') do |f|
     - if @session.errors.any?
       .mb-4
         %span Ошибки при сохранении: #{@session.errors.size}

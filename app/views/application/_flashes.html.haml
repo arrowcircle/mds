@@ -1,6 +1,6 @@
 - flash.each do |name, msg|
   - if msg.is_a?(String)
-    %div.relative.m4.alert.shadow-md.m-2{ class: "alert-#{name.to_s == 'notice' ? 'success' : 'error'}", data: { controller: 'flash'}}
+    %div.relative.m4.alert.shadow-md.m-2{ class: "alert-#{name.to_s == 'notice' ? 'success' : 'error'}", data: { controller: 'flash', "turbo-temporary" => ""}}
       .div
         %span{id: "flash_#{name}"}= msg
         

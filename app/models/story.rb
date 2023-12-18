@@ -2,6 +2,7 @@ class Story < ApplicationRecord
   extend Searchable
   include Sluggable
   include ImageUploader::Attachment(:image)
+  include AudioUploader::Attachment(:audio)
   belongs_to :author, counter_cache: true
   has_many :playlists, dependent: :destroy
   store_attribute :json_field, :external_audio_url, :string
@@ -23,5 +24,11 @@ class Story < ApplicationRecord
 
   def play_item_string
     "#{self.class.name}:#{id}"
+  end
+
+  def playable_audio_url(...)
+    return audio_url(...) if audio.present?
+    return external_audio_url if external_audio_url.present?
+    nil
   end
 end
