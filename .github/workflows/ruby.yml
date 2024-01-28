@@ -45,7 +45,7 @@ jobs:
 
     env:
       RAILS_ENV: test
-      GEMFILE_RUBY_VERSION: 3.2.2
+      GEMFILE_RUBY_VERSION: 3.3.0
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: mds_test
@@ -58,13 +58,13 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2.2
+          ruby-version: 3.3.0
           bundler-cache: true
 
       - name: Use Node.js 20
         uses: actions/setup-node@v3
         with:
-          node-version: 20.9
+          node-version: 20.11
           cache: 'yarn'
           cache-dependency-path: yarn.lock
 

@@ -4,11 +4,11 @@ module Yabeda
   module Prometheus
     class Exporter < ::Prometheus::Middleware::Exporter
       class << self
-        def start_metrics_server!(**)
+        def start_metrics_server!(...)
           Thread.new do
             default_port = ENV.fetch("PORT", 9394)
             ::Rackup::Handler::WEBrick.run(
-              rack_app(**),
+              rack_app(...),
               Host: ENV["PROMETHEUS_EXPORTER_BIND"] || "0.0.0.0",
               Port: ENV.fetch("PROMETHEUS_EXPORTER_PORT", default_port),
               AccessLog: []

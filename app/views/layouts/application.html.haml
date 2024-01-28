@@ -16,6 +16,7 @@
     = vite_client_tag
     = vite_stylesheet_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = vite_javascript_tag "application", "data-turbo-track": "reload", defer: true
+    = render "metrika" if Rails.env.production?
   %body.mx-auto.relative
     %header= render 'navigation'
     .m-4.z-1
