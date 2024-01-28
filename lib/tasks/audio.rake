@@ -19,7 +19,7 @@ namespace :audio do
           print "✅"
         else
           puts story.errors.map(&:full_message)
-          print "❌"
+          print "❌ #{url}"
         end
       end
       print "\n"
