@@ -21,6 +21,8 @@ namespace :audio do
           puts story.errors.map(&:full_message)
           print "❌ #{url}"
         end
+      rescue Socket::ResolutionError
+        print "❌ Socket::ResolutionError #{url}"
       end
       print "\n"
     end
