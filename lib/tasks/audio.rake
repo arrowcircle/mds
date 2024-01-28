@@ -23,6 +23,8 @@ namespace :audio do
         end
       rescue Socket::ResolutionError
         print "❌ Socket::ResolutionError #{url}"
+      rescue HTTP::ConnectionError
+        print "❌ Socket::ResolutionError #{url}"
       end
       print "\n"
     end
