@@ -1,0 +1,52 @@
+%tr{"data-start-min" => playlist.start_min.present? ? playlist.start_min : nil}
+  %td
+    - if playlist.track.present?
+      .flex.flex-col.items-left
+        .link
+          = link_to playlist.track.artist.name, [playlist.track.artist], class: :link
+          = "-"
+          = link_to playlist.track.name, [playlist.track.artist, playlist.track], class: :link
+        - if playlist.identifier.present?
+          .no-flex
+            опознал
+            - if playlist.identifier.avatar.present?
+              = image_tag playlist.identifier.avatar.imgproxy_url(height: 80, width: 80, resize: :fill), class: "avatar rounded-full w-4 h-4"
+            = link_to playlist.identifier.username, [playlist.identifier], class: :link
+    - else
+      Запрос на опознание
+  %td
+    - if playlist.start_min || playlist.end_min
+      .hidden.lg:block
+        = "с #{playlist.start_min} мин"
+        - if playlist.end_min
+          = "по #{playlist.end_min} мин"
+      .lg:hidden
+        = "с #{playlist.start_min}"
+        - if playlist.end_min
+          = "по #{playlist.end_min}"
+    - else
+      Не указано
+    .hidden.md:block
+      .tooltip{"data-tip": l(playlist.created_at, format: "%H:%M %d %B, %Y")}
+        = time_ago_in_words playlist.created_at
+        назад
+  %td
+    - if playlist.track.present?
+      .flex.flex-row.items-center
+        = link_to "https://www.youtube.com/results?search_query=#{CGI.escape playlist.search_query}&c[section]=audio", target: :_blank, class: "md:px-1 px-0" do
+          = vite_image_tag "images/youtube.svg", width: 32, height: 32, alt: "Youtube"
+        = link_to "https://vk.com/search?c[per_page]=200&c[q]=#{CGI.escape playlist.search_query}&c[section]=audio", target: :_blank, class: "md:px-1 px-0" do
+          = vite_image_tag "images/vk.svg", width: 32, height: 32, alt: "VK"
+        = link_to "https://music.yandex.ru/search?text=#{CGI.escape playlist.search_query}", target: :_blank, class: "md:px-1 px-0" do
+          = vite_image_tag "images/yandex_music.svg", width: 32, height: 32, alt: "Яндекс.Музыка"
+        = link_to "https://www.discogs.com/search/?q=#{CGI.escape playlist.search_query}&type=all", target: :_blank, class: "md:px-1 px-0" do
+          = vite_image_tag "images/discogs.svg", width: 32, height: 32, alt: "Discogs"
+        = link_to "https://open.spotify.com/search/#{playlist.search_query}", target: :_blank, class: "md:px-1 px-0" do
+          = vite_image_tag "images/spotify.svg", width: 32, height: 32, alt: "Spotify"
+  %td
+    - if current_user.present? && current_user.admin?
+      .text-right
+        = link_to [:edit, author, story, playlist], class: "btn btn-sm mr-1" do
+          = vite_image_tag "images/edit.svg", class: "h-4 w-4"
+        = link_to [author, story, playlist], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
+          = vite_image_tag "images/trash.svg", class: "h-4 w-4"

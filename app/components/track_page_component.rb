@@ -16,7 +16,7 @@ class TrackPageComponent < ViewComponent::Base
 
   def title
     res = []
-    res << link_to(artist.name, [:artist], class: :link)
+    res << link_to(artist.name, [artist], class: :link)
     res << "-"
     res << track.name
     raw res.join(" ")
