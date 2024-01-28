@@ -44,7 +44,7 @@ gem "bootsnap", ">= 1.1.0", require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  # gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "debug"
   # gem "irb", "1.3.6"
   # gem "reline", "0.2.7"
   gem "bundle-audit"
@@ -92,6 +92,7 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "aws-sdk-s3", "~> 1.14"
 gem "email_validator"
 gem "hamlit-rails"
+gem "http"
 gem "imgproxy"
 gem "lograge"
 gem "meilisearch"
