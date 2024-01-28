@@ -1,0 +1,11 @@
+%tr
+  %td
+    = link_to [story.author, story] do
+      = "#{story.name} (#{story.playlists_count})"
+  %td
+    - if current_user.admin?
+      .text-right
+        = link_to [:edit, story.author, story], class: "btn btn-sm mr-1" do
+          = vite_image_tag "images/edit.svg", class: "h-4 w-4"
+        = link_to [story.author, story], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
+          = vite_image_tag "images/trash.svg", class: "h-4 w-4"

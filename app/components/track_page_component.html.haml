@@ -1,5 +1,8 @@
 = render PageTitleComponent.new(title: title, buttons: buttons)
-- if @stories.present?
-  = render TableComponent.new(items: @authors, item_class: AuthorItemComponent, current_user:)
+- if track.description
+  = track.description
+- if stories.present?
+  %h2 Играет в рассказах
+  = render TableComponent.new(items: @stories, item_class: StoryItemComponent, current_user:)
 - else
   %h2 Этот трек пока не играет ни в одном рассказе.

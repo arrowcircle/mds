@@ -1,5 +1,9 @@
 
 = render PageTitleComponent.new(title: title, buttons: buttons, metadata: metadata)
 - if @tracks.present?
+  %h2 Треки
   = render TableComponent.new(items: @tracks, item_class: TrackItemComponent, current_user:)
   = render PagyComponent.new(@pagy)
+- else
+  %h2 У этого артиста не добавлено ни одного трека.
+  = render PageTitleButtonComponent.new(title: "Добавить трек", icon: "images/add.svg", link: [:new, artist, :track], mobile_visible: true)
