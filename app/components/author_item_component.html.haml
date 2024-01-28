@@ -6,7 +6,7 @@
   %td
     - if current_user.admin?
       .text-right
-        = link_to [:edit, author], class: "btn btn-neutral btn-sm mr-1" do
+        = link_to [:edit, author], class: "btn btn-sm mr-1" do
           = vite_image_tag "images/edit.svg", class: "h-4 w-4"
         = link_to [author], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
           = vite_image_tag "images/trash.svg", class: "h-4 w-4"

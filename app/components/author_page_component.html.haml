@@ -1,0 +1,11 @@
+
+= render PageTitleComponent.new(title: title, buttons: buttons, metadata: metadata)
+- if @author.description
+  = @author.description
+- if @stories.present?
+  %h2 Рассказы
+  = render TableComponent.new(items: @stories, item_class: StoryItemComponent, current_user:)
+  = render PagyComponent.new(@pagy)
+- else
+  %h2 У этого автора не добавлено ни одного рассказа.
+  = render PageTitleButtonComponent.new(title: "Добавить рассказ", icon: "images/add.svg", link: [:new, author, :story], mobile_visible: true)

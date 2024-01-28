@@ -28,7 +28,12 @@ class Story < ApplicationRecord
 
   def playable_audio_url(...)
     return audio_url(...) if audio.present?
-    return external_audio_url if external_audio_url.present?
+
+    if external_audio_url.present?
+      return nil if external_audio_url.starts_with?("http://")
+
+      return external_audio_url
+    end
     nil
   end
 end
