@@ -11,7 +11,7 @@ namespace :audio do
         url = story.external_audio_url
         url = url.sub(%r{^ftp://}, "http://")
 
-        res = HTTP.follow.get(url)
+        res = HTTP.follow.head(url)
         next unless res.status == 200
 
         story.audio_remote_url = url
@@ -19,12 +19,12 @@ namespace :audio do
           print "✅"
         else
           puts story.errors.map(&:full_message)
-          print "❌ #{url}"
+          print "❌ #{story.id} #{url}\n"
         end
       rescue Socket::ResolutionError
-        print "❌ Socket::ResolutionError #{url}"
+        print "❌ #{story.id} Socket::ResolutionError #{url}\n"
       rescue HTTP::ConnectionError
-        print "❌ Socket::ResolutionError #{url}"
+        print "❌ #{story.id} Socket::ResolutionError #{url}\n"
       end
       print "\n"
     end
