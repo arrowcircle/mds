@@ -56,6 +56,9 @@ ingress:
     ingress.kubernetes.io/ssl-redirect: "true"
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: le-prod-ci
+    nginx.ingress.kubernetes.io/proxy-body-size: 1g
+    nginx.ingress.kubernetes.io//proxy-connect-timeout: 600s
+    nginx.ingress.kubernetes.io//proxy-read-timeout: 600s
   hosts:
     - host: "${DOMAIN_NAME}"
       paths:
