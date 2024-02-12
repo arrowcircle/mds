@@ -1,19 +1,24 @@
 %tr{"data-start-min" => playlist.start_min.present? ? playlist.start_min : nil}
   %td
-    - if playlist.track.present?
-      .flex.flex-col.items-left
+    .flex.flex-col.items-left
+      - if main_page?
         .link
+          = link_to playlist.story.author.name, [playlist.story.author], class: :link
+          = "-"
+          = link_to playlist.story.name, [playlist.story.author, playlist.story], class: :link
+      .no-flex
+        - if playlist.track.present?
           = link_to playlist.track.artist.name, [playlist.track.artist], class: :link
           = "-"
           = link_to playlist.track.name, [playlist.track.artist, playlist.track], class: :link
+        - else
+          Запрос на опознание
         - if playlist.identifier.present?
-          .no-flex
-            опознал
-            - if playlist.identifier.avatar.present?
-              = image_tag playlist.identifier.avatar.imgproxy_url(height: 80, width: 80, resize: :fill), class: "avatar rounded-full w-4 h-4"
-            = link_to playlist.identifier.username, [playlist.identifier], class: :link
-    - else
-      Запрос на опознание
+          &nbsp;
+          опознал
+          - if playlist.identifier.avatar.present?
+            = image_tag playlist.identifier.avatar.imgproxy_url(height: 80, width: 80, resize: :fill), class: "avatar rounded-full w-4 h-4"
+          = link_to playlist.identifier.username, [playlist.identifier], class: :link
   %td
     - if playlist.start_min || playlist.end_min
       .hidden.lg:block

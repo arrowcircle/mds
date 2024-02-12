@@ -10,6 +10,10 @@ class PlaylistItemComponent < ViewComponent::Base
     ["Название", "Время", "Слушать", ""]
   end
 
+  def main_page?
+    controller_name == "welcome"
+  end
+
   def author
     story.author
   end
