@@ -1,7 +1,7 @@
 class PlaylistsController < ApplicationController
   before_action :set_author_and_story
-  before_action :authenticate_user!, only: [:new, :create]
-  before_action :authenticate_admin!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: %i[new create]
+  before_action :authenticate_admin!, only: %i[edit update destroy]
 
   def new
     @playlist = @story.playlists.build(playlist_params)
@@ -36,6 +36,17 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def destroy
+    return redirect_to [@author, @story], status: :unprocessable_entity, alert: "Только админы могут удалять опознания" unless current_user.admin?
+
+    @playlist = @story.playlists.find(params[:id])
+    if @playlist.destroy
+      redirect_to [@author, @story], status: :see_other, notice: "Трек удален"
+    else
+      redirect_to [@author, @story], status: :unprocessable_entity, alert: "Ошибки: #{@playlist.errors.map(&:full_messages)}"
+    end
+  end
+
   private
 
   def set_author_and_story
@@ -44,8 +55,10 @@ class PlaylistsController < ApplicationController
   end
 
   def playlist_params
-    params.require(:playlist).permit(:track_id, :start_min, :end_min, :request, :artist_name, :track_name)
-  rescue
+    attrs = %i[track_id start_min end_min request artist_name track_name]
+    attrs << [:identified_by] if current_user.admin?
+    params.require(:playlist).permit(attrs)
+  rescue StandardError
     {}
   end
 end
