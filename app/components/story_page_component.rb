@@ -24,7 +24,7 @@ class StoryPageComponent < ViewComponent::Base
 
   def metadata
     res = []
-    res << "Дата эфира: #{l story.date, format: '%d %b, %Y'}" if story.date
+    res << "Дата эфира: #{l story.date, format: "%d %b, %Y"}" if story.date
     res << "Радио: #{Story.human_enum_name(:radio, @story.radio)}" if story.radio
 
     res

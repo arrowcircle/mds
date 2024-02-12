@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
   def create
-    if item.external_audio_url.present?
+    if item.playable_audio_url.present?
       session[:playing] = "#{item.class.name}:#{item.id}"
       session[:play_position] = 0
       @autoplay = true
@@ -27,6 +27,7 @@ class PlayersController < ApplicationController
     return root_path unless item
     return [item.author, item] if item.is_a?(Story)
     return [item.artist, item] if item.is_a?(Track)
+
     root_path
   end
 
@@ -38,8 +39,8 @@ class PlayersController < ApplicationController
     return play_item unless params[:play].present?
 
     klass, id = params[:play].split(":")
-    klass.constantize.find_by(id: id) || play_item
-  rescue
+    klass.constantize.find_by(id:) || play_item
+  rescue StandardError
     nil
   end
 end

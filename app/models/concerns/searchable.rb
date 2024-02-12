@@ -4,6 +4,7 @@ module Searchable
     scope = default_scope
     scope ||= all
     return scope unless query && query.length > 0
-    scope.where(arel_table[:name].lower.matches("#{query.downcase}%"))
+
+    scope.where(arel_table[:name].lower.matches("%#{query.downcase}%"))
   end
 end

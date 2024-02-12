@@ -26,7 +26,7 @@ if Rails.env.test?
   Shrine.storages = {
     cache: Shrine::Storage::FileSystem.new("public", prefix: "uploads/cache"),
     store: Shrine::Storage::FileSystem.new("public", prefix: "uploads"),
-    audio: Shrine::Storage::FileSystem.new("public", prefix: "uploads/music"),
+    audio: Shrine::Storage::FileSystem.new("public", prefix: "uploads/music")
   }
 else
   require "shrine/storage/s3"
@@ -34,7 +34,7 @@ else
   Shrine.storages = {
     cache: Shrine::Storage::S3.new(**generate_s3_settings.merge(bucket: "mds", prefix: "cache")),
     store: Shrine::Storage::S3.new(**generate_s3_settings),
-    audio: Shrine::Storage::S3.new(**generate_s3_settings.merge(bucket: "mds", prefix: "music", public: false)),
+    audio: Shrine::Storage::S3.new(**generate_s3_settings.merge(bucket: "mds", prefix: "music", public: false))
   }
 end
 

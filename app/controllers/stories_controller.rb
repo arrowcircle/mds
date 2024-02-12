@@ -1,10 +1,10 @@
 class StoriesController < ApplicationController
   before_action :set_author
-  before_action :authenticate_user!, only: [:new, :create]
-  before_action :authenticate_admin!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: %i[new create]
+  before_action :authenticate_admin!, only: %i[edit update destroy]
   def play
     @story = @author.stories.find(params[:id])
-    if @story.external_audio_url.present?
+    if @story.playable_audio_url.present?
       session[:playing] = "Story:#{@story.id}"
       redirect_to [@author, @story], status: :see_other
     else
@@ -56,10 +56,10 @@ class StoriesController < ApplicationController
 
   def story_params
     permitted = [:name]
-    permitted += [:description, :image, :completed, :external_audio_url, :date, :radio, :audio] if current_user.admin?
+    permitted += %i[description image completed external_audio_url date radio audio] if current_user.admin?
     begin
       params.require(:story)
-    rescue
+    rescue StandardError
       {}
     end.permit(permitted)
   end

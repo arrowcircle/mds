@@ -41,6 +41,12 @@
     .mb-4
       = f.label :end_min, "Конец, мин", class: label_classes
       = f.text_field :end_min, autocomplete: :off, class: input_classes, placeholder: "Конец"
+
+    - if current_user.admin?
+      %hr
+      .mb-4
+        = f.label :identified_by, "Кто опознал?", class: label_classes
+        = f.select :identified_by, options_for_select(User.order("lower(username) ASC").all.collect {|u| [u.username, u.id]}, selected: @playlist.identified_by || current_user.id, include_blank: true), class: 'text_field'
     = f.hidden_field :request
     = f.submit "Сохранить", class: "btn btn-primary"
     = link_to "Назад", :back, class: "btn btn-neutral"

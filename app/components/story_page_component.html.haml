@@ -1,20 +1,20 @@
 = render PageTitleComponent.new(title:, buttons:, metadata:)
 - if story.description
   = raw story.description
-- if playlists.present?
-  .flex.flex-row.items-center
-    .flex-auto
-      %h2.mr-2 Плейлист
-    .flex-auto.flex.flex-row.items-center.align-right.justify-end.gap-1
-      - if @story.playable_audio_url.present?
-        = button_to [:player, play: @story.play_item_string], class: [:btn, :"btn-sm", :link, :flex, "items-center"], data: { "turbo-method" => :post } do
-          = vite_image_tag "images/play.svg", class: "h-6 w-6"
-          Слушать
-      = link_to [:new, @author, @story, :playlist], class: "btn btn-sm btn-primary" do
-        = vite_image_tag "images/add.svg", class: "w-4 h-4"
-        Опознать трек
-      = link_to "Что играет?", [:new, @author, @story, :playlist, playlist: { request: true }], class: "btn btn-sm btn-secondary"
 
+.flex.flex-row.items-center
+  .flex-auto
+    %h2.mr-2 Плейлист
+  .flex-auto.flex.flex-row.items-center.align-right.justify-end.gap-1
+    - if @story.playable_audio_url.present?
+      = button_to [:player, play: @story.play_item_string], class: [:btn, :"btn-sm", :link, :flex, "items-center"], data: { "turbo-method" => :post } do
+        = vite_image_tag "images/play.svg", class: "h-6 w-6"
+        Слушать
+    = link_to [:new, @author, @story, :playlist], class: "btn btn-sm btn-primary" do
+      = vite_image_tag "images/add.svg", class: "w-4 h-4"
+      Опознать трек
+    = link_to "Что играет?", [:new, @author, @story, :playlist, playlist: { request: true }], class: "btn btn-sm btn-secondary"
+- if playlists.present?
   = render TableComponent.new(items: playlists, item_class: PlaylistItemComponent, current_user:)
 - else
   %h2 В этом рассказе пока нет опознанных треков.

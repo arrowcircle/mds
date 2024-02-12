@@ -3,9 +3,7 @@
 Rails.application.routes.draw do
   require "sidekiq/web"
   require "sidekiq/cron/web"
-  if Rails.env.development?
-    mount Sidekiq::Web => "/sidekiq"
-  end
+  mount Sidekiq::Web => "/sidekiq" if Rails.env.development?
 
   passwordless_for :users
   root to: "welcome#index"
@@ -21,10 +19,11 @@ Rails.application.routes.draw do
       resources :playlists
     end
   end
-  resource :player, only: [:create, :update, :destroy]
-  resource :profile, only: [:show, :update]
+  resource :player, only: %i[create update destroy]
+  resource :profile, only: %i[show update]
   post :search, as: :search, to: "searches#index"
-  resources :users, only: [:index, :show, :new, :create]
+  resources :users, only: %i[index show new create]
+  get "/proxy/*url", as: :proxy, to: "proxy#show" unless Rails.env.production?
   get "health_check", to: "welcome#health_check"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

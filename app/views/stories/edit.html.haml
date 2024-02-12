@@ -31,7 +31,7 @@
         = f.select :radio, options_for_select(Story.radios.map {|key, value| [Story.human_enum_name(:radios, key),  key.to_sym]}, selected: @story.radio), include_blank: "Не выбрано", class: input_classes
       .mb-4
         = f.label :date, class: label_classes
-        = f.date_select :date, class: input_classes
+        = f.date_select :date, class: input_classes, start_year: 1995, end_year: Date.today.year
       .mb-4
         = f.label :description, "Описание", class: label_classes
         = f.text_area :description, autocomplete: :off, class: input_classes, placeholder: "Введите описание"
