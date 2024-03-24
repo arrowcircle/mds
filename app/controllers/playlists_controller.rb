@@ -55,7 +55,7 @@ class PlaylistsController < ApplicationController
   end
 
   def playlist_params
-    attrs = %i[track_id start_min end_min request artist_name track_name]
+    attrs = %i[track_id start_min end_min request artist_name track_name artist_id]
     attrs << [:identified_by] if current_user.admin?
     params.require(:playlist).permit(attrs)
   rescue StandardError

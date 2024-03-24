@@ -4,7 +4,7 @@ class Playlist < ApplicationRecord
   belongs_to :identifier, class_name: "User", foreign_key: "identified_by", optional: true, counter_cache: :playlists_count
   belongs_to :user, optional: true
 
-  attr_accessor :request, :artist_name, :track_name
+  attr_accessor :request, :artist_name, :track_name, :artist_id
 
   before_save :create_artist_and_track
   before_validation :strip_names
@@ -31,7 +31,8 @@ class Playlist < ApplicationRecord
     return unless artist_name.present?
     return unless track_name.present?
 
-    a = Artist.search(artist_name).first
+    a = Artist.find_by(id: artist_id) if artist_id
+    a ||= Artist.search(artist_name).first
     a ||= Artist.new(name: artist_name)
     a.save
     t = Track.search(track_name, a.tracks).first
