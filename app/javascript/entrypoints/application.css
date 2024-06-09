@@ -10,73 +10,26 @@ h2 {
   @apply font-medium leading-tight text-lg;
 }
 
-.pagy-nav {
-  @apply flex space-x-2;
-}
-
-.pagy-nav .page a,
-.pagy-nav .page.active,
-.pagy-nav .page.prev.disabled,
-.pagy-nav .page.next.disabled,
-.pagy-nav-js .page a,
-.pagy-nav-js .page.active,
-.pagy-nav-js .page.prev.disabled,
-.pagy-nav-js .page.next.disabled {
-  @apply block rounded-lg px-3 py-1 text-sm text-gray-500 font-semibold bg-gray-200 shadow-md;
-  &:hover{
-    @apply bg-gray-300;
+.pagy {
+  @apply flex space-x-1 font-semibold text-sm text-gray-500;
+  a:not(.gap) {
+    @apply block rounded-lg px-3 py-1 bg-gray-200;
+    &:hover {
+      @apply bg-gray-300;
+    }
+    &:not([href]) { /* disabled links */
+      @apply text-gray-300 bg-gray-100 cursor-default;
+    }
+    &.current {
+      @apply text-white bg-gray-400;
+    }
   }
-  &:active{
-    @apply btn-primary;
+  label {
+    @apply inline-block whitespace-nowrap bg-gray-200 rounded-lg px-3 py-0.5;
+    input {
+      @apply bg-gray-100 border-none rounded-md;
+    }
   }
-}
-
-.pagy-nav .page.prev.disabled,
-.pagy-nav .page.next.disabled,
-.pagy-nav-js .page.prev.disabled,
-.pagy-nav-js .page.next.disabled {
-  @apply text-gray-400 cursor-default;
-  &:hover {
-    @apply text-gray-400 bg-gray-200;
-  }
-  &:active {
-    @apply text-gray-400 bg-gray-200;
-  }
-}
-
-.pagy-nav .page.active,
-.pagy-nav-js .page.active {
-  @apply text-white cursor-default bg-gray-400;
-  &:hover {
-    @apply text-white bg-gray-400;
-  }
-  &:active {
-    @apply btn-primary;
-  }
-}
-
-
-.pagy-combo-nav-js {
-  @apply flex max-w-max rounded-full px-3 py-1 text-sm text-gray-500 font-semibold bg-gray-200 shadow-md;
-}
-
-.pagy-combo-nav-js .pagy-combo-input {
-  @apply bg-white px-2 rounded-sm
-}
-
-.pagy-combo-nav-js .page.prev,
-.pagy-combo-nav-js .page.next {
-  &:hover {
-    @apply text-gray-800;
-  }
-  &:active {
-    @apply text-gray-800;
-  }
-}
-
-.pagy-combo-nav-js .page.prev.disabled,
-.pagy-combo-nav-js .page.next.disabled {
-  @apply text-gray-400 cursor-default;
 }
 
 html.debug * {
