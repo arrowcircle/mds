@@ -1,9 +1,14 @@
-.overflow-x-auto.mt-2
-  %table.table.w-full.table-compact
+- if mobile_layout?
+  .mt-3.space-y-3.md:hidden
+    - items.each do |item|
+      = render item_class.new(item: item, current_user:, mobile: true)
+
+.overflow-x-auto.mt-2{class: mobile_layout? ? "hidden md:block" : nil}
+  %table.table.table-zebra.table-sm.w-full
     %thead
       %tr
         - headers.each do |header|
-          %th= header
+          %th.text-xs.font-semibold.uppercase.tracking-wide{class: "text-base-content/60"}= header
     %tbody
       - items.each do |item|
         = render item_class.new(item: item, current_user:)

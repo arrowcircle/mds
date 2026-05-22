@@ -1,14 +1,14 @@
 .h-full.w-full.max-w-xl.mx-auto.align-middle
   %h1.text-center.pt-8
     - if @playlist.persisted?
-      Редактровать плейлист
+      Редактировать плейлист
     - else
       - if @playlist.request
         Что играет?
       - else
         Опознать трек
 
-  = form_with model: [@author, @story, @playlist], class: 'shadow-md rounded px-8 pt-6 pb-8 mb-4' do |f|
+  = form_with model: [@author, @story, @playlist], class: "rounded-box border border-base-300 bg-base-100 p-4 shadow-sm sm:p-6 mb-4" do |f|
     - if @playlist.errors.any?
       .mb-4
         %span Ошибки при сохранении: #{@playlist.errors.size}
@@ -16,8 +16,9 @@
           - @playlist.errors.each do |error|
             %li= error.full_message
 
-    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-red-500" : ""}"
-    - input_classes = "input input-bordered shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline #{alert ? "border-red-500" : nil}"
+    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-error" : ""}"
+    - input_classes = "input input-bordered w-full #{alert ? "input-error" : nil}"
+    - select_classes = "select select-bordered w-full #{alert ? "select-error" : nil}"
 
     - unless @playlist.request
       .mb-4{"data-autocomplete-url-value" => search_artists_path, role: :combobox, "data-autocomplete-min-length-value" => 0, "data-controller" => "autocomplete", id: "artist_search"}
@@ -25,14 +26,14 @@
         -# "action" => "focusin->autocomplete#fetchResults:once focusout->autocomplete#close:once"
         = f.text_field :artist_name, data: { "autocomplete-target" => :input,  }, class: input_classes, placeholder: "Имя артиста"
         = f.hidden_field :artist_id, data: { "autocomplete-target" => :hidden }
-        %ul.list-group{"data-autocomplete-target" => :results, class: "m-2 p-2 border-2 bg-white"}
+        %ul.list-group{"data-autocomplete-target" => :results, class: "m-2 rounded-box border border-base-300 bg-base-100 p-2 shadow"}
           %li{role: :option, "aria-disabled" =>"true"}Start typing to search...
       .mb-4{"data-autocomplete-url-value" => @playlist.track ? search_artist_tracks_path(@playlist.track.artist) : nil, "data-autocomplete-min-length-value" => 0, "data-controller" => "autocomplete", id: "track_search"}
         = label_tag :track, "Трек", class: label_classes
         -#  "action" => "focusin->autocomplete#fetchResults:once focusout->autocomplete#close:once"
         = f.text_field :track_name, data: { "autocomplete-target" => :input}, class: input_classes, placeholder: "Название трека"
         = f.hidden_field :track_id, data: { "autocomplete-target" => :hidden }
-        %ul.list-group{"data-autocomplete-target" => :results, class: "m-2 p-2 border-2 bg-white"}
+        %ul.list-group{"data-autocomplete-target" => :results, class: "m-2 rounded-box border border-base-300 bg-base-100 p-2 shadow"}
           %li{role: :option, "aria-disabled" =>"true"}Start typing to search...
 
     .mb-4
@@ -46,7 +47,7 @@
       %hr
       .mb-4
         = f.label :identified_by, "Кто опознал?", class: label_classes
-        = f.select :identified_by, options_for_select(User.order("lower(username) ASC").all.collect {|u| [u.username, u.id]}, selected: @playlist.identified_by || current_user.id, include_blank: true), class: 'text_field'
+        = f.select :identified_by, options_for_select(User.order("lower(username) ASC").all.collect {|u| [u.username, u.id]}, selected: @playlist.identified_by || current_user.id), { include_blank: true }, { class: select_classes }
     = f.hidden_field :request
     = f.submit "Сохранить", class: "btn btn-primary"
     = link_to "Назад", :back, class: "btn btn-neutral"

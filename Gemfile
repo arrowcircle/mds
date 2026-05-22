@@ -3,27 +3,27 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.3.0"
+ruby "4.0.5"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
-gem "rails", "~> 7.0"
+gem "rails", "~> 8.1"
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
-gem "puma", "~> 6"
+gem "puma", "~> 8"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 # gem "webpacker", "~> 5.1"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.5"
 # Use Redis adapter to run Action Cable in production
-gem "redis", "~> 4.0"
+gem "redis", "~> 5.0"
 # gem "redis-client"
 
 # Use ActiveModel has_secure_password
 # gem "bcrypt", "~> 3.1.7"
 
 # Hotwire"s SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails", "1.5.0"
+gem "turbo-rails", "~> 2"
 
 # Hotwire"s modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
@@ -54,6 +54,7 @@ group :development, :test do
   gem "rubocop-rails"
   gem "lefthook"
   gem "standard"
+  gem "benchmark"
 end
 
 group :development do
@@ -86,7 +87,7 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: [:windows]
 
 # Application deps
 gem "aws-sdk-s3", "~> 1.14"
@@ -97,13 +98,13 @@ gem "imgproxy"
 gem "lograge"
 gem "meilisearch"
 gem "mini_mime"
-gem "pagy"
+gem "pagy", "< 43"
 gem "passwordless"
 gem "russian"
 gem "shrine"
-gem "sidekiq", "<8"
+gem "sidekiq", "~> 8.1"
 gem "sidekiq-cron"
-gem "store_attribute", "~> 1.0"
+gem "store_attribute", "~> 2.1"
 gem "view_component"
 # gem "view_component-contrib"
 gem "webrick"

@@ -1,6 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../../tailwind.config.js";
+@source "../../../app/views";
+@source "../../../app/components";
+@source "../../../app/helpers";
+@source "../../../app/javascript";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
 
 h1 {
   @apply font-medium leading-tight text-xl flex-row;

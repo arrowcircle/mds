@@ -2,11 +2,11 @@
   .flex-auto.flex.flex-row.items-center
     %h1.mr-2= @artist.name
     = link_to [:edit, @artist], class: "btn btn-sm btn-neutral" do
-      = vite_image_tag "images/edit.svg", class: "w-4 h-4"
+      = inline_icon_tag "images/edit.svg", class: "w-4 h-4"
       ред
   .flex-auto.text-right
     = link_to :back, class: "btn btn-sm btn-neutral" do
-      = vite_image_tag "images/arrow_left.svg", class: "w-4 h-4"
+      = inline_icon_tag "images/arrow_left.svg", class: "w-4 h-4"
       назад
 %hr/
 - if @artist.description.present?
@@ -16,7 +16,7 @@
     %h2.mr-2.flex-row Треки
   .flex-auto.text-right
     = link_to [:new, @artist, :track], class: "btn btn-sm btn-neutral flex-row" do
-      = vite_image_tag "images/add.svg", class: "w-4 h-4"
+      = inline_icon_tag "images/add.svg", class: "w-4 h-4"
       добавить
 
 %hr.py-2/
@@ -38,9 +38,9 @@
               - if current_user.present? && current_user.admin?
                 .text-right
                   = link_to [:edit, @artist, track], class: "btn btn-neutral btn-sm" do
-                    = vite_image_tag "images/edit.svg", class: "h-4 w-4"
+                    = inline_icon_tag "images/edit.svg", class: "h-4 w-4"
                   = link_to [@artist, track], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
-                    = vite_image_tag "images/trash.svg", class: "h-4 w-4"
+                    = inline_icon_tag "images/trash.svg", class: "h-4 w-4"
 
   - if @pagy.pages > 1
     .flex.flex-col.items-center.my-2

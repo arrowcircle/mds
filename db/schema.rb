@@ -10,51 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_04_090116) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_22_070600) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "artists", force: :cascade do |t|
-    t.string "name"
+    t.datetime "created_at", null: false
     t.text "description"
     t.text "image_data"
+    t.string "name"
     t.integer "tracks_count", default: 0
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "authors", force: :cascade do |t|
-    t.string "name"
+    t.datetime "created_at", null: false
     t.text "description"
     t.text "image_data"
+    t.string "name"
     t.integer "stories_count", default: 0
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "passwordless_sessions", force: :cascade do |t|
-    t.string "authenticatable_type"
     t.bigint "authenticatable_id"
-    t.datetime "timeout_at", precision: nil, null: false
-    t.datetime "expires_at", precision: nil, null: false
+    t.string "authenticatable_type"
     t.datetime "claimed_at", precision: nil
-    t.string "token_digest", null: false
     t.datetime "created_at", precision: nil, null: false
+    t.datetime "expires_at", precision: nil, null: false
+    t.string "identifier", null: false
+    t.datetime "timeout_at", precision: nil, null: false
+    t.string "token_digest", null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "identifier"
     t.index ["authenticatable_type", "authenticatable_id"], name: "authenticatable"
     t.index ["identifier"], name: "index_passwordless_sessions_on_identifier", unique: true
   end
 
   create_table "playlists", force: :cascade do |t|
-    t.bigint "track_id"
-    t.bigint "story_id"
-    t.integer "start_min"
-    t.integer "end_min"
-    t.integer "user_id"
-    t.integer "identified_by"
     t.datetime "created_at", null: false
+    t.integer "end_min"
+    t.integer "identified_by"
+    t.integer "start_min"
+    t.bigint "story_id"
+    t.bigint "track_id"
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["identified_by"], name: "index_playlists_on_identified_by"
     t.index ["story_id"], name: "index_playlists_on_story_id"
     t.index ["track_id"], name: "index_playlists_on_track_id"
@@ -62,42 +62,41 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_090116) do
   end
 
   create_table "stories", force: :cascade do |t|
-    t.string "name"
+    t.jsonb "audio_data"
+    t.bigint "author_id"
+    t.boolean "completed"
+    t.datetime "created_at", null: false
+    t.date "date"
     t.text "description"
     t.text "image_data"
-    t.boolean "completed"
-    t.date "date"
-    t.integer "radio"
     t.jsonb "json_field", default: {}
+    t.string "name"
     t.integer "playlists_count", default: 0
-    t.bigint "author_id"
-    t.datetime "created_at", null: false
+    t.integer "radio"
     t.datetime "updated_at", null: false
-    t.jsonb "audio_data"
     t.index ["author_id"], name: "index_stories_on_author_id"
   end
 
   create_table "tracks", force: :cascade do |t|
-    t.string "name"
+    t.bigint "artist_id"
+    t.datetime "created_at", null: false
     t.text "description"
     t.text "image_data"
-    t.bigint "artist_id"
+    t.string "name"
     t.integer "playlists_count", default: 0
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["artist_id"], name: "index_tracks_on_artist_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
     t.text "avatar_data"
-    t.string "username", null: false
-    t.integer "role", default: 0
-    t.integer "playlists_count", default: 0
     t.datetime "created_at", precision: nil, null: false
+    t.string "email", default: "", null: false
+    t.integer "playlists_count", default: 0
+    t.integer "role", default: 0
     t.datetime "updated_at", precision: nil, null: false
+    t.string "username", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
-
 end

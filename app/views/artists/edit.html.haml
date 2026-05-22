@@ -1,11 +1,11 @@
 .h-full.w-full.max-w-xl.mx-auto.align-middle
   %h1.text-center.pt-8
     - if @artist.persisted?
-      Редактровать артиста
+      Редактировать артиста
     - else
       Добавить артиста
 
-  = form_with model: @artist, class: 'shadow-md rounded px-8 pt-6 pb-8 mb-4' do |f|
+  = form_with model: @artist, class: "rounded-box border border-base-300 bg-base-100 p-4 shadow-sm sm:p-6 mb-4" do |f|
     - if @artist.errors.any?
       .mb-4
         %span Ошибки при сохранении: #{@artist.errors.size}
@@ -13,8 +13,10 @@
           - @artist.errors.each do |error|
             %li= error.full_message
 
-    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-red-500" : ""}"
-    - input_classes = "input input-bordered shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline #{alert ? "border-red-500" : nil}"
+    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-error" : ""}"
+    - input_classes = "input input-bordered w-full #{alert ? "input-error" : nil}"
+    - textarea_classes = "textarea textarea-bordered min-h-32 w-full #{alert ? "textarea-error" : nil}"
+    - file_classes = "file-input file-input-bordered w-full"
 
     .mb-4
       = f.label :name, "Имя", class: label_classes
@@ -24,9 +26,9 @@
       - if @artist.image.present?
         = image_tag @artist.image.imgproxy_url(width: 100, resizing_type: :fill)
       = f.hidden_field :image, value: @artist.cached_image_data
-      = f.file_field :image
+      = f.file_field :image, class: file_classes
     .mb-4
       = f.label :description, "Описание", class: label_classes
-      = f.text_area :description,autocomplete: :off, class: input_classes, placeholder: "Описание"
+      = f.text_area :description, autocomplete: :off, class: textarea_classes, placeholder: "Описание"
     = f.submit "Сохранить", class: "btn btn-primary"
     = link_to "Назад", :back, class: "btn btn-neutral"

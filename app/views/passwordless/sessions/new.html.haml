@@ -1,14 +1,14 @@
 .h-full.w-full.max-w-xl.mx-auto.align-middle
-  = form_with(model: @session, url: url_for(action: 'new', class: 'bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4')) do |f|
+  = form_with(model: @session, url: url_for(action: 'new'), class: "rounded-box border border-base-300 bg-base-100 p-4 shadow-sm sm:p-6 mb-4") do |f|
     %h2.text-center
       Вход на сайт
 
-    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-red-500" : "text-gray-700"}"
-    - input_classes = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline #{alert ? "border-red-500" : nil}"
+    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-error" : ""}"
+    - input_classes = "input input-bordered w-full #{alert ? "input-error" : nil}"
     - email_field_name = :"passwordless[#{email_field}]"
     .mb-4
       = f.label email_field_name, t("passwordless.sessions.new.email.label"), class: label_classes
       = email_field_tag email_field_name, params.fetch(email_field_name, nil), class: input_classes
-    .flex.items-center.justify-between.content-end
-      = f.submit "Получить ссылку", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-6 rounded focus:outline-none focus:shadow-outline", data: { turbo_submits_with: "Отправляем ссылку", disable_with: "Отправляем ссылку" }
-      = link_to "Назад", :back, class: "font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border border-gray-500"
+    .flex.flex-wrap.items-center.gap-2
+      = f.submit "Получить ссылку", class: "btn btn-primary", data: { turbo_submits_with: "Отправляем ссылку", disable_with: "Отправляем ссылку" }
+      = link_to "Назад", :back, class: "btn btn-neutral"

@@ -1,6 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 
 function secondsToDuration(num) {
+  if (!Number.isFinite(num)) return "--:--";
+
   let mins = Math.floor(num / 60);
   let secs = (num | 0) % 60;
   if (mins < 10) mins = "0" + mins;
@@ -9,26 +11,28 @@ function secondsToDuration(num) {
 }
 
 export default class extends Controller {
-  static targets = ["progress", "time", "duration", "player", "play", "pause"];
-  static values = { duration: Number, position: Number, autoplay: Boolean };
+  static targets = ["progress", "time", "duration", "player", "play", "pause", "currentTrack"];
+  static values = { duration: Number, position: Number, autoplay: Boolean, playlist: Array };
   static classes = ["playing"];
 
   connect() {
-    if (this.playerTarget) {
+    if (this.hasPlayerTarget) {
       this.setupAudioListeners();
-      this.play();
-      if (this.autoplayValue) {
-        // this.play();
+
+      if (this.hasPositionValue && this.positionValue > 0) {
+        this.playerTarget.currentTime = this.positionValue;
       }
-    }
-    if (this.hasDurationTarget && this.playerTarget.duration) {
-      this.durationValue = this.playerTarget.duration;
-      this.durationTarget.textContent = secondsToDuration(this.playerTarget.duration);
+
+      if (this.autoplayValue) {
+        this.play();
+      } else {
+        this.pause();
+      }
     }
   }
 
   disconnect() {
-    if (this.playerTarget) {
+    if (this.hasPlayerTarget) {
       this.playerTarget.pause();
       this.removeAudioListeners();
     }
@@ -42,14 +46,18 @@ export default class extends Controller {
   }
 
   play() {
+    if (!this.hasPlayerTarget) return;
+
     this.playTarget.classList.add("hidden");
     this.pauseTarget.classList.remove("hidden")
-    this.playerTarget.play();
+    this.playerTarget.play().catch(() => this.pause());
     this.handleTimeUpdate();
     this.playing = true;
   }
 
   pause() {
+    if (!this.hasPlayerTarget) return;
+
     this.pauseTarget.classList.add("hidden");
     this.playTarget.classList.remove("hidden")
     this.playerTarget.pause();
@@ -57,9 +65,13 @@ export default class extends Controller {
   }
 
   seek(e) {
+    if (Number.isNaN(this.durationValue) || this.durationValue == 0) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
     const position =
-      (e.offsetX / e.currentTarget.offsetWidth) * this.durationValue;
+      ((e.clientX - rect.left) / rect.width) * this.durationValue;
     this.playerTarget.currentTime = position;
+    this.handleTimeUpdate();
   }
 
   handleEnded() {
@@ -86,6 +98,35 @@ export default class extends Controller {
     if (this.hasProgressTarget) this.progressTarget.value = percent;
     if (this.hasTimeTarget)
       this.timeTarget.textContent = secondsToDuration(currentTime);
+    this.updateCurrentTrack(currentTime);
+  }
+
+  updateCurrentTrack(currentTime) {
+    if (!this.hasCurrentTrackTarget) return;
+
+    const currentTrack = this.currentTrackFor(currentTime);
+    this.currentTrackTarget.textContent = currentTrack ? currentTrack.label : "Рассказ";
+  }
+
+  currentTrackFor(currentTime) {
+    if (!this.hasPlaylistValue) return null;
+
+    const currentMinute = currentTime / 60;
+
+    return this.playlistValue.find((item) => {
+      const start = this.parseMinute(item.start);
+      const finish = this.parseMinute(item.finish);
+      const afterStart = Number.isFinite(start) ? currentMinute >= start : true;
+      const beforeFinish = Number.isFinite(finish) ? currentMinute < finish : true;
+
+      return item.label && afterStart && beforeFinish;
+    });
+  }
+
+  parseMinute(value) {
+    if (value === null || value === undefined || value === "") return null;
+
+    return Number(value);
   }
 
   setupAudioListeners() {

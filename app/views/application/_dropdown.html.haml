@@ -1,35 +1,36 @@
-.flex-1{ class: "md:hidden" }
-.dropdown{ class: "md:hidden" }
-  %label{ tabindex: "0" }
-    = vite_image_tag 'images/hamburger.svg', class: "h-10 w-10 text-slate-100"
+.dropdown.dropdown-end{ class: "md:hidden" }
+  %label.btn.btn-ghost.btn-square{ tabindex: "0", role: "button", "aria-label": "Открыть меню" }
+    = inline_icon_tag 'images/hamburger.svg', class: "h-6 w-6"
 
   - # Dropdown menu
-  %ul.menu.menu-compact.dropdown-content.mt-3.p-2.shadow.bg-base-100.rounded-box.w-52.absolute.-left-40{ tabindex: "0", class: "z-[1]" }
+  %ul.menu.menu-sm.dropdown-content.mt-3.w-56.rounded-box.bg-base-100.p-2.shadow-lg.border.border-base-300{ tabindex: "0", class: "z-[1]" }
     - active = %w(authors stories).include?(controller_name)
-    - attrs = { class: ["p-1 text-sm btn btn-sm #{active ? 'btn-primary' : 'btn-ghost' }"] }
+    - attrs = { class: active ? "active" : nil }
     %li
       = link_to [:authors], attrs do
         = 'Книги'
 
     - active = %w(artists tracks).include?(controller_name)
-    - attrs = { class: ["p-1 text-sm btn btn-sm #{active ? 'btn-primary' : 'btn-ghost' }"] }
+    - attrs = { class: active ? "active" : nil }
     %li
       = link_to [:artists], attrs do
         = 'Музыка'
 
     - active = controller_name == "users"
-    - attrs = { class: ["p-1 text-sm btn btn-sm #{active ? 'btn-primary' : 'btn-ghost' }"] }
+    - attrs = { class: active ? "active" : nil }
     %li
       = link_to [:users], attrs do
         = 'Участники'
 
-    %hr/
+    %li
+      .divider.my-1
     
-    %li.form-control.ml-0.pl-0
-      = form_with url: search_url, class: "p-0 py-2" do |f|
-        = text_field_tag :q, params[:q], placeholder: "Поиск", class: "input input-bordered input-sm"
+    %li.form-control
+      = form_with url: search_url, class: "p-2" do |f|
+        = text_field_tag :q, params[:q], placeholder: "Поиск", class: "input input-bordered input-sm w-full"
 
-    %hr/
+    %li
+      .divider.my-1
 
     - if current_user.id.present?
       %li

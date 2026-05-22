@@ -3,5 +3,5 @@
     - if @inline_svg
       = @inline_svg
     - if @icon
-      = vite_image_tag @icon, class: "w-5 h-5"
+      = helpers.inline_icon_tag @icon, class: "w-5 h-5"
     = @title

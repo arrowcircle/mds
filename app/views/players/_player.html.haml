@@ -1,41 +1,41 @@
 - if play_item&.playable_audio_url
-  %div.bg-base-200.sticky.bottom-0.z-10{data: {controller: "player", "player-position" => session[:play_position], "player-playing-class" => "player-playing", "player-autoplay-value" => @autoplay}}
+  - playlist_items = []
+  - if play_item.is_a?(Story)
+    - playlist_items = play_item.playlists.identified.includes(track: :artist).order(:start_min).map { |playlist| {start: playlist.start_min, finish: playlist.end_min, label: playlist.search_query} }
+  - player_data = {controller: "player", "player-position-value" => session[:play_position], "player-playing-class" => "player-playing", "player-autoplay-value" => @autoplay, "player-playlist-value" => playlist_items.to_json}
+  .mds-player.fixed.inset-x-0.bottom-0.z-30.border-t.border-base-300.bg-base-100.shadow-2xl{data: player_data}
     - attrs = {data: {"player-target": "player"}}
     %audio#audio_tag{**attrs}
       %source{src: play_item.playable_audio_url, type: "audio/mpeg"}
-    .flex.flex-col
-      .player--timeline{"data-action" => "click->player#seek"}
-        %progress.progress.px-1{value: 0, max: 100, data: {"player-target"=>"progress"}}
-      .info.flex.flex-row.items-center.gap-1
+    .mx-auto.flex.max-w-7xl.flex-col.px-4.py-3
+      .mds-player__timeline.flex.h-5.cursor-pointer.items-center{"data-action" => "click->player#seek"}
+        %progress.progress.h-2.w-full{value: 0, max: 100, data: {"player-target" => "progress"}, aria: {label: "Прогресс воспроизведения"}}
+      .flex.items-center.gap-3
         .flex-none
-          %span{class: "btn btn-sm", data: { action: 'click->player#play', "player-target" => "play" }}
-            = vite_image_tag "images/play.svg", class: "h-6 w-6"
-          %span{class: "btn btn-sm hidden", data: { action: 'click->player#pause', "player-target" => "pause" }}
-            = vite_image_tag "images/pause.svg", class: "h-6 w-6"
+          %button.btn.btn-circle{type: "button", data: {action: "click->player#play", "player-target" => "play"}, aria: {label: "Играть"}}
+            = inline_icon_tag "images/play.svg", class: "h-6 w-6"
+          %button.btn.btn-circle.hidden{type: "button", data: {action: "click->player#pause", "player-target" => "pause"}, aria: {label: "Пауза"}}
+            = inline_icon_tag "images/pause.svg", class: "h-6 w-6"
         - if play_item.respond_to?(:image) && play_item.image.present?
-          .flex-none
+          .hidden.flex-none.sm:block
             .avatar
-              .w-10.rounded= image_tag play_item.image.imgproxy_url(width: 100, resize: :fill)
-        .flex-grow
+              .w-12.rounded= image_tag play_item.image.imgproxy_url(width: 100, resize: :fill)
+        .min-w-0.flex-1
           - if play_item.is_a?(Track)
-            = link_to play_item.artist.name, [play_item.artist], data: {"turbo-frame": "_top"}
-            " - "
-            = link_to play_item.name, [play_item.artist, play_item], data: {"turbo-frame": "_top"}
+            .truncate.text-base.font-semibold
+              = link_to play_item.artist.name, [play_item.artist], class: "link", data: {"turbo-frame": "_top"}
+              = " - "
+              = link_to play_item.name, [play_item.artist, play_item], class: "link", data: {"turbo-frame": "_top"}
           - elsif play_item.is_a?(Story)
-            = link_to play_item.author.name, [play_item.author], class: "link", data: {"turbo-frame": "_top"}
-            = " - "
-            = link_to play_item.name, [play_item.author, play_item], class: "link", data: {"turbo-frame": "_top"}
-            %br
-            .current-track
-              Meduza - Ololo
-              -# = link_to play_item.artist.name, [play_item.artist]
-              -# " - "
-              -# = link_to play_item.name, [play_item.artist, play_item]
-        .flex-none.indicator{class: "mr-4"}
-          %span.indicator-item
-            = button_to [:player], class: [:link, :flex, "items-center"], method: :delete, data: { turbo_frame: :_top } do
-              = vite_image_tag "images/close.svg", class: "h-6 w-6"
-          %div
-            %span{data: {"player-target" => "time"}} 00:00
-            %span &nbsp; / &nbsp;
-            %span{data: {"player-target" => "duration"}}
+            .truncate.text-base.font-semibold
+              = link_to play_item.author.name, [play_item.author], class: "link", data: {"turbo-frame": "_top"}
+              = " - "
+              = link_to play_item.name, [play_item.author, play_item], class: "link", data: {"turbo-frame": "_top"}
+            %div{class: "truncate text-sm text-base-content/60", data: {"player-target" => "currentTrack"}}
+              Рассказ
+        %div{class: "flex flex-none items-center gap-2 text-sm tabular-nums text-base-content/70"}
+          %span{data: {"player-target" => "time"}} 00:00
+          %span /
+          %span{data: {"player-target" => "duration"}} --:--
+        = button_to [:player], class: "btn btn-ghost btn-circle", method: :delete, form: {class: "flex-none"}, aria: {label: "Закрыть плеер"} do
+          = inline_icon_tag "images/close.svg", class: "h-5 w-5"

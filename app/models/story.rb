@@ -3,6 +3,7 @@ class Story < ApplicationRecord
   include Sluggable
   include ImageUploader::Attachment(:image)
   include AudioUploader::Attachment(:audio)
+
   belongs_to :author, counter_cache: true
   has_many :playlists, dependent: :destroy
   store_attribute :json_field, :external_audio_url, :string
@@ -10,7 +11,7 @@ class Story < ApplicationRecord
   validates :name, presence: true
   normalizes :name, with: -> { _1.strip }
 
-  enum radio: {
+  enum :radio, {
     station: 0,
     muztv: 1,
     silver_rain: 2,

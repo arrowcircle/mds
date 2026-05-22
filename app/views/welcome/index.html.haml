@@ -1,15 +1,15 @@
-.hero.bg-base-200.rounded-xl
-  .hero-content.text-center
-    .max-w-3xl
-      %h1 МДС Музыка
-      %p.py-6
+.hero.bg-base-200.rounded-box
+  .hero-content.max-w-4xl.px-5.py-8.text-left{class: "sm:text-center"}
+    .space-y-4
+      %h1.text-2xl.font-bold МДС Музыка
+      %p.leading-relaxed{class: "text-base-content/80"}
         = link_to "Модель для сборки", "https://mds.ru/", class: :underline, target: :_blank
         = " - "
         культовая российская радиопередача, представляет собой литературно-музыкальный симбиоз, состоящий из лучших произведений российской и зарубежной прозы преимущественно фантастического жанра в сопровождении звукового ряда лучших направлений современной электронной музыки.
-      %p
+      %p.leading-relaxed{class: "text-base-content/80"}
         МДС Музыка - это проект систематизации музыки из любимой радиопередачи. Здесь можно найти плейлисты - списки исполнителей и треков из рассказов.
 
-%h2.mt-2 Обновления
+%h2.mt-4.text-xl.font-semibold Обновления
 %hr.my-2
 
 .overflow-x-auto

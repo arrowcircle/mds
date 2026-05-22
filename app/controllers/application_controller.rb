@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  Metadata = Struct.new(:title, :description, :og, keyword_init: true)
+
   include Pagy::Backend
   include Passwordless::ControllerHelpers
 
@@ -33,7 +35,7 @@ class ApplicationController < ActionController::Base
   helper_method :play_item
 
   def metadata
-    @metadata ||= OpenStruct.new(title: title, description: description, og: og)
+    @metadata ||= Metadata.new(title: title, description: description, og: og)
   end
   helper_method :metadata
 

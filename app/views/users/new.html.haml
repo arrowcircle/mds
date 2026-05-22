@@ -1,5 +1,5 @@
 .h-full.w-full.max-w-xl.mx-auto.align-middle
-  = form_with model: @user, class: 'bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' do |f|
+  = form_with model: @user, class: "rounded-box border border-base-300 bg-base-100 p-4 shadow-sm sm:p-6 mb-4" do |f|
     %h2.text-center
       Регистрация
     - if @user.errors.any?
@@ -7,8 +7,9 @@
       %ul
       - @user.errors.each do |error|
         %li= error.full_message
-    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-red-500" : "text-gray-700"}"
-    - input_classes = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline #{alert ? "border-red-500" : nil}"
+    - label_classes = "block text-sm font-bold mb-2 #{alert ? "text-error" : ""}"
+    - input_classes = "input input-bordered w-full #{alert ? "input-error" : nil}"
+    - file_classes = "file-input file-input-bordered w-full"
     .mb-4
       = f.label :email, class: label_classes
       = f.email_field :email, disabled: true, class: input_classes
@@ -20,7 +21,7 @@
         = vite_image_tag @user.avatar.imgproxy_url(width: 100, resizing_type: :fill)
       = f.label :avatar
       = f.hidden_field :avatar, value: @user.cached_avatar_data
-      = f.file_field :avatar
-    .flex.items-center.justify-between.content-end
-      = f.submit "Сохранить", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-6 rounded focus:outline-none focus:shadow-outline"
-      = link_to "Назад", :back, class: "font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border border-gray-500"
+      = f.file_field :avatar, class: file_classes
+    .flex.flex-wrap.items-center.gap-2
+      = f.submit "Сохранить", class: "btn btn-primary"
+      = link_to "Назад", :back, class: "btn btn-neutral"

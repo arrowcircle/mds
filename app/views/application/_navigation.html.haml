@@ -1,4 +1,4 @@
-.navbar.bg-base-200.px-8{ class: "sm:py-0" }
+.navbar.bg-base-100.border-b.border-base-300.px-4.shadow-sm{ class: "sm:px-8 sm:py-0" }
   .navbar-start
     .title.flex-none
       = link_to root_url, class: "normal-case text-lg font-bold" do
@@ -6,17 +6,17 @@
     
     - active = %w(authors stories).include?(controller_name)
     %div.px-1.hidden.md:flex.flex-none
-      = link_to [:authors], class: "btn #{ active ? 'btn-primary' : 'btn-ghost'}" do
+      = link_to [:authors], class: "btn btn-sm #{ active ? 'btn-primary' : 'btn-ghost'}" do
         = 'Книги'
     
     - active = %w(artists tracks).include?(controller_name)
     %div.px-1.hidden.md:flex.flex-none
-      = link_to [:artists], class: "btn #{ active ? 'btn-primary' : 'btn-ghost'}" do
+      = link_to [:artists], class: "btn btn-sm #{ active ? 'btn-primary' : 'btn-ghost'}" do
         = 'Музыка'
 
     - active = controller_name == "users"
     %div.px-1.hidden.md:flex
-      = link_to [:users], class: "btn #{ active ? 'btn-primary' : 'btn-ghost'}" do
+      = link_to [:users], class: "btn btn-sm #{ active ? 'btn-primary' : 'btn-ghost'}" do
         = 'Участники'
   .navbar-center
   .navbar-end.flex-none
@@ -29,7 +29,7 @@
     .user.flex-none
       = render "dropdown"
 
-      %ul.menu.menu-horizontal.px-0.bg-base-200.hidden.flex-row.items-center{ class: "md:flex" }
+      %ul.menu.menu-horizontal.px-0.hidden.flex-row.items-center{ class: "md:flex" }
         - if current_user.id.present?
           %li
             = link_to profile_path, class: "px-1" do
