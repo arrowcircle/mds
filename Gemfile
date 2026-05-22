@@ -41,6 +41,7 @@ gem "vite_rails"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.1.0", require: false
+gem "benchmark"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -54,7 +55,6 @@ group :development, :test do
   gem "rubocop-rails"
   gem "lefthook"
   gem "standard"
-  gem "benchmark"
 end
 
 group :development do
