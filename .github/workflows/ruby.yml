@@ -8,7 +8,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:v18.3
+        image: postgres:18.3
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
