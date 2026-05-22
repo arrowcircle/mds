@@ -19,23 +19,37 @@ h2 {
 }
 
 .pagy {
-  @apply flex space-x-1 font-semibold text-sm text-gray-500;
+  @apply flex flex-wrap justify-center gap-2 font-semibold text-sm text-base-content;
+
   a:not(.gap) {
-    @apply block rounded-lg px-3 py-1 bg-gray-200;
+    @apply inline-flex min-w-9 items-center justify-center rounded-lg border border-base-300 bg-base-100 px-3 py-1 text-base-content/80 shadow-sm transition-colors;
+
     &:hover {
-      @apply bg-gray-300;
+      @apply bg-base-200 text-base-content;
     }
+
+    &:focus-visible {
+      @apply outline outline-2 outline-offset-2 outline-primary;
+    }
+
     &:not([href]) { /* disabled links */
-      @apply text-gray-300 bg-gray-100 cursor-default;
+      @apply cursor-default border-base-300/60 bg-base-200/50 text-base-content/35 shadow-none;
     }
+
     &.current {
-      @apply text-white bg-gray-400;
+      @apply border-primary bg-primary text-primary-content shadow-sm;
     }
   }
+
+  .gap {
+    @apply inline-flex min-w-9 items-center justify-center rounded-lg px-2 py-1 text-base-content/50;
+  }
+
   label {
-    @apply inline-block whitespace-nowrap bg-gray-200 rounded-lg px-3 py-0.5;
+    @apply inline-block whitespace-nowrap rounded-lg border border-base-300 bg-base-100 px-3 py-0.5 text-base-content/80 shadow-sm;
+
     input {
-      @apply bg-gray-100 border-none rounded-md;
+      @apply rounded-md border-none bg-base-200 text-base-content;
     }
   }
 }
