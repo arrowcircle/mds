@@ -8,7 +8,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres
+        image: postgres:v18.3
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -16,7 +16,7 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --mount type=tmpfs,destination=/var/lib/postgresql/data
+          --mount type=tmpfs,destination=/var/lib/postgresql/data/pgdata
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
@@ -45,7 +45,7 @@ jobs:
 
     env:
       RAILS_ENV: test
-      GEMFILE_RUBY_VERSION: 3.3.0
+      GEMFILE_RUBY_VERSION: 4.0.5
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: mds_test
@@ -53,18 +53,18 @@ jobs:
       DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/mds_test"
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.3.0
+          ruby-version: 4.0.5
           bundler-cache: true
 
-      - name: Use Node.js 20
-        uses: actions/setup-node@v3
+      - name: Use Node.js 24
+        uses: actions/setup-node@v6
         with:
-          node-version: 20.11
+          node-version: 24.15.0
           cache: 'yarn'
           cache-dependency-path: yarn.lock
 

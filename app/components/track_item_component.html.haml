@@ -8,4 +8,4 @@
         = link_to [:edit, track.artist, track], class: "btn btn-sm mr-1" do
           = helpers.inline_icon_tag "images/edit.svg", class: "h-4 w-4"
         = link_to [track.artist, track], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
-          = helpers.inline_icon_tag "images/trash.svg", class: "h-4 w-4"
+          = helpers.inline_icon_tag "images/trash.svg", class: "h-4 w-4 text-white"

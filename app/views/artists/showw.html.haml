@@ -40,7 +40,7 @@
                   = link_to [:edit, @artist, track], class: "btn btn-neutral btn-sm" do
                     = inline_icon_tag "images/edit.svg", class: "h-4 w-4"
                   = link_to [@artist, track], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-sm" do
-                    = inline_icon_tag "images/trash.svg", class: "h-4 w-4"
+                    = inline_icon_tag "images/trash.svg", class: "h-4 w-4 text-white"
 
   - if @pagy.pages > 1
     .flex.flex-col.items-center.my-2

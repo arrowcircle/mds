@@ -44,7 +44,7 @@
           = link_to [:edit, author, story, playlist], class: "btn btn-ghost btn-xs" do
             = helpers.inline_icon_tag "images/edit.svg", class: "h-4 w-4"
           = link_to [author, story, playlist], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-xs" do
-            = helpers.inline_icon_tag "images/trash.svg", class: "h-4 w-4"
+            = helpers.inline_icon_tag "images/trash.svg", class: "h-4 w-4 text-white"
 - else
   %tr{"data-start-min" => playlist.start_min.present? ? playlist.start_min : nil}
     %td.align-top
@@ -100,4 +100,4 @@
           = link_to [:edit, author, story, playlist], class: "btn btn-ghost btn-xs" do
             = helpers.inline_icon_tag "images/edit.svg", class: "h-4 w-4"
           = link_to [author, story, playlist], data: { turbo_method: :delete, turbo_confirm: "Точно удалить?" }, class: "btn btn-error btn-xs" do
-            = helpers.inline_icon_tag "images/trash.svg", class: "h-4 w-4"
+            = helpers.inline_icon_tag "images/trash.svg", class: "h-4 w-4 text-white"
