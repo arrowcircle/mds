@@ -9,7 +9,7 @@ class Story < ApplicationRecord
   store_attribute :json_field, :external_audio_url, :string
 
   validates :name, presence: true
-  normalizes :name, with: -> { _1.strip }
+  normalizes :name, with: -> { it.strip }
 
   enum :radio, {
     station: 0,

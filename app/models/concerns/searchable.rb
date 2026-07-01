@@ -1,5 +1,6 @@
 module Searchable
   extend ActiveSupport::Concern
+
   def search(query, default_scope = nil)
     scope = default_scope
     scope ||= all

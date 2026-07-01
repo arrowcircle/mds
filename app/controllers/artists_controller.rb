@@ -52,6 +52,28 @@ class ArtistsController < ApplicationController
 
   private
 
+  def title
+    return "Артисты" if action_name == "index"
+    return @artist.name if @artist
+
+    super
+  end
+
+  def description
+    return "Страница со списком исполнителей и треков из радиопередачи Модель для Сборки" if action_name == "index"
+    return "Треки #{@artist.name}, звучавшие в рассказах радиопередачи Модель для Сборки" if @artist
+
+    super
+  end
+
+  def tags
+    base = "мдс, модель для сборки, что играет, опознать трек, музыка, помощь в опознании, плейлист, список треков"
+    return "#{base}, список исполнителей" if action_name == "index"
+    return "#{base}, исполнитель, #{@artist.name}" if @artist
+
+    super
+  end
+
   def artist_params
     params.require(:artist).permit(:name, :description, :image)
   end

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <style>
+    .background { fill: #111827; }
+    .ring { fill: #22d3ee; }
+    .note { fill: #f472b6; }
+    @media (prefers-color-scheme: dark) {
+      .background { fill: #f8fafc; }
+      .ring { fill: #0e7490; }
+      .note { fill: #be185d; }
+    }
+  </style>
+  <rect class="background" width="512" height="512" rx="112"/>
+  <circle class="ring" cx="256" cy="256" r="176"/>
+  <circle class="background" cx="256" cy="256" r="120"/>
+  <path class="note" d="M333 117v226a72 72 0 1 1-38-63V178l-118 29v178a72 72 0 1 1-38-63V160z"/>
+</svg>

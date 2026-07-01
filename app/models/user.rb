@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true, allow_blank: false, length: {minimum: 2}
   validates :email, presence: true, uniqueness: {case_sensitive: false}, email: {mode: :strict, require_fqdn: true}
-  normalizes :email, with: -> { _1.strip.downcase }
+  normalizes :email, with: -> { it.strip.downcase }
 
   passwordless_with :email
 

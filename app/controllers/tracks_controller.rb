@@ -45,6 +45,31 @@ class TracksController < ApplicationController
 
   private
 
+  def title
+    return "#{@track.name} - #{@artist.name}" if @track && @artist
+    return @artist.name if @artist
+
+    super
+  end
+
+  def description
+    if @track && @artist
+      return "#{@artist.name} - #{@track.name}: рассказы радиопередачи Модель для Сборки, где звучит этот трек"
+    end
+
+    return "Треки #{@artist.name}, звучавшие в рассказах радиопередачи Модель для Сборки" if @artist
+
+    super
+  end
+
+  def tags
+    base = "мдс, модель для сборки, что играет, опознать трек, музыка, помощь в опознании, плейлист, список треков"
+    return "#{base}, #{@artist.name}, #{@track.name}" if @track && @artist
+    return "#{base}, исполнитель, #{@artist.name}" if @artist
+
+    super
+  end
+
   def set_artist
     @artist = Artist.find(params[:artist_id])
   end

@@ -50,6 +50,31 @@ class StoriesController < ApplicationController
 
   private
 
+  def title
+    return "#{@story.name} - #{@author.name}" if @story && @author
+    return @author.name if @author
+
+    super
+  end
+
+  def description
+    if @story && @author
+      return "#{@author.name} - #{@story.name} плейлист"
+    end
+
+    return "Рассказы #{@author.name} и музыка из них в радиопередаче Модель для Сборки" if @author
+
+    super
+  end
+
+  def tags
+    base = "мдс, модель для сборки, что играет, опознать трек, музыка, помощь в опознании, плейлист, список треков, музыка из рассказа"
+    return "#{base} #{@author.name} #{@story.name}, #{@author.name}, #{@story.name}" if @story && @author
+    return "#{base}, #{@author.name}" if @author
+
+    super
+  end
+
   def set_author
     @author = Author.find(params[:author_id])
   end
@@ -59,7 +84,7 @@ class StoriesController < ApplicationController
     permitted += %i[description image completed external_audio_url date radio audio] if current_user.admin?
     begin
       params.require(:story)
-    rescue StandardError
+    rescue
       {}
     end.permit(permitted)
   end

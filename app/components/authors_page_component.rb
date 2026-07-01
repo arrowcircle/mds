@@ -1,6 +1,7 @@
 class AuthorsPageComponent < ViewComponent::Base
   attr_reader :current_user
   include Pagy::Frontend
+
   def initialize(authors:, pagy:, query: nil, page: nil, current_user: nil)
     @authors = authors
     @pagy = pagy

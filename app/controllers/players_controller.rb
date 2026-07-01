@@ -40,7 +40,7 @@ class PlayersController < ApplicationController
 
     klass, id = params[:play].split(":")
     klass.constantize.find_by(id:) || play_item
-  rescue StandardError
+  rescue
     nil
   end
 end

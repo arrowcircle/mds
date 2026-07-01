@@ -23,8 +23,8 @@ class UsersController < ApplicationController
   private
 
   def title
-    return "Участиники проекта" if action_name == "index"
-    "#{@user.username} | Участиники проекта"
+    return "Участники проекта" if action_name == "index"
+    "#{@user.username} | Участники проекта"
   end
 
   def description

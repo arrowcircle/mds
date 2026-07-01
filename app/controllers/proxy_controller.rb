@@ -1,5 +1,6 @@
 class ProxyController < ApplicationController
   include ActiveStorage::Streaming
+
   def show
     ctx = OpenSSL::SSL::SSLContext.new
     ctx.verify_mode = OpenSSL::SSL::VERIFY_NONE

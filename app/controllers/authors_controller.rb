@@ -47,6 +47,31 @@ class AuthorsController < ApplicationController
 
   private
 
+  def title
+    return "Авторы" if action_name == "index"
+    return @author.name if @author
+
+    super
+  end
+
+  def description
+    if action_name == "index"
+      return "Страница со списком авторов рассказов игравших в радиопередаче Модель Для Сборки"
+    end
+
+    return "Рассказы #{@author.name} и музыка из них в радиопередаче Модель для Сборки" if @author
+
+    super
+  end
+
+  def tags
+    base = "мдс, модель для сборки, что играет, опознать трек, музыка, помощь в опознании, плейлист, список треков, музыка из рассказа"
+    return "#{base}, список авторов" if action_name == "index"
+    return "#{base}, #{@author.name}" if @author
+
+    super
+  end
+
   def author_params
     params.require(:author).permit(:name, :description, :image)
   end

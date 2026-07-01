@@ -20,4 +20,18 @@ class WelcomeController < ApplicationController
     end
     # end
   end
+
+  private
+
+  def title
+    "Что играет?"
+  end
+
+  def description
+    "Главная страница сайта по опознанию и поиску музыки из радиопередачи Модель для Сборки"
+  end
+
+  def tags
+    "мдс, модель для сборки, что играет, опознать трек, музыка, помощь в опознании, плейлист, список треков, музыка из рассказа"
+  end
 end

@@ -17,6 +17,8 @@ module Mds
 
     config.x.debug_html = ENV["DEBUG_HTML"].in?(%w[1 true yes])
 
+    config.active_storage.variant_processor = :disabled
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

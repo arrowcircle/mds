@@ -1,6 +1,7 @@
 class UsersPageComponent < ViewComponent::Base
   attr_reader :current_user
   include Pagy::Frontend
+
   def initialize(users:, pagy:, query: nil, page: nil, current_user: nil)
     @users = users
     @pagy = pagy

@@ -7,6 +7,6 @@ class PageTitleComponent < ViewComponent::Base
   end
 
   def mobile_dropdown_buttons
-    @dropdown_buttons ||= @buttons.select { !_1.mobile_visible }
+    @dropdown_buttons ||= @buttons.select { !it.mobile_visible }
   end
 end
