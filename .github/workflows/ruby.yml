@@ -61,15 +61,19 @@ jobs:
           ruby-version: 4.0.5
           bundler-cache: true
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.4.2
+
       - name: Use Node.js 24
         uses: actions/setup-node@v6
         with:
-          node-version: 24.18.0
-          cache: 'yarn'
-          cache-dependency-path: yarn.lock
+          node-version: 24.21.0
+          cache: 'pnpm'
 
       - name: Install js deps
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Copy test env
         run: cp .env.ci .env
