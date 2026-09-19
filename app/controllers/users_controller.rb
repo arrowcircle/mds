@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to root_path, notice: "Спасибо за регистрацию", status: :see_other
     else
-      render "new", status: :unprocessable_entity
+      render "new", status: :unprocessable_content
     end
   end
 
@@ -34,5 +34,9 @@ class UsersController < ApplicationController
 
   def tags
     "Участники, модель для сборки, список пользователей"
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :username, :avatar)
   end
 end

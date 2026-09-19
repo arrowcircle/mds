@@ -16,7 +16,7 @@ class PlaylistsController < ApplicationController
     if @playlist.save
       redirect_to [@author, @story], status: :see_other, notice: "Трек добавлен"
     else
-      render "edit", status: :unprocessable_entity
+      render "edit", status: :unprocessable_content
     end
   end
 
@@ -32,18 +32,18 @@ class PlaylistsController < ApplicationController
     if @playlist.update(playlist_params)
       redirect_to [@author, @story], status: :see_other, notice: "Трек обновлен"
     else
-      render "edit", status: :unprocessable_entity
+      render "edit", status: :unprocessable_content
     end
   end
 
   def destroy
-    return redirect_to [@author, @story], status: :unprocessable_entity, alert: "Только админы могут удалять опознания" unless current_user.admin?
+    return redirect_to [@author, @story], status: :unprocessable_content, alert: "Только админы могут удалять опознания" unless current_user.admin?
 
     @playlist = @story.playlists.find(params[:id])
     if @playlist.destroy
       redirect_to [@author, @story], status: :see_other, notice: "Трек удален"
     else
-      redirect_to [@author, @story], status: :unprocessable_entity, alert: "Ошибки: #{@playlist.errors.map(&:full_messages)}"
+      redirect_to [@author, @story], status: :unprocessable_content, alert: "Ошибки: #{@playlist.errors.map(&:full_messages)}"
     end
   end
 

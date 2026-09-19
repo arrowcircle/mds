@@ -31,4 +31,3 @@ data:
   SMTP_PORT: "{{ .Values.config.smtpPort }}"
   SMTP_USER: "{{ .Values.config.smtpUser }}"
   SMTP_PASSWORD: "{{ .Values.config.smtpPassword }}"
-  MEILISEARCH_HOST: "{{ .Values.config.meilisearchHost }}"

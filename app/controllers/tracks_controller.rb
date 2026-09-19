@@ -26,7 +26,7 @@ class TracksController < ApplicationController
     if @track.save
       redirect_to [@artist, @track], status: :see_other, notice: "Трек добавлен"
     else
-      render "edit", status: :unprocessable_entity
+      render "edit", status: :unprocessable_content
     end
   end
 
@@ -39,7 +39,7 @@ class TracksController < ApplicationController
     if @track.update(track_params)
       redirect_to [@artist, @track], status: :see_other, notice: "Трек обновлен"
     else
-      render "edit", status: :unprocessable_entity
+      render "edit", status: :unprocessable_content
     end
   end
 

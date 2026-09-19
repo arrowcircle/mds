@@ -8,7 +8,7 @@ class StoriesController < ApplicationController
       session[:playing] = "Story:#{@story.id}"
       redirect_to [@author, @story], status: :see_other
     else
-      redirect_to [@author, @story], status: :unprocessable_entity, alert: "У этого рассказа нет аудио для прослушивания"
+      redirect_to [@author, @story], status: :unprocessable_content, alert: "У этого рассказа нет аудио для прослушивания"
     end
   end
 
@@ -31,7 +31,7 @@ class StoriesController < ApplicationController
     if @story.save
       redirect_to [@author, @story], status: :see_other, notice: "Рассказ добавлен"
     else
-      render "edit", status: :unprocessable_entity
+      render "edit", status: :unprocessable_content
     end
   end
 
@@ -44,7 +44,7 @@ class StoriesController < ApplicationController
     if @story.update(story_params)
       redirect_to [@author, @story], status: :see_other, notice: "Рассказ обновлен"
     else
-      render "edit", status: :unprocessable_entity
+      render "edit", status: :unprocessable_content
     end
   end
 

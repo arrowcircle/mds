@@ -27,7 +27,7 @@ class ArtistsController < ApplicationController
     if @artist.save
       redirect_to [@artist], notice: "Артист добавлен", status: :see_other
     else
-      render "edit", status: :unprocessable_entity
+      render "edit", status: :unprocessable_content
     end
   end
 
@@ -40,23 +40,21 @@ class ArtistsController < ApplicationController
     if @artist.update(artist_params)
       redirect_to [@artist], notice: "Артист обновлен", status: :see_other
     else
-      render "edit", status: :unprocessable_entity
+      render "edit", status: :unprocessable_content
     end
   end
 
   def destroy
     @artist = Artist.find(params[:id])
     @artist.destroy
-    redirect_to [:artist], notice: "Артист удален", status: :see_other
+    redirect_to [:artists], notice: "Артист удален", status: :see_other
   end
 
   private
 
   def title
     return "Артисты" if action_name == "index"
-    return @artist.name if @artist
-
-    super
+    @artist&.name.presence || "Добавить артиста"
   end
 
   def description

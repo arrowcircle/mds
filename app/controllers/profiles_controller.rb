@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
     if current_user.update(user_attributes)
       redirect_to root_path, notice: "Профиль обновлен", status: :see_other
     else
-      render "show", status: :unprocessable_entity
+      render "show", status: :unprocessable_content
     end
   end
 

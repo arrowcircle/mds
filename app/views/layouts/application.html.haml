@@ -1,7 +1,7 @@
 !!!
 %html{class: "#{"debug" if Rails.application.config.x.debug_html}"}
   %head
-    %title= title + ' | ' + 'МДС Музыка'
+    %title= [title, "МДС Музыка"].compact_blank.join(" | ")
     %meta{ charset: 'utf-8' }
     %meta{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
@@ -9,7 +9,7 @@
     %link{ rel: :icon, href: "/favicon.ico", sizes: "32x32" }
     %link{ rel: :icon, href: "/icon.svg", type: "image/svg+xml" }
     %link{ rel: "apple-touch-icon", href: "/apple-touch-icon.png" }
-    %meta{ name: :description, content: description + ' | ' + 'МДС Музыка' }
+    %meta{ name: :description, content: [description, "МДС Музыка"].compact_blank.join(" | ") }
     %meta{ name: "yandex-verification", content: "773b137c808e7dff"}
     %meta{ name: :keywords, content: tags }
     - facebook_opengraph(metadata.og).each do |k, v|

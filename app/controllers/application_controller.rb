@@ -23,16 +23,18 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, alert: "Только для админов", status: :see_other
   end
 
+  PLAYABLES = {"Story" => Story, "Track" => Track}.freeze
+
   def play_item
     return nil unless session[:playing]
-    @play_item ||= begin
-      klass, id = session[:playing].split(":")
-      klass.constantize.find_by(id: id)
-    rescue
-      nil
-    end
+    @play_item ||= find_playable(session[:playing])
   end
   helper_method :play_item
+
+  def find_playable(token)
+    klass, id = token.to_s.split(":")
+    PLAYABLES[klass]&.find_by(id:)
+  end
 
   def metadata
     @metadata ||= Metadata.new(title: title, description: description, og: og)

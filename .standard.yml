@@ -15,6 +15,5 @@ ignore:                 # default: []
   - 'tmp/**/*'
   - 'bin/**/*'
   - 'lib/tasks/import.rake'
-  - 'lib/tasks/dupes.rake'
   - '**/*.rb':
     - Style/RedundantStructKeywordInit

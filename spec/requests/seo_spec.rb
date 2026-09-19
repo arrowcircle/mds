@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require "passwordless/test_helpers"
 
 RSpec.describe "SEO metadata", type: :request do
+  include Passwordless::TestHelpers::RequestTestCase
+
   def head_tags
     html = Nokogiri::HTML(response.body)
     {
@@ -81,6 +84,30 @@ RSpec.describe "SEO metadata", type: :request do
       title: "Авторы | МДС Музыка",
       description: "Страница со списком авторов рассказов игравших в радиопередаче Модель Для Сборки | МДС Музыка",
       og_title: "Авторы"
+    )
+  end
+
+  it "renders add-author page without a nil title" do
+    passwordless_sign_in(create(:user))
+
+    get new_author_path
+
+    expect(response).to have_http_status(:ok)
+    expect(head_tags).to include(
+      title: "Добавить автора | МДС Музыка",
+      og_title: "Добавить автора"
+    )
+  end
+
+  it "renders add-artist page without a nil title" do
+    passwordless_sign_in(create(:user))
+
+    get new_artist_path
+
+    expect(response).to have_http_status(:ok)
+    expect(head_tags).to include(
+      title: "Добавить артиста | МДС Музыка",
+      og_title: "Добавить артиста"
     )
   end
 

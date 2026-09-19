@@ -16,7 +16,6 @@ config:
   redisUrl: "${REDIS_URL}"
   s3Host: "${S3_HOST}"
   secretKeyBase: "${SECRET_KEY_BASE}"
-  meilisearchHost: "${MEILISEARCH_HOST}"
   smtpHost: "${SMTP_HOST}"
   smtpPort: "${SMTP_PORT}"
   smtpUser: "${SMTP_USER}"

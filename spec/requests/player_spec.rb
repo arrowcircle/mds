@@ -32,5 +32,14 @@ RSpec.describe "Player", type: :request do
       expect(response.body).to include("Groove Armada - At The River")
       expect(response.body).not_to include("btn-primary btn-circle")
     end
+
+    it "ignores play tokens for classes other than Story or Track" do
+      user = create(:user)
+
+      post player_path(play: "User:#{user.id}"), headers: {"Accept" => "text/vnd.turbo-stream.html"}
+
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(session[:playing]).to be_nil
+    end
   end
 end

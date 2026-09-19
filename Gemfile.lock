@@ -130,7 +130,6 @@ GEM
     cronex (0.15.0)
       tzinfo
       unicode (>= 0.4.4.5)
-    csv (3.3.5)
     date (3.5.1)
     debug (1.11.1)
       irb (~> 1.10)
@@ -190,10 +189,6 @@ GEM
       llhttp (~> 0.6.1)
     http-cookie (1.1.6)
       domain_name (~> 0.5)
-    httparty (0.24.2)
-      csv
-      mini_mime (>= 1.0.0)
-      multi_xml (>= 0.5.2)
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     imgproxy (3.0.0)
@@ -236,15 +231,12 @@ GEM
       net-smtp
     marcel (1.2.1)
     matrix (0.4.3)
-    meilisearch (0.33.0)
-      httparty (~> 0.24)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.9)
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
     msgpack (1.8.3)
-    multi_xml (0.9.1)
-      bigdecimal (>= 3.1, < 5)
     mutex_m (0.3.0)
     net-imap (0.6.4.1)
       date
@@ -256,6 +248,9 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.5)
+    nokogiri (1.19.4)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.19.4-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.19.4-arm64-darwin)
@@ -270,6 +265,7 @@ GEM
     passwordless (1.8.1)
       bcrypt (>= 3.1.11)
       rails (>= 5.1.4)
+    pg (1.6.3)
     pg (1.6.3-aarch64-linux)
     pg (1.6.3-arm64-darwin)
     pg (1.6.3-x86_64-linux)
@@ -528,7 +524,6 @@ DEPENDENCIES
   lefthook
   letter_opener
   lograge
-  meilisearch
   mini_mime
   pagy (< 43)
   passwordless
@@ -563,4 +558,4 @@ RUBY VERSION
   ruby 4.0.7
 
 BUNDLED WITH
-  4.0.12
+  4.0.20

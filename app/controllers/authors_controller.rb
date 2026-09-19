@@ -22,7 +22,7 @@ class AuthorsController < ApplicationController
     if @author.save
       redirect_to [@author], notice: "Автор добавлен", status: :see_other
     else
-      render "edit", status: :unprocessable_entity
+      render "edit", status: :unprocessable_content
     end
   end
 
@@ -35,7 +35,7 @@ class AuthorsController < ApplicationController
     if @author.update(author_params)
       redirect_to [@author], notice: "Автор обновлен", status: :see_other
     else
-      render "edit", status: :unprocessable_entity
+      render "edit", status: :unprocessable_content
     end
   end
 
@@ -49,9 +49,7 @@ class AuthorsController < ApplicationController
 
   def title
     return "Авторы" if action_name == "index"
-    return @author.name if @author
-
-    super
+    @author&.name.presence || "Добавить автора"
   end
 
   def description

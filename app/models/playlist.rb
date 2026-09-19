@@ -22,8 +22,8 @@ class Playlist < ApplicationRecord
   end
 
   def strip_names
-    @track_name.strip! if @track_name.present?
-    @artist_name.strip! if @artist_name.present?
+    @track_name = @track_name.strip if @track_name.present?
+    @artist_name = @artist_name.strip if @artist_name.present?
     true
   end
 
@@ -31,13 +31,11 @@ class Playlist < ApplicationRecord
     return unless artist_name.present?
     return unless track_name.present?
 
-    a = Artist.find_by(id: artist_id) if artist_id
-    a ||= Artist.search(artist_name).first
-    a ||= Artist.new(name: artist_name)
-    a.save
-    t = Track.search(track_name, a.tracks).first
-    t ||= a.tracks.build(name: track_name, artist: a)
-    t.save
+    a = Artist.find_by(id: artist_id) if artist_id.present?
+    a ||= Artist.find_by("LOWER(name) = ?", artist_name.downcase)
+    a ||= Artist.create(name: artist_name)
+    t = a.tracks.find_by("LOWER(name) = ?", track_name.downcase)
+    t ||= a.tracks.create(name: track_name)
     self.track_id = t.id
   end
 
