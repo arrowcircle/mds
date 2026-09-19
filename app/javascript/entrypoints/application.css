@@ -21,7 +21,7 @@ h2 {
 .pagy {
   @apply flex flex-wrap justify-center gap-2 font-semibold text-sm text-base-content;
 
-  a:not(.gap) {
+  a:not([role="separator"]) {
     @apply inline-flex min-w-9 items-center justify-center rounded-lg border border-base-300 bg-base-100 px-3 py-1 text-base-content/80 shadow-sm transition-colors;
 
     &:hover {
@@ -32,16 +32,16 @@ h2 {
       @apply outline outline-2 outline-offset-2 outline-primary;
     }
 
-    &:not([href]) { /* disabled links */
+    &:not([href]) {
       @apply cursor-default border-base-300/60 bg-base-200/50 text-base-content/35 shadow-none;
     }
 
-    &.current {
+    &[aria-current] {
       @apply border-primary bg-primary text-primary-content shadow-sm;
     }
   }
 
-  .gap {
+  a[role="separator"] {
     @apply inline-flex min-w-9 items-center justify-center rounded-lg px-2 py-1 text-base-content/50;
   }
 

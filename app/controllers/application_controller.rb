@@ -3,8 +3,10 @@
 class ApplicationController < ActionController::Base
   Metadata = Struct.new(:title, :description, :og, keyword_init: true)
 
-  include Pagy::Backend
+  include Pagy::Method
   include Passwordless::ControllerHelpers
+
+  before_action { Pagy::I18n.locale = I18n.locale }
 
   private
 

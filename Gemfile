@@ -16,7 +16,7 @@ gem "puma", "~> 8"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.5"
 # Use Redis adapter to run Action Cable in production
-gem "redis", "~> 5.0"
+gem "redis", "~> 6.0"
 # gem "redis-client"
 
 # Use ActiveModel has_secure_password
@@ -83,7 +83,6 @@ group :test do
   gem "factory_bot_rails"
   gem "rspec-rails"
   gem "selenium-webdriver"
-  gem "webdrivers"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -97,7 +96,7 @@ gem "http"
 gem "imgproxy"
 gem "lograge"
 gem "mini_mime"
-gem "pagy", "< 43"
+gem "pagy", "~> 43.6"
 gem "passwordless"
 gem "russian"
 gem "shrine"

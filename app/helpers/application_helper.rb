@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  include Pagy::Frontend
-
   ICONS_PATH = Rails.root.join("app/javascript/images")
 
   def inline_icon_tag(icon, **attributes)
